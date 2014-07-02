@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>  
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"  
+    android:layout_width="match_parent"  
+    android:layout_height="wrap_content"  
+    android:layout_gravity="center"   
+    android:gravity="center">  
+  <!-- widget tab的布局 -->
+    <TextView   
+        android:id="@+id/tabText"  
+        android:layout_width="match_parent"  
+        android:layout_height="wrap_content"  
+        android:focusable="true"  
+        android:textSize="14sp"
+        android:background="@drawable/tab_select"  
+        android:textColor="@color/text_color"/>  
+</LinearLayout> 

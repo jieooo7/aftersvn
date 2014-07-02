@@ -1,0 +1,13 @@
+#git igno
+*~
+.svn
+.settings
+local.properties
+proguard/**
+target/**
+#删除生成文件
+bin/**
+obj/**
+doc/**
+gen/**
+a.txt

@@ -1,0 +1,407 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+     >
+<LinearLayout 
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/menu_back"
+    android:orientation="vertical" >
+
+    <!-- 顶部布局 -->
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="100dp"
+        android:background="@color/menu_back_top"
+         >
+
+        <!-- 个人中心图片 -->
+
+        <ImageView
+            android:id="@+id/left_menu_user"
+            android:layout_width="62dp"
+            android:layout_height="62dp"
+            android:layout_marginLeft="16dp"
+            android:layout_marginTop="22dp"
+            android:src="@drawable/logo" />
+        <!-- 登录邮箱 -->
+
+        <LinearLayout
+            android:id="@+id/left_menu_l0"
+            android:layout_toRightOf="@id/left_menu_user"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="10dp"
+            android:layout_marginTop="45dp"
+            android:orientation="vertical" >
+
+            <TextView
+                android:id="@+id/login"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:layout_marginLeft="0dp"
+                android:layout_marginTop="0dp"
+                android:text="@string/login_and_register"
+                android:textColor="@color/white_text"
+                android:textSize="18sp" />
+
+        </LinearLayout>
+        <!-- 设置小图标 -->
+
+        <ImageView
+            android:id="@+id/set_small"
+            android:layout_alignParentRight="true"
+            android:layout_width="17dp"
+            android:layout_height="17dp"
+            android:layout_marginRight="15dp"
+            android:layout_centerVertical="true"
+            android:src="@drawable/seting_small" />
+    </RelativeLayout>
+    <!-- 首页项 -->
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:id="@+id/line0"
+        android:orientation="vertical" >
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            
+            android:layout_marginLeft="26dp"
+            android:layout_marginTop="10dp"
+            android:orientation="horizontal" >
+
+            <ImageView
+                android:layout_width="19dp"
+                android:layout_height="21dp"
+                android:src="@drawable/user" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:layout_marginLeft="10dp"
+                android:text="@string/home"
+                android:textColor="@color/white_text"
+                android:textSize="15sp" />
+        </LinearLayout>
+        <!-- 线条 -->
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="2dp"
+            android:layout_marginTop="13dp"
+            android:background="@color/menu_back_line" />
+    </LinearLayout>
+    <!-- 我的订单选项 -->
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:orientation="vertical" >
+
+        <RelativeLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="26dp"
+            android:layout_marginTop="10dp"
+            >
+
+            <ImageView
+                android:id="@+id/left_menu_orderimg"
+                android:layout_width="19dp"
+                android:layout_height="21dp"
+                android:src="@drawable/order" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:layout_toRightOf="@id/left_menu_orderimg"
+                android:layout_marginLeft="10dp"
+                android:text="@string/my_order"
+                android:textColor="@color/white_text"
+                android:textSize="15sp" />
+
+            <TextView
+                android:id="@+id/orderTv0"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:layout_marginRight="15dp"
+                android:background="@drawable/corner_style"
+                android:gravity="center"
+                android:minWidth="25sp"
+                android:text="4"
+                android:textColor="@color/num_text"
+                android:textSize="15sp" />
+            
+
+        </RelativeLayout>
+        <!-- 线条 -->
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="2dp"
+            android:layout_marginTop="13dp"
+            android:background="@color/menu_back_line" />
+    </LinearLayout>
+    <!-- 我的收藏选项 -->
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:orientation="vertical" >
+
+        <RelativeLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="26dp"
+            android:layout_marginTop="10dp"
+             >
+
+            <ImageView
+                android:id="@+id/left_menu_collectimg"
+                android:layout_width="19dp"
+                android:layout_height="21dp"
+                android:src="@drawable/collect" />
+
+            <TextView
+                android:layout_toRightOf="@id/left_menu_collectimg"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:layout_gravity="center_vertical"
+                android:layout_marginLeft="10dp"
+                android:text="@string/my_favor"
+                android:textColor="@color/white_text"
+                android:textSize="15sp" />
+
+            <TextView
+                android:id="@+id/collectTv1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:layout_alignParentTop="true"
+                android:layout_marginRight="15dp"
+                android:background="@drawable/corner_style"
+                android:gravity="center"
+                android:minWidth="25sp"
+                android:text="34"
+                android:textColor="@color/num_text"
+                android:textSize="15sp" />
+
+        </RelativeLayout>
+        <!-- 线条 -->
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="2dp"
+            android:layout_marginTop="13dp"
+            android:background="@color/menu_back_line" />
+    </LinearLayout>
+    <!-- 我的优惠券选项 -->
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:orientation="vertical" >
+
+        <RelativeLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="26dp"
+            android:layout_marginTop="10dp"
+            >
+
+            <ImageView
+                android:id="@+id/left_menu_couponimg"
+                android:layout_width="19dp"
+                android:layout_height="21dp"
+                android:src="@drawable/coupon" />
+
+            <TextView
+                android:layout_toRightOf="@id/left_menu_couponimg"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:layout_centerVertical="true"
+                android:layout_marginLeft="10dp"
+                android:text="@string/my_coupon"
+                android:textColor="@color/white_text"
+                android:textSize="15sp" />
+
+            <TextView
+                android:id="@+id/couponTv2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginRight="15dp"
+                android:minWidth="25sp"
+                android:layout_alignParentRight="true"
+                android:background="@drawable/corner_style"
+                android:gravity="center"
+                android:text="134"
+                android:textColor="@color/num_text"
+                android:textSize="15sp" />
+        </RelativeLayout>
+        <!-- 线条 -->
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="2dp"
+            android:layout_marginTop="13dp"
+            android:background="@color/menu_back_line" />
+    </LinearLayout>
+    <!-- 我的积分选项 -->
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:orientation="vertical" >
+
+        <RelativeLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="26dp"
+            android:layout_marginTop="10dp"
+            >
+
+            <ImageView
+                android:id="@+id/left_menu_creditsimg"
+                android:layout_width="19dp"
+                android:layout_height="21dp"
+                android:src="@drawable/credits" />
+
+            <TextView
+                android:layout_toRightOf="@id/left_menu_creditsimg"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:layout_gravity="center_vertical"
+                android:layout_marginLeft="10dp"
+                android:text="@string/my_intergral"
+                android:textColor="@color/white_text"
+                android:textSize="15sp" />
+             <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/creditsTv3"
+                android:layout_marginRight="15dp"
+                android:minWidth="25sp"
+                android:background="@drawable/corner_style"
+                android:layout_alignParentRight="true"
+                android:gravity="center"
+                android:text="134"
+                android:textColor="@color/num_text"
+                android:textSize="15sp" />
+        </RelativeLayout>
+        <!-- 线条 -->
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="2dp"
+            android:layout_marginTop="13dp"
+            android:background="@color/menu_back_line" />
+    </LinearLayout>
+    <!-- 我的账户选项 -->
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:orientation="vertical" >
+
+        <RelativeLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="26dp"
+            android:layout_marginTop="10dp"
+             >
+
+            <ImageView
+                android:id="@+id/left_menu_accountimg"
+                android:layout_width="19dp"
+                android:layout_height="21dp"
+                android:src="@drawable/account" />
+
+            <TextView
+                android:layout_toRightOf="@id/left_menu_accountimg"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:layout_centerVertical="true"
+                android:layout_marginLeft="10dp"
+                android:text="@string/my_account"
+                android:textColor="@color/white_text"
+                android:textSize="15sp" />
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/accountTv4"
+                android:layout_marginRight="15dp"
+                android:minWidth="25sp"
+                android:layout_alignParentRight="true"
+                android:background="@drawable/corner_style"
+                android:gravity="center"
+                android:text="1340"
+                android:textColor="@color/num_text"
+                android:textSize="15sp" />
+        </RelativeLayout>
+        <!-- 线条 -->
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="2dp"
+            android:layout_marginTop="13dp"
+            android:background="@color/menu_back_line" />
+    </LinearLayout>
+    </LinearLayout>
+    <!-- 底部设置选项 -->
+
+    <LinearLayout
+        android:layout_marginTop="52dp"
+        android:layout_width="match_parent"
+        android:layout_alignParentBottom="true"
+        android:layout_height="50dp"
+        android:layout_gravity="bottom"
+        android:orientation="vertical" >
+
+        <!-- 线条 -->
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="2dp"
+            android:layout_marginTop="13dp"
+            android:background="@color/menu_back_line" />
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="26dp"
+            android:layout_marginTop="10dp"
+            android:orientation="horizontal" >
+
+            <ImageView
+                android:layout_width="19dp"
+                android:layout_height="21dp"
+                android:src="@drawable/seting_big" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:layout_marginLeft="10dp"
+                android:text="@string/setting"
+                android:textColor="@color/white_text"
+                android:textSize="15sp" />
+        </LinearLayout>
+    </LinearLayout>
+
+    
+
+
+</RelativeLayout>

@@ -1,0 +1,226 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="horizontal" >
+
+    <!-- 顶部横线 -->
+
+    <TextView
+        android:id="@+id/tv"
+        android:layout_width="fill_parent"
+        android:layout_height="1dp"
+        android:layout_marginLeft="4dp"
+        android:layout_marginRight="4dp"
+        android:layout_marginTop="23dp"
+        android:background="#f0f0f1" />
+
+    <LinearLayout
+        android:id="@+id/linear"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_below="@+id/tv"
+        android:layout_marginTop="2dp"
+        android:orientation="horizontal" >
+
+        <!-- 图片展示id:iv_show -->
+
+        <ImageView
+            android:id="@+id/iv_show"
+            android:layout_width="105dp"
+            android:layout_height="95dp"
+            android:layout_marginLeft="4dp"
+            android:src="@drawable/replace" />
+
+        <RelativeLayout
+            android:layout_width="fill_parent"
+            android:layout_height="match_parent" >
+
+            <!-- 图片右边第一栏 -->
+
+            <LinearLayout
+                android:id="@+id/linear1"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal" >
+
+                <!-- 店名显示id:tv_name -->
+
+                <TextView
+                    android:id="@+id/tv_name"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="5dp"
+                    android:textColor="#ed655f"
+                    android:textSize="13sp" />
+                <!-- 有分店限制使用位置id:tv_limit -->
+
+                <TextView
+                    android:id="@+id/tv_limit"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="5dp"
+                    android:textColor="#9c9d9d"
+                    android:textSize="10sp" />
+            </LinearLayout>
+            <!-- 图片右边第二栏 -->
+
+            <LinearLayout
+                android:id="@+id/linear2"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/linear1"
+                android:orientation="horizontal" >
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="5dp"
+                    android:text="@string/news"
+                    android:textColor="#ed655f"
+                    android:textSize="15sp" />
+                <!-- 显示优惠信息id:tv_preferential -->
+
+                <TextView
+                    android:id="@+id/tv_preferential"
+                    android:layout_width="150dp"
+                    android:layout_height="wrap_content"
+                    android:lines="1"
+                    android:singleLine="true"
+                    android:textColor="#9c9d9d"
+                    android:textSize="12sp" />
+            </LinearLayout>
+            <!-- 图片右边第三栏 -->
+
+            <LinearLayout
+                android:id="@+id/linear3"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/linear2"
+                android:orientation="horizontal" >
+
+                <!-- 菜的简介id:tv_introuduction -->
+
+                <TextView
+                    android:id="@+id/tv_introuduction"
+                    android:layout_width="159dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="5dp"
+                    android:ellipsize="end"
+                    android:lines="2"
+                    android:textColor="#9c9d9d"
+                    android:textSize="11sp" />
+            </LinearLayout>
+
+            <!-- 向右箭头id:im_arrow -->
+
+            <ImageView
+                android:id="@+id/im_arrow"
+                android:layout_width="13dp"
+                android:layout_height="19dp"
+                android:layout_alignParentRight="true"
+                android:layout_centerInParent="true"
+                android:layout_marginRight="5dp"
+                android:src="@drawable/advance" />
+            <!-- 图片右边第四栏 -->
+
+            <LinearLayout
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:layout_alignParentBottom="true"
+                android:layout_alignParentLeft="true"
+                android:orientation="horizontal" >
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal" >
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="5dp"
+                        android:text="@string/time"
+                        android:textColor="#ed655f"
+                        android:textSize="13sp" />
+                    <!-- 显示活动时间id:tv_time -->
+
+                    <TextView
+                        android:id="@+id/tv_time"
+                        android:layout_width="70dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="5dp"
+                        android:layout_weight="3.86"
+                        android:lines="1"
+                        android:singleLine="true"
+                        android:textColor="#9c9d9d"
+                        android:textSize="10sp" />
+                </LinearLayout>
+
+                <RelativeLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" >
+
+                    <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentRight="true"
+                        android:orientation="horizontal" >
+
+                        <!-- 显示评价条数id:tv_evaluation -->
+
+                        <TextView
+                            android:id="@+id/tv_evaluation"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginLeft="5dp"
+                            android:text="12"
+                            android:textColor="#cacaca"
+                            android:textSize="10sp" />
+                        <!-- 显示评价按钮id:im_evaluation -->
+
+                        <Button
+                            android:id="@+id/im_evaluation"
+                            android:layout_width="16dp"
+                            android:layout_height="15dp"
+                            android:layout_gravity="center"
+                            android:background="@drawable/message"
+                            android:focusable="false" />
+                        <!-- 显示收藏条数id:tv_collection -->
+
+                        <TextView
+                            android:id="@+id/tv_collection"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginLeft="5dp"
+                            android:text="12"
+                            android:textColor="#cacaca"
+                            android:textSize="10sp" />
+                        <!-- 显示收藏按钮id:im_collection -->
+
+                        <Button
+                            android:id="@+id/im_collection"
+                            android:layout_width="16dp"
+                            android:layout_height="15dp"
+                            android:layout_gravity="center"
+                            android:layout_marginRight="10dp"
+                            android:background="@drawable/heart"
+                            android:focusable="false" />
+                    </LinearLayout>
+                </RelativeLayout>
+            </LinearLayout>
+        </RelativeLayout>
+    </LinearLayout>
+    <!-- 底部横线 -->
+
+    <TextView
+        android:layout_width="fill_parent"
+        android:layout_height="1dp"
+        android:layout_below="@+id/linear"
+        android:layout_marginLeft="4dp"
+        android:layout_marginRight="4dp"
+        android:layout_marginTop="5dp"
+        android:background="#f0f0f1" />
+
+</RelativeLayout>

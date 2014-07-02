@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="app_name">dinners</string>
+    <string name="action_settings">Settings</string>
+
+    <!-- left_menu用到的文字 -->
+    <string name="setting">设置</string>
+    <string name="login_and_register">登陆/注册</string>
+    <string name="home">首页</string>
+    <string name="my_order">我的订单</string>
+    <string name="my_coupon">我的优惠券</string>
+    <string name="my_favor">我的收藏</string>
+    <string name="my_intergral">我的积分</string>
+    <string name="my_account">我的账户</string>
+    <string name="email">meishijuhui@163.com</string>
+
+    <!-- right_ content用到的文字 -->
+    <string name="ximen">厦门</string>
+    <string name="swich_city">[切换城市]</string>
+    <string name="coupon_info">优惠信息</string>
+    <string name="dish_recommend">菜品推荐</string>
+    <string name="res_recommend">餐厅推荐</string>
+    <string name="search_hint">请输入菜品/餐厅/区域进行搜索</string>
+
+    <!-- 人气 最新 价格 销量 -->
+    <string name="sort1">人气</string>
+    <string name="sort2">最新</string>
+    <string name="sort3">价格</string>
+    <string name="sort4">销量</string>
+    
+    
+    <!-- coupon list item布局 -->
+    <string name="time">活动期间:</string>
+    <string name="shop">活动店面:</string>
+    <string name="news">优惠信息:</string>
+    <string name="note">注意:</string>
+    
+    
+    
+    <string name="coupon_name">优惠券</string>
+    <string name="first">第一个</string>
+    <string name="second">第二个</string>
+    <string name="third">第三个</string>
+    <string name="fouth">第四个</string>
+    <string name="showdetail">showdetail</string>
+
+</resources>
