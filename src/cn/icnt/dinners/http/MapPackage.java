@@ -198,5 +198,18 @@ public class MapPackage {
 			return null;
 		}
 	}
+	
+	
+	public <T> List<T> getBackResult(Class<T> cls){
+		
+		try{
+			Gson gsonBack = new Gson();
+			String br=gsonBack.toJson(this.backResult.get("result"));
+			return GsonTools.getPersons(br, cls);
+		}catch(Exception e){
+			return null;
+		}
+		
+	}
 
 }

@@ -9,6 +9,7 @@
 package cn.icnt.dinners.dinner;
 
 import android.content.Context;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.v4.app.FragmentActivity;
@@ -50,12 +51,6 @@ public class MainActivity extends FragmentActivity implements OnClickListener {
 	private TextView creditsTv3;
 	private TextView accountTv4;
 	private TextView loginTv5;
-	private String orderStv0;
-	private String collectStv1;
-	private String couponStv2;
-	private String creditsStv3;
-	private String accountStv4;
-	private String loginStv5;
 	private LinearLayout line0;
 	private LinearLayout line1;
 	private LinearLayout line2;
@@ -63,15 +58,18 @@ public class MainActivity extends FragmentActivity implements OnClickListener {
 	private LinearLayout line4;
 	private LinearLayout line5;
 	private LinearLayout line6;
+	private LinearLayout left_menu_l0;
+
+	private Intent intent;
+	private FragmentManager manage;
 
 	private SharedPreferences mainShared = null;
 
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		requestWindowFeature(Window.FEATURE_NO_TITLE);// 去掉标题
 		getWindow().setSoftInputMode(
 				WindowManager.LayoutParams.SOFT_INPUT_ADJUST_PAN);
-		FragmentManager manage = getSupportFragmentManager();
+		manage = getSupportFragmentManager();
 		setContentView(R.layout.right_content);
 		mainShared = getApplicationContext().getSharedPreferences("userInfo",
 				Context.MODE_PRIVATE);
@@ -119,7 +117,8 @@ public class MainActivity extends FragmentActivity implements OnClickListener {
 		menu.setMenu(R.layout.left_menu);// 设置SlidingMenu使用的layout文件
 		menu.attachToActivity(this, SlidingMenu.SLIDING_CONTENT);// 附加到activity上
 
-
+		left_menu_l0=(LinearLayout)findViewById(R.id.left_menu_l0);
+		left_menu_l0.setOnClickListener(this);
 	}
 
 	private View getIndicatorView(String name, int layoutId) {
@@ -131,12 +130,12 @@ public class MainActivity extends FragmentActivity implements OnClickListener {
 
 	protected void initLeftMenu() {
 
-		this.orderStv0 = mainShared.getString("order", "0");
-		this.collectStv1 = mainShared.getString("collect", "0");
-		this.couponStv2 = mainShared.getString("coupon", "0");
-		this.creditsStv3 = mainShared.getString("credits", "0");
-		this.accountStv4 = mainShared.getString("account", "0");
-		this.loginStv5=mainShared.getString("login", "登陆/注册");
+		String orderStv0 = mainShared.getString("order", "0");
+		String collectStv1 = mainShared.getString("collect", "0");
+		String couponStv2 = mainShared.getString("coupon", "0");
+		String creditsStv3 = mainShared.getString("credits", "0");
+		String accountStv4 = mainShared.getString("account", "0");
+		String loginStv5=mainShared.getString("login", "登陆/注册");
 		this.orderTv0 = (TextView) findViewById(R.id.orderTv0);
 		this.collectTv1 = (TextView) findViewById(R.id.collectTv1);
 		this.couponTv2 = (TextView) findViewById(R.id.couponTv2);
@@ -182,8 +181,14 @@ public class MainActivity extends FragmentActivity implements OnClickListener {
 			menu.toggle();
 			break;
 			
-		case R.id.login:
-			
+		case R.id.left_menu_l0:
+//            android.support.v4.app.FragmentTransaction transaction = manage.beginTransaction();
+//            transaction.replace(R.layout.right_content, new LoginActivity(), "login");
+//            transaction.commit();
+         
+//			intent = new Intent();
+//			  intent.setClass(MainActivity.this,LoginActivity.class);  
+//              startActivity(intent); 
 			break;
 
 		default:

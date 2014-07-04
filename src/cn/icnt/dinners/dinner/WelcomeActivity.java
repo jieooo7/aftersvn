@@ -9,11 +9,16 @@
 package cn.icnt.dinners.dinner;
 
 import android.app.Activity;
+import android.content.Context;
 import android.content.Intent;
+import android.content.pm.PackageInfo;
+import android.content.pm.PackageManager;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
+import android.telephony.TelephonyManager;
 import android.view.Window;
+import cn.icnt.dinners.utils.PreferencesUtils;
 
 /**
  * ��ӭ���� com.cloud.app.dinner.Welcome
@@ -27,12 +32,14 @@ public class WelcomeActivity extends Activity {
 	protected void onCreate(Bundle savedInstanceState) {
 		// TODO Auto-generated method stub
 		super.onCreate(savedInstanceState);
-		requestWindowFeature(Window.FEATURE_NO_TITLE);// ȥ��������
+		requestWindowFeature(Window.FEATURE_NO_TITLE);
 		setContentView(R.layout.welcome);
-		// �����߳�
+		init();
 		Thread mt = new Thread(mThread);
 		mt.start();
 	}
+
+
 
 	private Handler mHandler = new Handler() {
 
@@ -70,5 +77,33 @@ public class WelcomeActivity extends Activity {
 		}
 
 	};
-
+/**
+ * 获取信息并保存， 获取请求head相关数据
+ */
+	private PreferencesUtils preferencesUtils;
+	private void init() {
+		 TelephonyManager tm = (TelephonyManager) this.getSystemService(Context.TELEPHONY_SERVICE);
+		 String tel = tm.getLine1Number(); 
+		 String imei =tm.getSimSerialNumber();
+		preferencesUtils = new PreferencesUtils();
+		preferencesUtils.putValueToSPMap(this, PreferencesUtils.Keys.VERSION, getVersion());
+		preferencesUtils.putValueToSPMap(this, PreferencesUtils.Keys.PHONE,tel);
+		preferencesUtils.putValueToSPMap(this, PreferencesUtils.Keys.NO,imei);
+		
+	}
+	/**
+	 * 获取版本号
+	 * @return 当前应用的版本号
+	 */
+	public String getVersion() {
+	    try {
+	        PackageManager manager = this.getPackageManager();
+	        PackageInfo info = manager.getPackageInfo(this.getPackageName(), 0);
+	        String version = info.versionName;
+	        return version;
+	    } catch (Exception e) {
+	        e.printStackTrace();
+	    }
+		return "";
+	}
 }

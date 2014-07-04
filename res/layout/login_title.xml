@@ -1,0 +1,49 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="47dp"
+    android:background="@color/red_title" >
+
+    <RelativeLayout
+        android:id="@+id/title_left_btn"
+        android:layout_width="50dp"
+        android:layout_height="fill_parent"
+         >
+
+        <ImageView
+            android:id="@+id/title_left_btn_img"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:background="@drawable/back" />
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent" >
+
+        <TextView
+            android:id="@+id/title_center_text"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:text="登陆/注册"
+            android:textColor="@color/white_text"
+            android:textSize="20sp" />
+    </RelativeLayout>
+
+     <RelativeLayout
+        android:id="@+id/title_right_btn"
+        android:layout_alignParentRight="true"
+        android:layout_width="50dp"
+        android:visibility="invisible"
+        android:layout_height="fill_parent"
+        >
+
+        <ImageView
+            android:id="@+id/title_right_btn_img"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:background="@drawable/back" />
+    </RelativeLayout>
+</RelativeLayout>

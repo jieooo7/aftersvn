@@ -30,6 +30,17 @@
     <string name="sort4">销量</string>
     
     
+     <!-- 我的收藏详情页 -->
+    <string name="dish_coll">菜品收藏</string>
+    <string name="res_coll">餐厅收藏</string>
+    
+    
+    
+    
+    
+    
+    
+    
     <!-- coupon list item布局 -->
     <string name="time">活动期间:</string>
     <string name="shop">活动店面:</string>

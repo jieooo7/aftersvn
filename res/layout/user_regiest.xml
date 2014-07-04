@@ -1,0 +1,123 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:background="@color/white_text"
+    android:orientation="vertical" >
+
+    <include layout="@layout/login_title" />
+
+    <ImageView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginBottom="25dp"
+        android:layout_marginTop="35dp"
+        android:src="@drawable/user" />
+
+    <LinearLayout
+        android:layout_width="fill_parent"
+        android:layout_height="0dp"
+        android:layout_marginLeft="25dp"
+        android:layout_weight="1"
+        android:orientation="vertical" >
+
+        <LinearLayout
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal" >
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="昵称"
+                android:textSize="18sp"
+                android:layout_marginRight="8dp"
+                android:textColor="@color/gray_text"
+                android:visibility="visible" />
+
+            <ImageView
+                android:layout_width="fill_parent"
+                android:layout_height="1dp"
+                android:layout_gravity="center_vertical"
+                android:background="@color/gray_text" />
+            
+        </LinearLayout>
+        <EditText android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:hint="昵称"/>
+              <LinearLayout
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal" >
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="昵称"
+                android:textSize="18sp"
+                android:layout_marginRight="8dp"
+                android:textColor="@color/gray_text"
+                android:visibility="visible" />
+
+            <ImageView
+                android:layout_width="fill_parent"
+                android:layout_height="1dp"
+                android:layout_gravity="center_vertical"
+                android:background="@color/gray_text" />
+            
+        </LinearLayout>
+        <EditText android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:hint="昵称"/>
+              <LinearLayout
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal" >
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="昵称"
+                android:textSize="18sp"
+                android:layout_marginRight="8dp"
+                android:textColor="@color/gray_text"
+                android:visibility="visible" />
+
+            <ImageView
+                android:layout_width="fill_parent"
+                android:layout_height="1dp"
+                android:layout_gravity="center_vertical"
+                android:background="@color/gray_text" />
+            
+        </LinearLayout>
+        <EditText android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:hint="昵称"/>
+              <LinearLayout
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal" >
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="昵称"
+                android:textSize="18sp"
+                android:layout_marginRight="8dp"
+                android:textColor="@color/gray_text"
+                android:visibility="visible" />
+
+            <ImageView
+                android:layout_width="fill_parent"
+                android:layout_height="1dp"
+                android:layout_gravity="center_vertical"
+                android:background="@color/gray_text" />
+            
+        </LinearLayout>
+        <EditText android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:hint="昵称"/>
+    </LinearLayout>
+
+
+</LinearLayout>
