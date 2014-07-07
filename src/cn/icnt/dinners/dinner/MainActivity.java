@@ -45,11 +45,6 @@ public class MainActivity extends FragmentActivity implements OnClickListener {
 	private RelativeLayout ivUser;
 	private RelativeLayout ivSearch;
 	private EditText editSearch;
-	private TextView orderTv0;
-	private TextView collectTv1;
-	private TextView couponTv2;
-	private TextView creditsTv3;
-	private TextView accountTv4;
 	private TextView loginTv5;
 	private LinearLayout line0;
 	private LinearLayout line1;
@@ -95,7 +90,7 @@ public class MainActivity extends FragmentActivity implements OnClickListener {
 
 		initSlidingMenu();
 		initLeftMenu();
-		loginTv5=(TextView)findViewById(R.id.login);
+		loginTv5 = (TextView) findViewById(R.id.login);
 		loginTv5.setOnClickListener(this);
 		line0 = (LinearLayout) findViewById(R.id.line0);
 		line0.setOnClickListener(this);
@@ -117,7 +112,7 @@ public class MainActivity extends FragmentActivity implements OnClickListener {
 		menu.setMenu(R.layout.left_menu);// 设置SlidingMenu使用的layout文件
 		menu.attachToActivity(this, SlidingMenu.SLIDING_CONTENT);// 附加到activity上
 
-		left_menu_l0=(LinearLayout)findViewById(R.id.left_menu_l0);
+		left_menu_l0 = (LinearLayout) findViewById(R.id.left_menu_l0);
 		left_menu_l0.setOnClickListener(this);
 	}
 
@@ -130,24 +125,31 @@ public class MainActivity extends FragmentActivity implements OnClickListener {
 
 	protected void initLeftMenu() {
 
-		String orderStv0 = mainShared.getString("order", "0");
-		String collectStv1 = mainShared.getString("collect", "0");
-		String couponStv2 = mainShared.getString("coupon", "0");
-		String creditsStv3 = mainShared.getString("credits", "0");
-		String accountStv4 = mainShared.getString("account", "0");
-		String loginStv5=mainShared.getString("login", "登陆/注册");
-		this.orderTv0 = (TextView) findViewById(R.id.orderTv0);
-		this.collectTv1 = (TextView) findViewById(R.id.collectTv1);
-		this.couponTv2 = (TextView) findViewById(R.id.couponTv2);
-		this.creditsTv3 = (TextView) findViewById(R.id.creditsTv3);
-		this.accountTv4 = (TextView) findViewById(R.id.accountTv4);
-		this.loginTv5=(TextView) findViewById(R.id.login);
-		this.orderTv0.setText(orderStv0);
-		this.collectTv1.setText(collectStv1);
-		this.couponTv2.setText(couponStv2);
-		this.creditsTv3.setText(creditsStv3);
-		this.accountTv4.setText(accountStv4);
-		this.loginTv5.setText(loginStv5);
+		// String orderStv0 = mainShared.getString("order", "0");
+		// String collectStv1 = mainShared.getString("collect", "0");
+		// String couponStv2 = mainShared.getString("coupon", "0");
+		// String creditsStv3 = mainShared.getString("credits", "0");
+		// String accountStv4 = mainShared.getString("account", "0");
+		// String loginStv5 = mainShared.getString("login", "登陆/注册");
+		((TextView) findViewById(R.id.orderTv0)).setText(mainShared.getString(
+				"order", "0"));
+		;
+		((TextView) findViewById(R.id.collectTv1)).setText(mainShared
+				.getString("collect", "0"));
+		((TextView) findViewById(R.id.couponTv2)).setText(mainShared.getString(
+				"coupon", "0"));
+		((TextView) findViewById(R.id.creditsTv3)).setText(mainShared
+				.getString("credits", "0"));
+		((TextView) findViewById(R.id.accountTv4)).setText(mainShared
+				.getString("account", "0"));
+		((TextView) findViewById(R.id.login)).setText(mainShared.getString(
+				"login", "登陆/注册"));
+		// this.orderTv0.setText(orderStv0);
+		// this.collectTv1.setText(collectStv1);
+		// this.couponTv2.setText(couponStv2);
+		// this.creditsTv3.setText(creditsStv3);
+		// this.accountTv4.setText(accountStv4);
+		// this.loginTv5.setText(loginStv5);
 
 	}
 
@@ -180,16 +182,18 @@ public class MainActivity extends FragmentActivity implements OnClickListener {
 		case R.id.line0:
 			menu.toggle();
 			break;
-			
+
 		case R.id.login:
 		case R.id.left_menu_l0:
-//            android.support.v4.app.FragmentTransaction transaction = manage.beginTransaction();
-//            transaction.replace(R.layout.right_content, new LoginActivity(), "login");
-//            transaction.commit();
-         
-//			intent = new Intent();
-//			  intent.setClass(MainActivity.this,LoginActivity.class);  
-//              startActivity(intent); 
+			// android.support.v4.app.FragmentTransaction transaction =
+			// manage.beginTransaction();
+			// transaction.replace(R.layout.right_content, new LoginActivity(),
+			// "login");
+			// transaction.commit();
+
+			intent = new Intent();
+			intent.setClass(MainActivity.this, LoginActivity.class);
+			startActivity(intent);
 			break;
 
 		default:

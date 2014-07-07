@@ -15,9 +15,11 @@ import android.app.Activity;
 import android.os.Bundle;
 import android.view.View;
 import android.view.View.OnClickListener;
+import android.widget.BaseAdapter;
 import android.widget.ListView;
 import android.widget.RelativeLayout;
 import android.widget.Toast;
+import cn.icnt.dinners.adapter.AdapterSet;
 import cn.icnt.dinners.adapter.LoaderAdapter;
 import cn.icnt.dinners.debug.DebugUtil;
 import cn.icnt.dinners.http.HttpSendRecv;
@@ -71,24 +73,36 @@ public class MycollectDetailActivity extends Activity implements
 		mp.setRes("count", "2");
 		try {
 			mp.send();
-			list = mp.getBackResult();
-			if (list != null) {
-				boolean bs = EasyFile.writeFile("test", list);
-			}
-			DebugUtil.i("test....path", mp.getpath());
-			DebugUtil.i("test....head",
-					"11111----" + mp.getBackHead().get("code"));
-			DebugUtil.i("test....para",
-					"22222----" + mp.getBackPara().get("total"));
-			DebugUtil.i("test....result",
-					"33333----" + mp.getBackResult().get(1).get("goods_no"));
-			DebugUtil.i("test....resultimg", "img----"
-					+ mp.getBackResult().get(1).get("img_url"));
-			adapter = new LoaderAdapter(this, list);
-
-			lv0.setAdapter(adapter);
-			lv1.setAdapter(adapter);
-			lv2.setAdapter(adapter);
+//			list = mp.getBackResult();
+//			if (list != null) {
+//				boolean bs = EasyFile.writeFile("test", list);
+//
+//				DebugUtil.i("test....path", mp.getpath());
+//				DebugUtil.i("test....head",
+//						"11111----" + mp.getBackHead().get("code"));
+//				DebugUtil.i("test....para",
+//						"22222----" + mp.getBackPara().get("total"));
+//				DebugUtil.i("test....result", "33333----"
+//						+ mp.getBackResult().get(1).get("goods_no"));
+//				DebugUtil.i("test....resultimg", "img----"
+//						+ mp.getBackResult().get(1).get("img_url"));
+//				adapter = new LoaderAdapter(this, list);
+//
+//				lv0.setAdapter(adapter);
+//				lv1.setAdapter(adapter);
+//				lv2.setAdapter(adapter);
+//			}else{
+//				if (EasyFile.readFile("test") != null) {
+//
+//					list = EasyFile.readFile("test");
+//					adapter = new LoaderAdapter(this, list);
+//
+//					lv0.setAdapter(adapter);
+//					lv1.setAdapter(adapter);
+//					lv2.setAdapter(adapter);
+//
+//				}
+//			}
 		} catch (Exception e) {
 			if (HttpSendRecv.netStat)
 				Toast.makeText(getApplicationContext(), "网络错误，请重试",
@@ -96,17 +110,14 @@ public class MycollectDetailActivity extends Activity implements
 			else
 				Toast.makeText(getApplicationContext(), "出错了^_^",
 						Toast.LENGTH_LONG).show();
-
-			list = EasyFile.readFile("test");
-			adapter = new LoaderAdapter(this, list);
-
-			lv0.setAdapter(adapter);
-			lv1.setAdapter(adapter);
-			lv2.setAdapter(adapter);
-
+			
 		} finally {
 
 		}
+		
+		AdapterSet.setAdapter(this,mp, list, adapter, lv0, "test0");
+		AdapterSet.setAdapter(this,mp, list, adapter, lv1, "test1");
+		AdapterSet.setAdapter(this,mp, list, adapter, lv2, "test2");
 
 	}
 
@@ -115,6 +126,41 @@ public class MycollectDetailActivity extends Activity implements
 
 		super.onDestroy();
 	}
+	
+	
+//	protected void setAdapter(MapPackage mp,List<Map<String, String>> list,BaseAdapter adapter,ListView lv0,String fileName){
+////		mp.send();
+//		list = mp.getBackResult();
+//		if (list != null) {
+//			boolean bs = EasyFile.writeFile(fileName, list);
+//
+//			DebugUtil.i("test....path", mp.getpath());
+//			DebugUtil.i("test....head",
+//					"11111----" + mp.getBackHead().get("code"));
+//			DebugUtil.i("test....para",
+//					"22222----" + mp.getBackPara().get("total"));
+//			DebugUtil.i("test....result", "33333----"
+//					+ mp.getBackResult().get(1).get("goods_no"));
+//			DebugUtil.i("test....resultimg", "img----"
+//					+ mp.getBackResult().get(1).get("img_url"));
+//			adapter = new LoaderAdapter(this, list);
+//
+//			lv0.setAdapter(adapter);
+////			lv1.setAdapter(adapter);
+////			lv2.setAdapter(adapter);
+//		}else{
+//			if (EasyFile.readFile(fileName) != null) {
+//
+//				list = EasyFile.readFile(fileName);
+//				adapter = new LoaderAdapter(this, list);
+//
+//				lv0.setAdapter(adapter);
+////				lv1.setAdapter(adapter);
+////				lv2.setAdapter(adapter);
+//
+//			}
+//		}
+//	}
 
 	/*
 	 * (non-Javadoc)
@@ -177,6 +223,5 @@ public class MycollectDetailActivity extends Activity implements
 
 		}
 	}
-
 
 }
