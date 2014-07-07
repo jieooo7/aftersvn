@@ -55,5 +55,12 @@
     <string name="third">第三个</string>
     <string name="fouth">第四个</string>
     <string name="showdetail">showdetail</string>
+    <string name="regiest_nickname">昵 称</string>
+    <string name="regiest_username">邮 箱 / 手 机 号</string>
+    <string name="regiest_password">密 码</string>
+    <string name="regiest_passwords">再 次 输 入 密 码</string>
+    <string name="regiest_alert">点击确认代表你已经同意美食聚惠的</string>
+    <string name="login_user_name">手机号</string>
+    <string name="login_user_password">密码</string>
 
 </resources>

@@ -11,6 +11,7 @@ import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.GridView;
 import android.widget.Toast;
+import cn.icnt.dinners.adapter.LoaderAdapter;
 import cn.icnt.dinners.debug.DebugUtil;
 import cn.icnt.dinners.http.HttpSendRecv;
 import cn.icnt.dinners.http.MapPackage;

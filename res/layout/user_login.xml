@@ -30,8 +30,8 @@
                     android:id="@+id/user_name"
                     android:layout_width="fill_parent"
                     android:layout_height="wrap_content"
-                    android:layout_alignParentBottom="true"
                     android:layout_alignParentLeft="true"
+                    android:layout_centerVertical="true"
                     android:layout_marginLeft="20dp"
                     android:background="@null"
                     android:hint="手机号"
@@ -53,8 +53,8 @@
                     android:id="@+id/edit_password"
                     android:layout_width="fill_parent"
                     android:layout_height="wrap_content"
-                    android:layout_alignParentBottom="true"
                     android:layout_alignParentLeft="true"
+                    android:layout_centerVertical="true"
                     android:layout_marginLeft="20dp"
                     android:background="@null"
                     android:hint="密码"
@@ -76,11 +76,11 @@
                     android:gravity="center" >
 
                     <TextView
-                    android:id="@+id/user_regiest"
-                        android:focusable="false"
+                        android:id="@+id/user_regiest"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:clickable="true"
+                        android:focusable="false"
                         android:text="注册"
                         android:textColor="@color/red_title"
                         android:textSize="22sp"
@@ -94,11 +94,11 @@
                     android:gravity="center" >
 
                     <TextView
-                    android:id="@+id/forget_password"
+                        android:id="@+id/forget_password"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:clickable="true"
                         android:gravity="center"
-                              android:clickable="true"
                         android:text="忘记密码"
                         android:textColor="#c4c4c4"
                         android:textSize="16sp" />
@@ -160,7 +160,6 @@
         </LinearLayout>
 
         <LinearLayout
-            
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="30dp"

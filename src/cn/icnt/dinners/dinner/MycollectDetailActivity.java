@@ -11,26 +11,18 @@ package cn.icnt.dinners.dinner;
 import java.util.List;
 import java.util.Map;
 
-import cn.icnt.dinners.cache.ImageLoader;
+import android.app.Activity;
+import android.os.Bundle;
+import android.view.View;
+import android.view.View.OnClickListener;
+import android.widget.ListView;
+import android.widget.RelativeLayout;
+import android.widget.Toast;
+import cn.icnt.dinners.adapter.LoaderAdapter;
 import cn.icnt.dinners.debug.DebugUtil;
-import cn.icnt.dinners.dinner.LoaderAdapter.getViewCallback;
 import cn.icnt.dinners.http.HttpSendRecv;
 import cn.icnt.dinners.http.MapPackage;
 import cn.icnt.dinners.utils.EasyFile;
-import android.annotation.SuppressLint;
-import android.annotation.TargetApi;
-import android.app.Activity;
-import android.os.Build;
-import android.os.Bundle;
-import android.view.LayoutInflater;
-import android.view.View;
-import android.view.View.OnClickListener;
-import android.view.ViewGroup;
-import android.widget.ImageView;
-import android.widget.ListView;
-import android.widget.RelativeLayout;
-import android.widget.TextView;
-import android.widget.Toast;
 
 /**
  * cn.icnt.dinners.dinner.MycollectDetailActivity
@@ -40,13 +32,14 @@ import android.widget.Toast;
  */
 
 public class MycollectDetailActivity extends Activity implements
-		OnClickListener,getViewCallback {
+		OnClickListener {
 	private static final String TAG = "MycollectDetailActivity";
+	private LoaderAdapter adapter;
+	private List<Map<String, String>> list;
 
-	private LoaderAdapter myAdapter;
-	private List<Map<String, String>> myList;
-	private ImageLoader mImageLoader;
-	private ListView lv;
+	private ListView lv0;
+	private ListView lv1;
+	private ListView lv2;
 	private RelativeLayout r0;
 	private RelativeLayout r1;
 	private RelativeLayout r2;
@@ -67,44 +60,59 @@ public class MycollectDetailActivity extends Activity implements
 		r0.setOnClickListener(this);
 		r1.setOnClickListener(this);
 		r2.setOnClickListener(this);
-		lv = (ListView) findViewById(R.id.lv0);
-		mImageLoader = new ImageLoader(this);
+		lv0 = (ListView) findViewById(R.id.lv0);
+		lv1 = (ListView) findViewById(R.id.lv1);
+		lv2 = (ListView) findViewById(R.id.lv2);
 		MapPackage mp = new MapPackage();
 		mp.setPath("recommend.do?");
 		mp.setHead(this);
 		mp.setPara("category_id", "0");
 		mp.setRes("start", "1");
-		mp.setRes("count", "3");
+		mp.setRes("count", "2");
 		try {
 			mp.send();
-			this.myList = mp.getBackResult();
-			if (this.myList!= null) {
-				boolean bs = EasyFile.writeFile("test", this.myList);
+			list = mp.getBackResult();
+			if (list != null) {
+				boolean bs = EasyFile.writeFile("test", list);
 			}
-			this.myList = EasyFile.readFile("test");
-			myAdapter = new LoaderAdapter(MycollectDetailActivity.this, this.myList);
+			DebugUtil.i("test....path", mp.getpath());
+			DebugUtil.i("test....head",
+					"11111----" + mp.getBackHead().get("code"));
+			DebugUtil.i("test....para",
+					"22222----" + mp.getBackPara().get("total"));
+			DebugUtil.i("test....result",
+					"33333----" + mp.getBackResult().get(1).get("goods_no"));
+			DebugUtil.i("test....resultimg", "img----"
+					+ mp.getBackResult().get(1).get("img_url"));
+			adapter = new LoaderAdapter(this, list);
 
-			lv.setAdapter(myAdapter);
-
+			lv0.setAdapter(adapter);
+			lv1.setAdapter(adapter);
+			lv2.setAdapter(adapter);
 		} catch (Exception e) {
-			// TODO: handle exception
 			if (HttpSendRecv.netStat)
 				Toast.makeText(getApplicationContext(), "网络错误，请重试",
 						Toast.LENGTH_LONG).show();
 			else
 				Toast.makeText(getApplicationContext(), "出错了^_^",
 						Toast.LENGTH_LONG).show();
+
+			list = EasyFile.readFile("test");
+			adapter = new LoaderAdapter(this, list);
+
+			lv0.setAdapter(adapter);
+			lv1.setAdapter(adapter);
+			lv2.setAdapter(adapter);
+
 		} finally {
-//			this.myList = EasyFile.readFile("test");
-//			myAdapter = new LoaderAdapter(this, this.myList);
-//
-//			lv.setAdapter(myAdapter);
+
 		}
+
 	}
 
 	@Override
 	protected void onDestroy() {
-		
+
 		super.onDestroy();
 	}
 
@@ -118,11 +126,15 @@ public class MycollectDetailActivity extends Activity implements
 		switch (v.getId()) {
 		case R.id.r0:
 			if (flag0) {
-				r0.setBackgroundColor(getResources().getColor(R.color.tab_select));
+				r0.setBackgroundColor(getResources().getColor(
+						R.color.tab_select));
+				lv0.setVisibility(View.VISIBLE);
 				flag0 = false;
 				DebugUtil.w("000000", "ok");
 			} else {
-				r0.setBackgroundColor(getResources().getColor(R.color.white_text));
+				r0.setBackgroundColor(getResources().getColor(
+						R.color.white_text));
+				lv0.setVisibility(View.GONE);
 				flag0 = true;
 				DebugUtil.w("000000", "not ok");
 
@@ -131,11 +143,15 @@ public class MycollectDetailActivity extends Activity implements
 
 		case R.id.r1:
 			if (flag1) {
-				r1.setBackgroundColor(getResources().getColor(R.color.tab_select));
+				r1.setBackgroundColor(getResources().getColor(
+						R.color.tab_select));
+				lv1.setVisibility(View.VISIBLE);
 				flag1 = false;
 				DebugUtil.w("111111", "ok");
 			} else {
-				r1.setBackgroundColor(getResources().getColor(R.color.white_text));
+				r1.setBackgroundColor(getResources().getColor(
+						R.color.white_text));
+				lv1.setVisibility(View.GONE);
 				flag1 = true;
 				DebugUtil.w("111111", "not ok");
 
@@ -144,11 +160,15 @@ public class MycollectDetailActivity extends Activity implements
 
 		case R.id.r2:
 			if (flag2) {
-				r2.setBackgroundColor(getResources().getColor(R.color.tab_select));
+				r2.setBackgroundColor(getResources().getColor(
+						R.color.tab_select));
+				lv2.setVisibility(View.VISIBLE);
 				flag2 = false;
 				DebugUtil.w("222222", "ok");
 			} else {
-				r2.setBackgroundColor(getResources().getColor(R.color.white_text));
+				r2.setBackgroundColor(getResources().getColor(
+						R.color.white_text));
+				lv2.setVisibility(View.GONE);
 				flag2 = true;
 				DebugUtil.w("222222", "not ok");
 
@@ -158,50 +178,5 @@ public class MycollectDetailActivity extends Activity implements
 		}
 	}
 
-	/* (non-Javadoc)
-	 * @see cn.icnt.dinners.dinner.LoaderAdapter.getViewCallback#callback(int, android.view.View, android.view.ViewGroup)
-	 */
-	@Override
-	public View callback(int position, View convertView, ViewGroup parent) {
-		ViewHolder viewHolder = null;
-		if (convertView == null) {
-			convertView = LayoutInflater.from(MycollectDetailActivity.this).inflate(
-					R.layout.gcoupon, null);
-			viewHolder = new ViewHolder();
-			viewHolder.mTextView = (TextView) convertView
-					.findViewById(R.id.textview2);
-			viewHolder.mImageView = (ImageView) convertView
-					.findViewById(R.id.imageView2);
-			DebugUtil.i("issue","1111 test");
-			convertView.setTag(viewHolder);
-		} else {
-			viewHolder = (ViewHolder) convertView.getTag();
-			DebugUtil.i("issue","2222 test");
-		}
-
-		viewHolder.mImageView.setImageResource(R.drawable.replace);
-		DebugUtil.i("test....result",
-				"44444----" + myList.get(position).get("img_url"));
-		if (!myAdapter.getFlagBusy()) {
-			mImageLoader.DisplayImage(
-					MapPackage.PATH + myList.get(position).get("img_url"),
-					viewHolder.mImageView, false);
-			DebugUtil.i("issue","one test");
-			viewHolder.mTextView.setText(myList.get(position).get("goods_no"));
-		} else {
-			mImageLoader.DisplayImage(
-					MapPackage.PATH + myList.get(position).get("img_url"),
-					viewHolder.mImageView, false);
-			viewHolder.mTextView.setText(myList.get(position).get("goods_no"));
-			DebugUtil.i("issue","two test");
-		}
-		return convertView;
-	}
-
-	static class ViewHolder {
-		TextView mTextView;
-		ImageView mImageView;
-	}
-	
 
 }

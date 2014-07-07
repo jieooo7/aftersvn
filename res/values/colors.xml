@@ -28,4 +28,7 @@
     <color name="tab_unselect">#353535</color>
     <!-- tab字体颜色 -->
     <color name="tab_font">#ed655f</color>    
+    <!-- 登陆界面 灰色 -->
+    <color name="login_gray">#7a7a7a</color>    
+    
 </resources>

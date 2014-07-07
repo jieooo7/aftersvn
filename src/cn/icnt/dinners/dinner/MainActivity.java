@@ -181,6 +181,7 @@ public class MainActivity extends FragmentActivity implements OnClickListener {
 			menu.toggle();
 			break;
 			
+		case R.id.login:
 		case R.id.left_menu_l0:
 //            android.support.v4.app.FragmentTransaction transaction = manage.beginTransaction();
 //            transaction.replace(R.layout.right_content, new LoginActivity(), "login");
