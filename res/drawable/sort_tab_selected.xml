@@ -5,8 +5,8 @@
     <solid android:color="@color/tab_select" />
 
     <size
-        android:height="50dp"
-        android:width="45dp" />
+        android:height="55dp"
+        android:width="42dp" />
     <padding 
         android:left="2dp"
         android:right="2dp"
