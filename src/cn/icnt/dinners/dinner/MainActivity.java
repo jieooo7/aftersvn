@@ -28,6 +28,7 @@ import cn.icnt.dinners.fragment.FragmentDish;
 import cn.icnt.dinners.fragment.FragmentRes;
 
 import com.jeremyfeinstein.slidingmenu.lib.SlidingMenu;
+import com.lidroid.xutils.view.annotation.ViewInject;
 
 /**
  * com.cloud.app.dinner.MainActivity
@@ -94,6 +95,7 @@ public class MainActivity extends FragmentActivity implements OnClickListener {
 		loginTv5.setOnClickListener(this);
 		line0 = (LinearLayout) findViewById(R.id.line0);
 		line0.setOnClickListener(this);
+	
 		// SlidingMenu menu = new SlidingMenu(this);
 		// menu.setMode(SlidingMenu.LEFT);
 
@@ -111,7 +113,6 @@ public class MainActivity extends FragmentActivity implements OnClickListener {
 		menu.setTouchModeAbove(SlidingMenu.TOUCHMODE_NONE);// 允许从屏幕的什么范围滑出SlidingMenu
 		menu.setMenu(R.layout.left_menu);// 设置SlidingMenu使用的layout文件
 		menu.attachToActivity(this, SlidingMenu.SLIDING_CONTENT);// 附加到activity上
-
 		left_menu_l0 = (LinearLayout) findViewById(R.id.left_menu_l0);
 		left_menu_l0.setOnClickListener(this);
 	}
@@ -196,6 +197,11 @@ public class MainActivity extends FragmentActivity implements OnClickListener {
 			startActivity(intent);
 			break;
 
+		case R.id.menu_myorder:
+			intent = new Intent();
+			intent.setClass(MainActivity.this, MyOrderActivity.class);
+			startActivity(intent);
+			break;
 		default:
 			break;
 		}

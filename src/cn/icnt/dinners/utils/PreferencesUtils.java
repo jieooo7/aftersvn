@@ -65,7 +65,7 @@ public class PreferencesUtils
  */
 	public static Boolean getBooleanFromSPMap(Context mContext, String key)
 	{
-		SharedPreferences ferences = mContext.getSharedPreferences("appPreferencesMap", 0);
+		SharedPreferences ferences = mContext.getSharedPreferences("appPreferencesMap",  Context.MODE_PRIVATE);
 		boolean value = ferences.getBoolean(key, false);
 		return value;
 	}
@@ -94,7 +94,7 @@ public class PreferencesUtils
 	{
 		if (null != mContext)
 		{
-			SharedPreferences ferences = mContext.getSharedPreferences("appPreferencesMap", 0);
+			SharedPreferences ferences = mContext.getSharedPreferences("appPreferencesMap",  Context.MODE_PRIVATE);
 			String value = ferences.getString(key, "");
 			return value;
 		} else
@@ -103,6 +103,25 @@ public class PreferencesUtils
 		}
 	}
 
+/**
+ * 获取String
+ * @param mContext
+ * @param key
+ * @param defaults 无值时取defaults
+ * @return
+ */
+	public static String getValueFromSPMap(Context mContext, String key,String defaults )
+	{
+		if (null != mContext)
+		{
+			SharedPreferences ferences = mContext.getSharedPreferences("appPreferencesMap",  Context.MODE_PRIVATE);
+			String value = ferences.getString(key, defaults);
+			return value;
+		} else
+		{
+			return null;
+		}
+	}
 	/**
 	 * 清除全部
 	 * @param mContext

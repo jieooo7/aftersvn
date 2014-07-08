@@ -17,15 +17,10 @@ import android.widget.EditText;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
+import cn.icnt.dinners.http.HttpSendRecv;
+import cn.icnt.dinners.http.MapPackage;
 
-import com.google.gson.Gson;
-import com.lidroid.xutils.HttpUtils;
 import com.lidroid.xutils.ViewUtils;
-import com.lidroid.xutils.exception.HttpException;
-import com.lidroid.xutils.http.RequestParams;
-import com.lidroid.xutils.http.ResponseInfo;
-import com.lidroid.xutils.http.callback.RequestCallBack;
-import com.lidroid.xutils.http.client.HttpRequest;
 import com.lidroid.xutils.view.annotation.ViewInject;
 import com.lidroid.xutils.view.annotation.event.OnClick;
 
@@ -122,7 +117,6 @@ public class LoginActivity extends Activity {
 			startActivity(intent);
 			break;
 		case R.id.forget_password:
-			Toast.makeText(this, "忘记密码", 0).show();
 			break;
 		case R.id.login:
 
@@ -143,58 +137,81 @@ public class LoginActivity extends Activity {
 			Toast.makeText(this, "请输入密码哦！亲", 0).show();
 		} else {
 			sendLogin(userName, userPassword);
-
 		}
 	}
 
 	// 加密key
-	private final String CODEKEY = "1234";
-	// os类别
-	private final String OS = "1";
-	// app版本号
-	private static final String VERSION = "1.1.2";
-
+//	private final String CODEKEY = "1234";
+//	// os类别
+//	private final String OS = "1";
+//	// app版本号
+//	private static final String VERSION = "1.1.2";
+//
 	private String phoneNumber;
 
-	private void sendLogin(String name, String password) {
-		RequestParams params = new RequestParams();
-		// params.addHeader("name", "value");
-		// params.addQueryStringParameter("name", "value");
-		params.addBodyParameter("uid", "-1");
-		params.addBodyParameter("no", "123444444");
-		params.addBodyParameter("os", "1");
-		params.addBodyParameter("version", "1.0");
-		params.addBodyParameter("key", "1.0");
-		long currentTimeMillis = System.currentTimeMillis();
-		HttpUtils http = new HttpUtils();
-		http.send(HttpRequest.HttpMethod.POST,
-				"http://115.29.13.164/login.do?t=" + currentTimeMillis, params,
-				new RequestCallBack<String>() {
+//	private void sendLogin(String name, String password) {
+//		RequestParams params = new RequestParams();
+//		long currentTimeMillis = System.currentTimeMillis();
+//		params.addBodyParameter("head", HttpApi.getLoginAPI()
+//				.getHead(this));
+//		params.addBodyParameter("para", HttpApi.getLoginAPI()
+//				.getLoginParas(name, password));
+//		params.addBodyParameter("result", HttpApi.getLoginAPI()
+//				.getLoginResult());
+//		Log.i("LoginActivity", params.toString());
+//		HttpUtils http = new HttpUtils();
+//		http.send(HttpRequest.HttpMethod.POST,
+//				"http://115.29.13.164/login.do?t=" + currentTimeMillis, params,
+//				new RequestCallBack<String>() {
+//					@Override
+//					public void onStart() {
+//					}
+//
+//					@Override
+//					public void onLoading(long total, long current,
+//							boolean isUploading) {
+//						if (isUploading) {
+//						} else {
+//						}
+//					}
+//
+//					@Override
+//					public void onSuccess(ResponseInfo<String> responseInfo) {
+//						Log.i("LoginActivity", responseInfo.result);
+//						Gson gson = new Gson();
+//						// Head fromJson = gson.fromJson(responseInfo.result,
+//						// Head.class);
+//						Toast.makeText(LoginActivity.this,
+//								responseInfo.result.toString(), 0).show();
+//					}
+//
+//					@Override
+//					public void onFailure(HttpException error, String msg) {
+//					}
+//				});
+//	}
 
-					@Override
-					public void onStart() {
-					}
-
-					@Override
-					public void onLoading(long total, long current,
-							boolean isUploading) {
-						if (isUploading) {
-						} else {
-						}
-					}
-
-					@Override
-					public void onSuccess(ResponseInfo<String> responseInfo) {
-						Log.i("LoginActivity", responseInfo.result);
-						Gson gson = new Gson();
-						// Head fromJson = gson.fromJson(responseInfo.result,
-						// Head.class);
-					}
-
-					@Override
-					public void onFailure(HttpException error, String msg) {
-					}
-				});
+	private void sendLogin(String userName2, String userPassword2) {
+		MapPackage mp = new MapPackage();
+		mp.setPath("login.do?");
+		mp.setHead(this);
+		mp.setPara("account", userName2);
+		mp.setPara("pwd", userPassword2);
+		Log.i("LoginActivity", mp.toString());
+		try {
+			mp.send();
+//			List<Map<String, String>> backResult = mp.getBackResult();
+			Log.i("LoginActivity", mp.getBackResult().toString());
+		} catch (Exception e) {
+			// TODO: handle exception
+			if (HttpSendRecv.netStat)
+				Toast.makeText(getApplicationContext(), "网络错误，请重试",
+						Toast.LENGTH_LONG).show();
+			else
+				Toast.makeText(getApplicationContext(), "出错了^_^",
+						Toast.LENGTH_LONG).show();
+		}finally{
+		}		
 	}
 
 	private void setViewVisible(boolean need_visible, RelativeLayout tv,

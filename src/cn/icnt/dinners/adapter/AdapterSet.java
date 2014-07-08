@@ -26,9 +26,9 @@ import cn.icnt.dinners.utils.EasyFile;
 public class AdapterSet {
 	private static final String TAG = "AdapterSet";
 	
-	public static void setAdapter(Context context,MapPackage mp,List<Map<String, String>> list,BaseAdapter adapter,ListView lv0,String fileName){
+	public static void setAdapter(MapPackage mp,List<Map<String, String>> list,BaseAdapter adapter,ListView lv0,String fileName){
 //		mp.send();
-		list = mp.getBackResult();
+//		list = mp.getBackResult();
 		if (list != null) {
 			boolean bs = EasyFile.writeFile(fileName, list);
 
@@ -41,7 +41,7 @@ public class AdapterSet {
 					+ mp.getBackResult().get(1).get("goods_no"));
 			DebugUtil.i("test....resultimg", "img----"
 					+ mp.getBackResult().get(1).get("img_url"));
-			adapter = new LoaderAdapter(context, list);
+//			adapter = new LoaderAdapter(context, list);
 
 			lv0.setAdapter(adapter);
 //			lv1.setAdapter(adapter);
@@ -50,7 +50,7 @@ public class AdapterSet {
 			if (EasyFile.readFile(fileName) != null) {
 
 				list = EasyFile.readFile(fileName);
-				adapter = new LoaderAdapter(context, list);
+//				adapter = new LoaderAdapter(context, list);
 
 				lv0.setAdapter(adapter);
 //				lv1.setAdapter(adapter);

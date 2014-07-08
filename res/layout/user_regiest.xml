@@ -48,9 +48,9 @@
                     <ImageView
                         android:id="@+id/nickname_line"
                         android:layout_width="0dp"
-                        android:layout_weight="1"
                         android:layout_height="1px"
                         android:layout_gravity="center_vertical"
+                        android:layout_weight="1"
                         android:background="@color/login_gray" />
                 </LinearLayout>
 
@@ -130,6 +130,7 @@
                     android:layout_marginTop="10dp"
                     android:background="@null"
                     android:hint="@string/regiest_password"
+                    android:inputType="textPassword"
                     android:singleLine="true"
                     android:textSize="14sp" />
 
@@ -164,6 +165,7 @@
                     android:layout_marginTop="10dp"
                     android:background="@null"
                     android:hint="@string/regiest_passwords"
+                    android:inputType="textPassword"
                     android:singleLine="true"
                     android:textSize="14sp" />
 
@@ -180,9 +182,9 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_horizontal"
                 android:layout_marginTop="35dp"
+                android:clickable="true"
                 android:text="确    认"
                 android:textColor="#7a7a7a"
-                android:clickable="true"
                 android:textSize="20sp"
                 android:textStyle="bold" />
 
@@ -197,11 +199,10 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="25dp"
+                    android:clickable="true"
                     android:textColor="@color/login_gray"
                     android:textSize="14sp"
-                    android:clickable="true"
                     android:textStyle="bold" />
-
             </LinearLayout>
         </LinearLayout>
     </ScrollView>

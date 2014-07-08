@@ -29,6 +29,22 @@
     <!-- tab字体颜色 -->
     <color name="tab_font">#ed655f</color>    
     <!-- 登陆界面 灰色 -->
-    <color name="login_gray">#7a7a7a</color>    
+    <color name="login_gray">#7a7a7a</color>   
+    
+    <!-- 我的收藏界面 未选中色 -->
+    <color name="mycollect_unselect">#e7eaeb</color>  
+   
+    
+    
+    <!-- 我的优惠券界面 未选中色 -->
+    <color name="mycoupon_textback">#e7eaea</color>  
+    <!-- 我的优惠券界面item背景色 -->
+    <color name="mycoupon_item">#e0645d</color>      
+    
+    <color name="order_tab_bg">#e7eaeb</color>    
+    <color name="order_tab_text">#9c9c9c</color>    
+    
+    
+    
     
 </resources>

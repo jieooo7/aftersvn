@@ -3,7 +3,7 @@
  * classes : com.cloud.app.debug.D
  * author Andrew Lee
  * V 1.0.0
- * Create at 2014��6��11�� ����10:12:15
+ * Create at 2014年7月7日 下午2:24:10
  * Copyright: 2014 Interstellar Cloud Inc. All rights reserved.
  */
 package cn.icnt.dinners.debug;
@@ -12,12 +12,11 @@ package cn.icnt.dinners.debug;
 import android.content.Context;
 import android.util.Log;
 import android.widget.Toast;
+
 /**
- * 
- * log��Ϣ��� ���������
- * com.cloud.app.debug.D
+ * cn.icnt.dinners.debug.DebugUtil
  * @author Andrew Lee <br/>
- * create at 2014��6��11�� ����10:12:15
+ * create at 2014年7月7日 下午2:24:10
  */
 public class DebugUtil {
     public static final boolean DEBUG = true;

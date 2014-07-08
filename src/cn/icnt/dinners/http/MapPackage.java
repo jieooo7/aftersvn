@@ -67,7 +67,7 @@ public class MapPackage {
 	public String getpath() {
 		Date date = new Date();
 		SimpleDateFormat format = new SimpleDateFormat("yyyyMMddHHmmss",Locale.CHINA);
-		return PATH + this.path+format.format(date);
+		return PATH + this.path+".do?t="+format.format(date);
 	}
 
 	/**
