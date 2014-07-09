@@ -34,7 +34,12 @@
     <!-- 我的收藏界面 未选中色 -->
     <color name="mycollect_unselect">#e7eaeb</color>  
    
-    
+    <!-- 我的账户界面 背景色 -->
+    <color name="myaccount_color">#e7eceb</color>  
+    <!-- 我的账户界面 字体色 -->
+    <color name="myaccount_text_dark">#989b9a</color>
+    <!-- 我的账户界面 字体色 -->
+    <color name="myaccount_text_light">#ed6562</color>
     
     <!-- 我的优惠券界面 未选中色 -->
     <color name="mycoupon_textback">#e7eaea</color>  

@@ -62,7 +62,12 @@
             android:screenOrientation="nosensor" >
         </activity>
         <activity
-            android:name="cn.icnt.dinners.dinner.MyOrderActivity.java"
+            android:name="cn.icnt.dinners.dinner.MyOrderActivity"
+            android:label="@string/showdetail"
+            android:screenOrientation="nosensor" >
+        </activity>
+         <activity
+            android:name="cn.icnt.dinners.dinner.MycouponDetailActivity"
             android:label="@string/showdetail"
             android:screenOrientation="nosensor" >
         </activity>

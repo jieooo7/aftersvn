@@ -33,7 +33,19 @@
      <!-- 我的收藏详情页 -->
     <string name="dish_coll">菜品收藏</string>
     <string name="res_coll">餐厅收藏</string>
+    <string name="coupon_info_mark">优惠信息:</string>
+    <string name="promotions">活动期间:</string>
     
+    
+     <!-- 我的账户详情页 -->
+    <string name="recharge">充 值</string>
+    <string name="get_money">提 现</string>
+    <string name="yuan">"   元"</string>
+    <string name="overage">余额:</string>
+    <string name="money">金额:</string>
+    <string name="select_bank">选择银行:</string>
+    <string name="bank_card">卡号:</string>
+    <string name="submit_recharge">确认充值</string>
     
     
     

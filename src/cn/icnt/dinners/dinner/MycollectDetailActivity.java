@@ -12,14 +12,17 @@ import java.util.List;
 import java.util.Map;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.view.View.OnClickListener;
+import android.widget.AdapterView;
 import android.widget.BaseAdapter;
 import android.widget.ListView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
+import android.widget.AdapterView.OnItemClickListener;
 import cn.icnt.dinners.adapter.AdapterSet;
 import cn.icnt.dinners.adapter.LoaderAdapter;
 import cn.icnt.dinners.adapter.MycollectAdapter;
@@ -60,7 +63,7 @@ public class MycollectDetailActivity extends Activity implements
 		flag2 = true;
 //		设置include的title布局，标题文字
 		((TextView) findViewById(R.id.title_center_text))
-				.setText(getResources().getString(R.string.my_favor));
+				.setText(getResources().getString(R.string.my_coupon));
 		r0 = (RelativeLayout) findViewById(R.id.r0);
 		r1 = (RelativeLayout) findViewById(R.id.r1);
 		r2 = (RelativeLayout) findViewById(R.id.r2);
@@ -71,9 +74,9 @@ public class MycollectDetailActivity extends Activity implements
 		lv1 = (ListView) findViewById(R.id.lv1);
 		lv2 = (ListView) findViewById(R.id.lv2);
 		MapPackage mp = new MapPackage();
-		mp.setPath("discount");
+		mp.setPath("favorite_list");
 		mp.setHead(this);
-		mp.setPara("order", "1");
+		mp.setPara("favorite_type", "1");
 		mp.setRes("start", "1");
 		mp.setRes("count", "3");
 		try {
@@ -125,6 +128,39 @@ public class MycollectDetailActivity extends Activity implements
 		lv0.setAdapter(adapter);
 		lv1.setAdapter(adapter);
 		lv2.setAdapter(adapter);
+		lv0.setOnItemClickListener(new OnItemClickListener() {
+
+			public void onItemClick(AdapterView<?> arg0, View arg1, int arg2,
+					long arg3) {
+
+				Intent intent = new Intent();
+				intent.setClass(MycollectDetailActivity.this, MycouponDetailActivity.class);
+				startActivity(intent);
+
+			}
+		});
+		lv1.setOnItemClickListener(new OnItemClickListener() {
+
+			public void onItemClick(AdapterView<?> arg0, View arg1, int arg2,
+					long arg3) {
+
+				Intent intent = new Intent();
+				intent.setClass(MycollectDetailActivity.this, ShowDetailActivity.class);
+				startActivity(intent);
+
+			}
+		});
+		lv2.setOnItemClickListener(new OnItemClickListener() {
+
+			public void onItemClick(AdapterView<?> arg0, View arg1, int arg2,
+					long arg3) {
+
+				Intent intent = new Intent();
+				intent.setClass(MycollectDetailActivity.this, ShowDetailActivity.class);
+				startActivity(intent);
+
+			}
+		});
 		}
 //		AdapterSet.setAdapter( mp, list, adapter, lv0, "test0");
 //		AdapterSet.setAdapter( mp, list, adapter, lv1, "test1");
@@ -172,6 +208,9 @@ public class MycollectDetailActivity extends Activity implements
 	// }
 	// }
 	// }
+	
+	
+	
 
 	/*
 	 * (non-Javadoc)
