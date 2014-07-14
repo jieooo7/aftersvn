@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout  
+     xmlns:android="http://schemas.android.com/apk/res/android"
+     android:layout_width="match_parent"
+     android:layout_height="60dp"
+     android:orientation="vertical">
+   
+<LinearLayout 
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:layout_marginLeft="22dp"
+    android:layout_marginTop="19dp"
+    android:layout_marginRight="22dp"
+    android:orientation="horizontal" >
+
+    <LinearLayout
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_weight="120"
+        android:orientation="vertical" >
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:maxLines="1"
+            android:text="2014.07.07"
+            android:textColor="@color/order_tab_text"
+            android:textSize="14sp" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="2dp"
+            android:text="14:59"
+            android:textColor="@color/mycredit_list_text"
+            android:textSize="12sp" />
+    </LinearLayout>
+
+    <TextView 
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_weight="115"
+        android:layout_marginLeft="5dp"
+        android:textSize="12sp"
+        android:maxLines="2"
+        android:lines="2"
+        android:ems="5"
+        android:maxLength="10"
+        android:textColor="@color/order_tab_text"
+        android:text="湘村馆用餐消费"/>
+     <TextView 
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:gravity="center_horizontal"
+        android:layout_weight="100"
+        android:textSize="12sp"
+        android:singleLine="true"
+        android:textColor="@color/mycoupon_item"
+        android:text="142积分"/>
+     <TextView 
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:gravity="center_horizontal"
+        android:layout_weight="93"
+        android:textSize="12sp"
+        android:textColor="@color/mycoupon_item"
+        android:text="157元"/>  
+     <TextView 
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_weight="99"
+        android:gravity="center_horizontal"
+        android:singleLine="true"
+        android:textSize="12sp"
+        android:textColor="@color/order_tab_text"
+        android:text="交易完成"/>  
+
+</LinearLayout>
+  <TextView 
+         android:layout_width="match_parent"
+         android:layout_height="7dp"/>
+</LinearLayout >

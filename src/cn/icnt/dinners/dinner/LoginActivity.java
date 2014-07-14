@@ -1,9 +1,11 @@
 package cn.icnt.dinners.dinner;
 
+import java.io.UnsupportedEncodingException;
 import java.util.List;
 import java.util.Map;
 
 import org.apache.commons.lang.StringUtils;
+import org.apache.http.entity.StringEntity;
 
 import android.app.Activity;
 import android.content.Context;
@@ -17,10 +19,22 @@ import android.widget.EditText;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
+import cn.icnt.dinners.beans.UserLoginBean;
+import cn.icnt.dinners.http.GsonTools;
 import cn.icnt.dinners.http.HttpSendRecv;
 import cn.icnt.dinners.http.MapPackage;
+import cn.icnt.dinners.utils.Container;
+import cn.icnt.dinners.utils.MD5;
+import cn.icnt.dinners.utils.PreferencesUtils;
 
+import com.google.gson.Gson;
+import com.lidroid.xutils.HttpUtils;
 import com.lidroid.xutils.ViewUtils;
+import com.lidroid.xutils.exception.HttpException;
+import com.lidroid.xutils.http.RequestParams;
+import com.lidroid.xutils.http.ResponseInfo;
+import com.lidroid.xutils.http.callback.RequestCallBack;
+import com.lidroid.xutils.http.client.HttpRequest;
 import com.lidroid.xutils.view.annotation.ViewInject;
 import com.lidroid.xutils.view.annotation.event.OnClick;
 
@@ -47,6 +61,7 @@ public class LoginActivity extends Activity {
 	private String userName;
 
 	private String userPassword;
+	private Intent intent;
 
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -54,33 +69,10 @@ public class LoginActivity extends Activity {
 		initview();
 	}
 
-	private TelephonyManager telephonyManager;
-
 	private void initview() {
 		ViewUtils.inject(this);
-		// back = (RelativeLayout) findViewById(R.id.title_left_btn);
-		// edit_phone_bg = (RelativeLayout) findViewById(R.id.edit_phone_bg);
-		// edit_password_bg = (RelativeLayout)
-		// findViewById(R.id.edit_password_bg);
-		//
-		// user_name = (EditText) findViewById(R.id.user_name);
-		// edit_password = (EditText) findViewById(R.id.edit_password);
-		//
-		// user_regiest = (TextView) findViewById(R.id.user_regiest);
-		// forget_password = (TextView) findViewById(R.id.forget_password);
-		// login = (TextView) findViewById(R.id.login);
-
-		// back.setOnClickListener(this);
-		// user_regiest.setOnClickListener(this);
-		// forget_password.setOnClickListener(this);
-		// login.setOnClickListener(this);
-
-		telephonyManager = (TelephonyManager) this
-				.getSystemService(Context.TELEPHONY_SERVICE);
-		phoneNumber = telephonyManager.getLine1Number();
 
 		changeBackGround();
-
 	}
 
 	private void changeBackGround() {
@@ -109,18 +101,21 @@ public class LoginActivity extends Activity {
 		switch (v.getId()) {
 		case R.id.title_left_btn:
 			finish();
+			intent = new Intent();
+			intent.setClass(LoginActivity.this, MainActivity.class);
+			startActivity(intent);
 			break;
 		case R.id.user_regiest:
-
-			Intent intent = new Intent();
+			finish();
+			intent = new Intent();
 			intent.setClass(LoginActivity.this, RegisterActivity.class);
 			startActivity(intent);
 			break;
 		case R.id.forget_password:
 			break;
 		case R.id.login:
-
 			userLogin();
+
 			break;
 		}
 	}
@@ -136,60 +131,70 @@ public class LoginActivity extends Activity {
 		} else if (StringUtils.isEmpty(userPassword)) {
 			Toast.makeText(this, "请输入密码哦！亲", 0).show();
 		} else {
-			sendLogin(userName, userPassword);
+			// Toast.makeText(this, userName + "##" + userPassword, 0).show();
+			sendLogin1(userName, userPassword);
+
 		}
 	}
 
-	// 加密key
-//	private final String CODEKEY = "1234";
-//	// os类别
-//	private final String OS = "1";
-//	// app版本号
-//	private static final String VERSION = "1.1.2";
-//
-	private String phoneNumber;
+	// private void sendLogin(String userName2, String userPassword2) {
+	// params = new RequestParams();
+	// params.addBodyParameter("userName2", userName2);
+	// params.addBodyParameter("userPassword2", userPassword2);
+	// params.addQueryStringParameter("qmsg", "你好");
+	// params.addBodyParameter("msg", "测试");
+	// HttpUtils http = new HttpUtils();
+	// http.send(HttpRequest.HttpMethod.POST,
+	// "http://115.29.13.164/login.do?t=", params,
+	// new RequestCallBack<String>() {
+	//
+	// @Override
+	// public void onFailure(HttpException arg0, String arg1) {
+	//
+	// }
+	//
+	// @Override
+	// public void onSuccess(ResponseInfo<String> arg0) {
+	//
+	// }});
+	// }
 
-//	private void sendLogin(String name, String password) {
-//		RequestParams params = new RequestParams();
-//		long currentTimeMillis = System.currentTimeMillis();
-//		params.addBodyParameter("head", HttpApi.getLoginAPI()
-//				.getHead(this));
-//		params.addBodyParameter("para", HttpApi.getLoginAPI()
-//				.getLoginParas(name, password));
-//		params.addBodyParameter("result", HttpApi.getLoginAPI()
-//				.getLoginResult());
-//		Log.i("LoginActivity", params.toString());
-//		HttpUtils http = new HttpUtils();
-//		http.send(HttpRequest.HttpMethod.POST,
-//				"http://115.29.13.164/login.do?t=" + currentTimeMillis, params,
-//				new RequestCallBack<String>() {
-//					@Override
-//					public void onStart() {
-//					}
-//
-//					@Override
-//					public void onLoading(long total, long current,
-//							boolean isUploading) {
-//						if (isUploading) {
-//						} else {
-//						}
-//					}
-//
-//					@Override
-//					public void onSuccess(ResponseInfo<String> responseInfo) {
-//						Log.i("LoginActivity", responseInfo.result);
-//						Gson gson = new Gson();
-//						// Head fromJson = gson.fromJson(responseInfo.result,
-//						// Head.class);
-//						Toast.makeText(LoginActivity.this,
-//								responseInfo.result.toString(), 0).show();
-//					}
-//
-//					@Override
-//					public void onFailure(HttpException error, String msg) {
-//					}
-//				});
-//	}
+	private void sendLogin1(String name, String password) {
+		MapPackage mp = new MapPackage();
+		mp.setPath("login.do?");
+		mp.setHead(this);
+		mp.setPara("account", name);
+		mp.setPara("pwd", password);
+		Map<String, Object> maps = mp.getMap();
+		RequestParams params = GsonTools.GetParams(maps);
+		HttpUtils http = new HttpUtils();
+		http.send(HttpRequest.HttpMethod.POST,
+				"http://115.29.13.164/login.do?t=", params,
+				new RequestCallBack<String>() {
+
+					@Override
+					public void onStart() {
+					}
+
+					@Override
+					public void onLoading(long total, long current,
+							boolean isUploading) {
+					}
+
+					@Override
+					public void onSuccess(ResponseInfo<String> responseInfo) {
+						Gson gson = new Gson();
+						UserLoginBean userInfo = gson.fromJson(
+								responseInfo.result, UserLoginBean.class);
+						action(userInfo);
+					}
+
+					@Override
+					public void onFailure(HttpException error, String msg) {
+					}
+				});
+
+	}
 
 	private void sendLogin(String userName2, String userPassword2) {
 		MapPackage mp = new MapPackage();
@@ -197,21 +202,28 @@ public class LoginActivity extends Activity {
 		mp.setHead(this);
 		mp.setPara("account", userName2);
 		mp.setPara("pwd", userPassword2);
-		Log.i("LoginActivity", mp.toString());
+		Map<String, Object> maps = mp.getMap();
+		// Log.i("LoginActivity", mp.toString());
 		try {
-			mp.send();
-//			List<Map<String, String>> backResult = mp.getBackResult();
-			Log.i("LoginActivity", mp.getBackResult().toString());
+			UserLoginBean userInfo = mp.send(UserLoginBean.class);
+			// List<Map<String, String>> backResult = mp.getBackResult();
+			// UserLoginBean userInfo =
+			// GsonUtils.Json2Bean(mp.getBackResult().toString(),
+			// UserLoginBean.class);
+
+			// Log.i("LoginActivity", userInfo.toString());
+
+			Log.i("LoginActivity", userInfo.toString());
 		} catch (Exception e) {
 			// TODO: handle exception
 			if (HttpSendRecv.netStat)
 				Toast.makeText(getApplicationContext(), "网络错误，请重试",
 						Toast.LENGTH_LONG).show();
 			else
-				Toast.makeText(getApplicationContext(), "出错了^_^",
+				Toast.makeText(getApplicationContext(), "出错了0_0",
 						Toast.LENGTH_LONG).show();
-		}finally{
-		}		
+		} finally {
+		}
 	}
 
 	private void setViewVisible(boolean need_visible, RelativeLayout tv,
@@ -226,4 +238,20 @@ public class LoginActivity extends Activity {
 
 	}
 
+	private void action(UserLoginBean userInfo) {
+		if (userInfo == null) {
+		} else if ("10000".equals(userInfo.head.code)) {
+			PreferencesUtils.putValueToSPMap(this, PreferencesUtils.Keys.UID,
+					userInfo.para.user_id);
+			PreferencesUtils.putValueToSPMap(this,
+					PreferencesUtils.Keys.ACCOUNT, userInfo.para.email);
+			PreferencesUtils.putValueToSPMap(this, PreferencesUtils.Keys.PHONE,
+					userInfo.para.phone);
+			this.finish();
+
+		} else {
+			Toast.makeText(this, userInfo.head.msg, 0).show();
+			edit_password.setText("");
+		}
+	}
 }

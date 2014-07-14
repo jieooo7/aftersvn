@@ -3,6 +3,112 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical" >
-    
+        <include layout="@layout/login_title"/>
+    <LinearLayout
+        android:layout_height="41dp"
+        android:layout_width="match_parent"
+        android:orientation="horizontal" >
+        <TextView 
+            android:id="@+id/myseting_tv1"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:background="@color/mycredit_back_select"
+            android:textColor="@color/mycoupon_item"
+            android:textSize="14sp"
+            android:text="@string/account_sec"
+            android:layout_weight="1"
+            android:gravity="center"/>
+                <TextView 
+            android:id="@+id/myseting_tv2"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:background="@color/mycoupon_textback"
+            android:textColor="@color/mycoupon_item"
+            android:textSize="14sp"
+            android:text="@string/introduce_function"
+            android:layout_weight="1"
+            android:gravity="center"/>
+        
+    </LinearLayout>
+    <FrameLayout 
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+                <LinearLayout 
+                    android:id="@+id/myseting_lv"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="30dp"
+                    android:layout_marginRight="30dp"
+                    android:layout_marginTop="40dp"
+                    android:orientation="vertical"
+                    >
+                    <LinearLayout 
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal">
+                        
+                         <TextView 
+                    android:layout_width="50dp"
+                    android:layout_height="wrap_content"
+                    android:gravity="right"
+                    android:textColor="@color/myaccount_text_dark"
+                    android:textSize="15sp"
+                    android:text="@string/question"/>
+                 <EditText
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:gravity="center_horizontal"
+                    android:maxLines="1"
+                    android:minEms="11"
+                    android:background="@drawable/myaccount_text_shap"
+                    android:textColor="@color/myaccount_text_dark"
+                    android:textSize="15sp"
+                    android:hint="你的居住地在哪里"
+                    />
+                    </LinearLayout>
+                     <LinearLayout 
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="10dp"
+                        android:orientation="horizontal">
+                        
+                         <TextView 
+                    android:layout_width="50dp"
+                    android:layout_height="wrap_content"
+                    android:gravity="right"
+                    android:textColor="@color/myaccount_text_dark"
+                    android:textSize="15sp"
+                    android:text="@string/answer"/>
+                 <EditText
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:gravity="center_horizontal"
+                    android:maxLines="1"
+                    android:minEms="11"
+                    android:background="@drawable/myaccount_text_shap"
+                    android:textColor="@color/myaccount_text_dark"
+                    android:textSize="15sp"
+                    android:hint="厦门湖里区"
+                    />
+                    </LinearLayout>
+                    <Button 
+                        android:layout_width="90dp"
+                        android:layout_height="26dp"
+                        android:layout_marginTop="13dp"
+                        android:layout_gravity="center_horizontal"
+                        android:background="@color/mycoupon_textback"
+                        android:text="@string/submit"
+                        android:textColor="@color/mycoupon_item"
+                        android:textSize="13sp"/>
+                    
+                </LinearLayout>
+                <ImageView 
+                    android:id="@+id/myseting_iv"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:visibility="invisible"
+                    android:src="@drawable/help"/>
+        
+    </FrameLayout>
 
 </LinearLayout>

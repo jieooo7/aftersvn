@@ -3,6 +3,38 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical" >
-    
+    <include layout="@layout/login_title"/>
+    <LinearLayout
+        android:layout_height="41dp"
+        android:layout_width="match_parent"
+        android:orientation="horizontal" >
+        <TextView 
+            android:id="@+id/mycredit_tv1"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:background="@color/mycredit_back_select"
+            android:textColor="@color/mycoupon_item"
+            android:textSize="14sp"
+            android:text="358分"
+            android:layout_weight="1"
+            android:gravity="center"/>
+                <TextView 
+            android:id="@+id/mycredit_tv2"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:background="@color/mycoupon_textback"
+            android:textColor="@color/order_tab_text"
+            android:textSize="14sp"
+            android:text="@string/use_history"
+            android:layout_weight="1"
+            android:gravity="center"/>
+        
+    </LinearLayout>
+    <ListView 
+        android:id="@+id/mycredit_lv"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+        
+    </ListView>
 
 </LinearLayout>

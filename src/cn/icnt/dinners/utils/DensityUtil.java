@@ -3,24 +3,22 @@
  * classes : com.cloud.app.utils.DensityUtil
  * author Andrew Lee
  * V 1.0.0
- * Create at 2014��6��25�� ����11:31:24
+ * Create at 2014年6月25日   上午11:31:24
  * Copyright: 2014 Interstellar Cloud Inc. All rights reserved.
  */
 package cn.icnt.dinners.utils;
 
 import android.content.Context;
-
 /**
- * com.cloud.app.utils.DensityUtil
- * 
+ * cn.icnt.dinners.utils.DensityUtil
  * @author Andrew Lee <br/>
- *         create at 2014��6��25�� ����11:31:24
+ * create at 2014年7月10日 下午2:11:04
  */
 public class DensityUtil {
 	private static final String TAG = "DensityUtil";
 
 	/**
-	 * �����ֻ��ķֱ��ʴ� dp �ĵ�λ ת��Ϊ px(����)
+	 * dp转换成px
 	 */
 	public static int dip2px(Context context, float dpValue) {
 		final float scale = context.getResources().getDisplayMetrics().density;
@@ -28,7 +26,7 @@ public class DensityUtil {
 	}
 
 	/**
-	 * �����ֻ��ķֱ��ʴ� px(����) �ĵ�λ ת��Ϊ dp
+	 * px转换成dp
 	 */
 	public static int px2dip(Context context, float pxValue) {
 		final float scale = context.getResources().getDisplayMetrics().density;

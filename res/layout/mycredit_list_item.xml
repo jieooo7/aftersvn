@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="59dp"
+    android:orientation="horizontal" >
+    <TextView 
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:gravity="center_vertical"
+        android:layout_marginLeft="21dp"
+        android:layout_marginTop="25dp"
+        android:textSize="16sp"
+        android:textColor="@color/order_tab_text"
+        android:text="湘村馆"/>
+        <TextView 
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentBottom="true"
+        android:gravity="center_vertical"
+        android:layout_marginRight="45dp"
+        android:layout_marginBottom="3dp"
+        android:textSize="12sp"
+        android:textColor="@color/mycredit_list_text"
+        android:text="@string/can_use_credit"/>
+            <TextView 
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:gravity="center_vertical"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentBottom="true"
+        android:layout_marginRight="15dp"
+        android:layout_marginBottom="5dp"
+        android:textSize="16sp"
+        android:textColor="@color/mycoupon_item"
+        android:text="2%"/>
+
+</RelativeLayout>

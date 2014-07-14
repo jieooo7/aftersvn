@@ -1,24 +1,32 @@
 package cn.icnt.dinners.dinner;
 
+import java.util.Map;
+
 import org.apache.commons.lang.StringUtils;
 
 import android.app.Activity;
+import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.text.Html;
 import android.text.Spanned;
 import android.util.Log;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.View.OnFocusChangeListener;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
-import cn.icnt.dinners.beans.HttpApi;
-import cn.icnt.dinners.http.HttpSendRecv;
+import cn.icnt.dinners.beans.UserLoginBean;
+import cn.icnt.dinners.http.GsonTools;
 import cn.icnt.dinners.http.MapPackage;
-import cn.icnt.dinners.utils.MD5;
+import cn.icnt.dinners.utils.PreferencesUtils;
+import cn.icnt.dinners.utils.ToastUtil;
 
+import com.google.gson.Gson;
 import com.lidroid.xutils.HttpUtils;
 import com.lidroid.xutils.ViewUtils;
 import com.lidroid.xutils.exception.HttpException;
@@ -72,6 +80,8 @@ public class RegisterActivity extends Activity {
 	@ViewInject(R.id.edit_password2)
 	private EditText edit_password2;
 
+	private InputMethodManager manager;
+
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.user_regiest);
@@ -86,13 +96,31 @@ public class RegisterActivity extends Activity {
 		Spanned text = Html.fromHtml("点击确认代表你已阅读并同意美食聚惠的: "
 				+ "<a href=\"http://www.baidu.com\">服务协议</a> " + "");
 		regiest_alert.setText(text);
+		manager = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);  
+		  
+		  
+		  
 	}
+	
+	@Override  
+	public boolean onTouchEvent(MotionEvent event) {  
+		// TODO Auto-generated method stub  
+		if(event.getAction() == MotionEvent.ACTION_DOWN){  
+			if(getCurrentFocus()!=null && getCurrentFocus().getWindowToken()!=null){  
+				manager.hideSoftInputFromWindow(getCurrentFocus().getWindowToken(), InputMethodManager.HIDE_NOT_ALWAYS);  
+			}  
+		}  
+		return super.onTouchEvent(event);  
+	}  
 
 	@OnClick({ R.id.title_left_btn, R.id.user_regiest })
 	public void clickMethod(View v) {
 		switch (v.getId()) {
 		case R.id.title_left_btn:
 			finish();
+			Intent i = new Intent();
+			i.setClass(RegisterActivity.this, LoginActivity.class);
+			startActivity(i);
 			break;
 		case R.id.user_regiest:
 			userRegiest();
@@ -120,7 +148,6 @@ public class RegisterActivity extends Activity {
 						if (!password.equals(password2)) {
 							Toast.makeText(this, "两次密码输入不一致，请重新输入", 0).show();
 						} else {
-
 							regiestSend(nickname, username, password);
 						}
 					}
@@ -130,35 +157,36 @@ public class RegisterActivity extends Activity {
 
 	}
 
-//	private void regiestSend(String nickname, String username, String password) {
-//		HttpUtils httpUtils = new HttpUtils();
-//		RequestParams params = new RequestParams();
-//		long currentTimeMillis = System.currentTimeMillis();
-//		params.addQueryStringParameter("head",
-//				HttpApi.getLoginAPI().getHead(this));
-//		params.addQueryStringParameter("para", HttpApi.getLoginAPI()
-//				.getRegiestParas(nickname, username, password));
-//		params.addQueryStringParameter("result", HttpApi.getLoginAPI()
-//				.getRegiestResult());
-//		Log.i("RegisterActivity", params.toString());
-//		HttpUtils http = new HttpUtils();
-//		http.send(HttpRequest.HttpMethod.POST, "http://115.29.13.164/reg.do?t="
-//				+ currentTimeMillis, params, new RequestCallBack<String>() {
-//
-//			@Override
-//			public void onFailure(HttpException arg0, String arg1) {
-//
-//			}
-//
-//			@Override
-//			public void onSuccess(ResponseInfo<String> arg0) {
-//
-//				Log.i("RegisterActivity", arg0.result);
-//			}
-//
-//		});
-//
-//	}
+	// private void regiestSend(String nickname, String username, String
+	// password) {
+	// HttpUtils httpUtils = new HttpUtils();
+	// RequestParams params = new RequestParams();
+	// long currentTimeMillis = System.currentTimeMillis();
+	// params.addQueryStringParameter("head",
+	// HttpApi.getLoginAPI().getHead(this));
+	// params.addQueryStringParameter("para", HttpApi.getLoginAPI()
+	// .getRegiestParas(nickname, username, password));
+	// params.addQueryStringParameter("result", HttpApi.getLoginAPI()
+	// .getRegiestResult());
+	// Log.i("RegisterActivity", params.toString());
+	// HttpUtils http = new HttpUtils();
+	// http.send(HttpRequest.HttpMethod.POST, "http://115.29.13.164/reg.do?t="
+	// + currentTimeMillis, params, new RequestCallBack<String>() {
+	//
+	// @Override
+	// public void onFailure(HttpException arg0, String arg1) {
+	//
+	// }
+	//
+	// @Override
+	// public void onSuccess(ResponseInfo<String> arg0) {
+	//
+	// Log.i("RegisterActivity", arg0.result);
+	// }
+	//
+	// });
+	//
+	// }
 
 	private void regiestSend(String nickname, String username, String password) {
 		MapPackage mp = new MapPackage();
@@ -166,24 +194,45 @@ public class RegisterActivity extends Activity {
 		mp.setHead(this);
 		mp.setPara("email", nickname);
 		mp.setPara("phone", username);
-		mp.setPara("pwd",password);
-		mp.setRes("","");
-		
-		try {
-			mp.send();
-//			List<Map<String, String>> backResult = mp.getBackResult();
-			Log.i("RegiestActivity", mp.toString());
-			Log.i("RegiestActivity", mp.getBackResult().toString());
-		} catch (Exception e) {
-			// TODO: handle exception
-			if (HttpSendRecv.netStat)
-				Toast.makeText(getApplicationContext(), "网络错误，请重试",
-						Toast.LENGTH_LONG).show();
-			else
-				Toast.makeText(getApplicationContext(), "出错了^_^",
-						Toast.LENGTH_LONG).show();
-		}finally{
-		}			
+		mp.setPara("pwd", password);
+		Map<String, Object> maps = mp.getssMap();
+		RequestParams params = GsonTools.GetParams(maps);
+		HttpUtils http = new HttpUtils();
+		http.send(HttpRequest.HttpMethod.POST,
+				"http://115.29.13.164/reg.do?t=", params,
+				new RequestCallBack<String>() {
+
+					@Override
+					public void onStart() {
+					}
+
+					@Override
+					public void onLoading(long total, long current,
+							boolean isUploading) {
+					}
+
+					@Override
+					public void onSuccess(ResponseInfo<String> responseInfo) {
+						Log.i("RegisterActivity", responseInfo.result);
+						Gson gson = new Gson();
+						UserLoginBean userInfo = gson.fromJson(
+								responseInfo.result, UserLoginBean.class);
+						if ("10000".equals(userInfo.head.code)) {
+							PreferencesUtils.putValueToSPMap(RegisterActivity.this, PreferencesUtils.Keys.UID, userInfo.para.user_id);
+							PreferencesUtils.putValueToSPMap(RegisterActivity.this, PreferencesUtils.Keys.ACCOUNT, userInfo.para.email);
+							PreferencesUtils.putValueToSPMap(RegisterActivity.this, PreferencesUtils.Keys.PHONE, userInfo.para.phone);
+							ToastUtil.show(RegisterActivity.this, userInfo.head.msg);
+							RegisterActivity.this.finish();
+						}else {
+							ToastUtil.show(RegisterActivity.this, userInfo.head.msg);
+						}
+					}
+
+					@Override
+					public void onFailure(HttpException error, String msg) {
+					}
+				});
+
 	}
 
 	/**

@@ -103,7 +103,7 @@ public class WelcomeActivity extends Activity {
 	        return version;
 	    } catch (Exception e) {
 	        e.printStackTrace();
+	        return "";
 	    }
-		return "";
 	}
 }

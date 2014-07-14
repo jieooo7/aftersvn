@@ -19,6 +19,7 @@ import java.util.concurrent.ExecutionException;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.telephony.TelephonyManager;
+import cn.icnt.dinners.beans.UserLoginBean;
 import cn.icnt.dinners.debug.DebugUtil;
 import cn.icnt.dinners.utils.MD5;
 
@@ -61,7 +62,7 @@ public class MapPackage {
 	public void setUid(Context context){
 //		shered文件中获取
 		SharedPreferences sp = context.getSharedPreferences("userInfo", context.MODE_PRIVATE);
-		this.uid=sp.getString("uid", "31");
+		this.uid=sp.getString("uid", "-1");
 		DebugUtil.i("shared","999999"+sp.getString("uid", "-1"));
 	}
 	public String getpath() {
@@ -91,7 +92,7 @@ public class MapPackage {
 		TelephonyManager telephonyManager=(TelephonyManager) context.getSystemService(Context.TELEPHONY_SERVICE);
 //		用户id
 		setUid(context);
-		this.headmap.put("uid", this.getUid());
+		this.headmap.put("uid","31");
 		this.headmap.put("no", telephonyManager.getDeviceId());
 		this.headmap.put("os", OS);
 		this.headmap.put("version",VERSION);
@@ -113,10 +114,10 @@ public class MapPackage {
 	 *@param val
 	 */
 	public void setPara(String key, String val) {
-
 		this.paramap.put(key, val);
-		
-
+	}
+	public void setPara(String key, int val) {
+		this.paramap.put(key, val);
 	}
 
 	public String getRes(String key) {
@@ -146,9 +147,9 @@ public class MapPackage {
 	public void send() throws InterruptedException, ExecutionException {
 		Map<String, Object> map = new HashMap<String, Object>();
 //		加入初始化设置
-		this.headmap.put("", "");
-		this.paramap.put("","");
-		this.resmap.put("","");
+//		this.headmap.put("", "");
+//		this.paramap.put("","");
+//		this.resmap.put("","");
 		map.put("head", this.headmap);
 		map.put("para", this.paramap);
 		map.put("result", this.resmap);
@@ -161,6 +162,42 @@ public class MapPackage {
 		this.backResult=GsonTools.getMaps(backResult.substring(backResult.indexOf("{")));
 
 	}
+	
+	public UserLoginBean send(Class clz) throws InterruptedException, ExecutionException {
+		Map<String, Object> map = new HashMap<String, Object>();
+//		加入初始化设置
+//		this.headmap.put("", "");
+//		this.paramap.put("","");
+//		this.resmap.put("","");
+		map.put("head", this.headmap);
+		map.put("para", this.paramap);
+		map.put("result", this.resmap);
+		Gson gson = new Gson();
+//		发送请求
+		HttpSendRecv task=new HttpSendRecv(this.getpath(),gson.toJson(map));
+//		返回信息
+		String backResult =task.execute().get();
+		 String substring = backResult.substring(backResult.indexOf("{"));
+		DebugUtil.i("all",backResult);
+		UserLoginBean person = GsonTools.getPerson(substring, UserLoginBean.class);
+//		DebugUtil.i("all", person.phone.toString());
+		return person;
+
+	}
+public Map<String , Object> getMap (){
+	Map<String, Object> map = new HashMap<String, Object>();
+	map.put("head", this.headmap);
+	map.put("para", this.paramap);
+	map.put("result", this.resmap);
+	return map;
+}
+public Map<String , Object> getssMap (){
+	Map<String, Object> map = new HashMap<String, Object>();
+	map.put("head", this.headmap);
+	map.put("para", this.paramap);
+	map.put("result", "");
+	return map;
+}
 
 	/**
 	 *@return  返回头信息

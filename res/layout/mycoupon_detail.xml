@@ -13,8 +13,13 @@
         android:text="您有一张优惠券即将过期"
         android:background="@color/mycoupon_textback"/>
     <ListView 
+        android:id="@+id/mycoupon_lv"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:layout_marginRight="5dp"
+        android:layout_marginLeft="5dp"
+        android:divider="@color/white_text"
+        >
         
     </ListView>
 

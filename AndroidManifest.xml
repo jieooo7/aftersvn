@@ -27,7 +27,7 @@
         android:label="@string/app_name"
         android:theme="@android:style/Theme.Light.NoTitleBar" >
         <activity
-            android:name="cn.icnt.dinners.dinner.MycollectDetailActivity"
+            android:name="cn.icnt.dinners.dinner.MycouponDetailActivity"
             android:label="@string/app_name"
             android:screenOrientation="nosensor" >
             <intent-filter>
@@ -67,7 +67,7 @@
             android:screenOrientation="nosensor" >
         </activity>
          <activity
-            android:name="cn.icnt.dinners.dinner.MycouponDetailActivity"
+            android:name="cn.icnt.dinners.dinner.MycollectDetailActivity"
             android:label="@string/showdetail"
             android:screenOrientation="nosensor" >
         </activity>

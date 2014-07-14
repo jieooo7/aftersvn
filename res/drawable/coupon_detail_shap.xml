@@ -3,12 +3,9 @@
 <shape xmlns:android="http://schemas.android.com/apk/res/android">
   <solid android:color="@color/mycoupon_item" />
     <corners android:radius="10dp" />
-    <size
-        android:height="59dp"
-        android:width="331dp" />
       <padding 
           	android:left="16dp" 
           	android:top="9dp"
           	android:right="11dp" 
-          	android:bottom="12dp" />
+          	android:bottom="7dp" />
 </shape>

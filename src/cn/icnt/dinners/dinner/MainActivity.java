@@ -17,7 +17,6 @@ import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTabHost;
 import android.view.View;
 import android.view.View.OnClickListener;
-import android.view.Window;
 import android.view.WindowManager;
 import android.widget.EditText;
 import android.widget.LinearLayout;
@@ -28,7 +27,6 @@ import cn.icnt.dinners.fragment.FragmentDish;
 import cn.icnt.dinners.fragment.FragmentRes;
 
 import com.jeremyfeinstein.slidingmenu.lib.SlidingMenu;
-import com.lidroid.xutils.view.annotation.ViewInject;
 
 /**
  * com.cloud.app.dinner.MainActivity
@@ -45,6 +43,7 @@ public class MainActivity extends FragmentActivity implements OnClickListener {
 	private SlidingMenu menu;
 	private RelativeLayout ivUser;
 	private RelativeLayout ivSearch;
+	private RelativeLayout menu_myorder;
 	private EditText editSearch;
 	private TextView loginTv5;
 	private LinearLayout line0;
@@ -95,6 +94,8 @@ public class MainActivity extends FragmentActivity implements OnClickListener {
 		loginTv5.setOnClickListener(this);
 		line0 = (LinearLayout) findViewById(R.id.line0);
 		line0.setOnClickListener(this);
+		menu_myorder = (RelativeLayout) findViewById(R.id.menu_myorder);
+		menu_myorder.setOnClickListener(this);
 	
 		// SlidingMenu menu = new SlidingMenu(this);
 		// menu.setMode(SlidingMenu.LEFT);
@@ -198,9 +199,9 @@ public class MainActivity extends FragmentActivity implements OnClickListener {
 			break;
 
 		case R.id.menu_myorder:
-			intent = new Intent();
-			intent.setClass(MainActivity.this, MyOrderActivity.class);
-			startActivity(intent);
+			Intent i = new Intent();
+			i.setClass(MainActivity.this, MyOrderActivity.class);
+			startActivity(i);
 			break;
 		default:
 			break;

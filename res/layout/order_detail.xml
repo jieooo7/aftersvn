@@ -1,0 +1,129 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical" >
+
+    <include layout="@layout/login_title" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_margin="10dp"
+        android:orientation="vertical" >
+
+        <GridView
+            android:id="@+id/gridview"
+            android:layout_width="fill_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1"
+            android:columnWidth="90dp"
+            android:gravity="center"
+            android:horizontalSpacing="10dp"
+            android:numColumns="3"
+            android:stretchMode="columnWidth"
+            android:verticalSpacing="10dp" >
+        </GridView>
+
+        <TextView
+            style="@style/order_taxtview"
+            android:layout_width="fill_parent"
+            android:text="skdjflkajs dflkja sdlkfja lskdf" />
+
+        <TextView
+            android:id="@+id/order_total_price"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:layout_alignParentRight="true"
+            android:layout_gravity="right"
+            android:layout_marginBottom="4dp"
+            android:layout_marginLeft="3dp"
+            android:layout_marginTop="4dp"
+            android:text="￥250"
+            android:textColor="@color/order_tab_text"
+            android:textSize="12sp" />
+
+        <ImageView style="@style/order_bottom_line" />
+
+        <RelativeLayout
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content" >
+
+            <TextView
+                android:id="@+id/order_discount_card"
+                style="@style/order_taxtview"
+                android:text="优惠券："
+                android:textSize="14sp"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/order_discount"
+                style="@style/order_taxtview"
+                android:layout_toRightOf="@id/order_discount_card"
+                android:text="50" />
+
+            <TextView
+                android:id="@+id/order_price"
+                style="@style/order_taxtview"
+                android:layout_alignParentRight="true"
+                android:text="￥250"
+                android:textColor="@color/tab_font"
+                android:textSize="20sp" />
+
+            <TextView
+                style="@style/order_taxtview"
+                android:layout_toLeftOf="@id/order_price"
+                android:text="实付：" />
+        </RelativeLayout>
+
+        <ImageView style="@style/order_bottom_line" />
+
+        <LinearLayout
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal" >
+
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1" >
+
+                <ImageView
+                    android:id="@+id/del_bucket_img"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="5dp"
+                    android:src="@drawable/bucket" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:layout_weight="1"
+                android:orientation="horizontal" >
+
+                <TextView
+                    android:id="@+id/order_pay"
+                    style="@style/order_taxtview"
+                    android:layout_weight="1"
+                    android:gravity="right"
+                    android:text="现场付款" />
+
+                <TextView
+                    android:id="@+id/order_pay_online"
+                    style="@style/order_taxtview"
+                    android:layout_weight="1"
+                    android:gravity="right"
+                    android:text="线上付款" />
+            </LinearLayout>
+        </LinearLayout>
+
+        <ImageView style="@style/order_bottom_line" />
+        <LinearLayout android:layout_width="fill_parent"
+            android:layout_height="0dp"
+            android:layout_weight="9"></LinearLayout>
+    </LinearLayout>
+
+</LinearLayout>

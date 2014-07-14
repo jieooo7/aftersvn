@@ -63,7 +63,7 @@ public class MycollectDetailActivity extends Activity implements
 		flag2 = true;
 //		设置include的title布局，标题文字
 		((TextView) findViewById(R.id.title_center_text))
-				.setText(getResources().getString(R.string.my_coupon));
+				.setText(getResources().getString(R.string.my_favor));
 		r0 = (RelativeLayout) findViewById(R.id.r0);
 		r1 = (RelativeLayout) findViewById(R.id.r1);
 		r2 = (RelativeLayout) findViewById(R.id.r2);
