@@ -63,7 +63,7 @@ public class MysettingDetailActivity extends Activity implements OnClickListener
 			tv2.setBackgroundColor(getResources().getColor(
 					R.color.mycoupon_textback));
 			lv.setVisibility(View.VISIBLE);
-			iv.setVisibility(View.INVISIBLE);
+			iv.setVisibility(View.GONE);
 			break;
 		case R.id.myseting_tv2:
 			tv2.setBackgroundColor(getResources().getColor(
@@ -71,7 +71,7 @@ public class MysettingDetailActivity extends Activity implements OnClickListener
 			tv1.setBackgroundColor(getResources().getColor(
 					R.color.mycoupon_textback));
 			iv.setVisibility(View.VISIBLE);
-			lv.setVisibility(View.INVISIBLE);
+			lv.setVisibility(View.GONE);
 			break;
 		}
 	}

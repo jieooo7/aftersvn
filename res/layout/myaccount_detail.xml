@@ -3,193 +3,643 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical" >
-    <include layout="@layout/login_title"/>
-    <LinearLayout 
+
+    <include layout="@layout/login_title" />
+
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="41dp"
         android:background="@color/myaccount_color"
-        android:orientation="horizontal">
-        <LinearLayout 
+        android:orientation="horizontal" >
+
+        <LinearLayout
+            android:id="@+id/myaccount_lv1"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="bottom"
             android:layout_marginLeft="48dp"
-            android:orientation="vertical">
-            <TextView 
+            android:orientation="vertical" >
+
+            <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:textColor="@color/myaccount_text_dark"
-                android:textSize="15sp"
                 android:text="@string/recharge"
-                />
-            <TextView 
+                android:textColor="@color/myaccount_text_dark"
+                android:textSize="15sp" />
+
+            <TextView
+                android:id="@+id/myaccount_tv1"
                 android:layout_width="match_parent"
-                android:layout_marginTop="5dp"
                 android:layout_height="2dp"
-                android:background="@color/myaccount_text_dark"
-                
-                />
+                android:layout_marginTop="5dp"
+                android:background="@color/myaccount_text_dark" />
         </LinearLayout>
-        <LinearLayout 
+
+        <LinearLayout
+            android:id="@+id/myaccount_lv2"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="bottom"
             android:layout_marginLeft="52dp"
-            android:orientation="vertical">
-            <TextView 
+            android:orientation="vertical" >
+
+            <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:textColor="@color/myaccount_text_dark"
-                android:textSize="15sp"
                 android:text="@string/get_money"
-                />
-            <TextView 
+                android:textColor="@color/myaccount_text_dark"
+                android:textSize="15sp" />
+
+            <TextView
+                android:id="@+id/myaccount_tv2"
                 android:layout_width="match_parent"
-                android:layout_marginTop="5dp"
                 android:layout_height="2dp"
+                android:layout_marginTop="5dp"
                 android:background="@color/myaccount_text_dark"
-                android:visibility="invisible"
-                />
+                android:visibility="invisible" />
         </LinearLayout>
-        <LinearLayout 
+
+        <LinearLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="14dp"
             android:layout_marginLeft="52dp"
-            android:orientation="horizontal">
-            <TextView 
+            android:layout_marginTop="14dp"
+            android:orientation="horizontal" >
+
+            <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:text="@string/overage"
                 android:textColor="@color/myaccount_text_light"
-                android:textSize="15sp"
-                android:text="@string/overage"/>
-            <TextView 
+                android:textSize="15sp" />
+
+            <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:textColor="@color/myaccount_text_light"
-                android:textSize="15sp"
-                android:text="  359元"/>
-            
+                android:textSize="15sp" 
+                android:text="  359元"
+                android:textColor="@color/myaccount_text_light"/>
         </LinearLayout>
-        
     </LinearLayout>
-    
-        <LinearLayout 
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="63dp"
+        android:layout_marginTop="18dp"
+        android:orientation="vertical" >
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="34dp"
+            android:gravity="center_vertical"
+            android:orientation="vertical" >
+
+            <TextView
+                android:id="@+id/myaccount_alipay_recharge"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="26dp"
+                android:text="@string/alipay_recharge"
+                android:textColor="@color/myaccount_text_light"
+                android:textSize="15sp" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="2dp"
+                android:layout_marginTop="6dp"
+                android:background="@color/myaccount_line_light" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="34dp"
+            android:gravity="center_vertical"
+            android:orientation="vertical" >
+
+            <TextView
+                android:id="@+id/myaccount_bank_recharge"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="26dp"
+                android:text="@string/bank_recharge"
+                android:textColor="@color/myaccount_text_dark"
+                android:textSize="15sp" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="2dp"
+                android:layout_marginTop="6dp"
+                android:background="@color/myaccount_line_light" />
+
+        </LinearLayout>
+    </LinearLayout>
+
+    <FrameLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+       >
+        <!--第一层银行卡充值 -->
+
+        <LinearLayout
+            android:id="@+id/myaccount_line1"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_marginTop="35dp"
+            
             android:gravity="center_horizontal"
-            android:orientation="vertical">
-            <LinearLayout 
+            android:visibility="gone"
+            android:orientation="vertical" >
+             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="horizontal">
-                <TextView 
+                android:layout_marginTop="30dp"
+                android:orientation="horizontal" >
+
+                <TextView
                     android:layout_width="80dp"
                     android:layout_height="wrap_content"
                     android:gravity="right"
+                    android:text="@string/name"
                     android:textColor="@color/myaccount_text_dark"
-                    android:textSize="15sp"
-                    android:text="@string/money"/>
-                 <EditText
+                    android:textSize="15sp" />
+
+                <EditText
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:gravity="center_horizontal"
-                    android:maxLines="1"
-                    android:minEms="3"
                     android:background="@drawable/myaccount_text_shap"
+                    android:gravity="left"
+                    android:hint="请输入您的名字"
+                    android:maxEms="12"
+                    android:maxLines="1"
+                    android:minEms="11"
                     android:textColor="@color/myaccount_text_dark"
-                    android:textSize="15sp"
-                    android:hint="0"
-                    />
-                 <TextView 
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:gravity="center_horizontal"
-                    android:textColor="@color/myaccount_text_dark"
-                    android:textSize="15sp"
-                    android:text="@string/yuan"/>
+                    android:textSize="15sp" />
             </LinearLayout>
-            <LinearLayout 
+
+            
+
+            <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="15dp"
-                android:orientation="horizontal">
-                <TextView 
+                android:orientation="horizontal" >
+
+                <TextView
                     android:layout_width="80dp"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="5dp"
                     android:gravity="right"
+                    android:text="@string/select_bank"
                     android:textColor="@color/myaccount_text_dark"
-                    android:textSize="15sp"
-                    android:text="@string/select_bank"/>
-                
-                 <Spinner
+                    android:textSize="15sp" />
+
+                <Spinner
                     android:layout_width="wrap_content"
-                    android:layout_height="35dp"
+                    android:layout_height="40dp"
                     android:layout_gravity="center"
+                    android:spinnerMode="dropdown"
+                    android:entries="@array/bank"
                     android:minWidth="205dp"
                     android:textColor="@color/myaccount_text_dark"
-                    android:textSize="15sp"
-                    android:entries="@array/bank"/>
-                     
-            </LinearLayout> 
-            <LinearLayout 
+                    android:textSize="15sp" />
+            </LinearLayout>
+
+            <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="15dp"
-                android:orientation="horizontal">
-                <TextView 
+                android:orientation="horizontal" >
+
+                <TextView
                     android:layout_width="80dp"
                     android:layout_height="wrap_content"
                     android:gravity="right"
+                    android:text="@string/bank_card"
                     android:textColor="@color/myaccount_text_dark"
-                    android:textSize="15sp"
-                    android:text="@string/bank_card"/>
-                 <EditText
+                    android:textSize="15sp" />
+
+                <EditText
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/myaccount_text_shap"
+                    android:gravity="left"
+                    android:hint="请输入您的银行卡号"
+                    android:maxEms="12"
+                    android:maxLines="1"
+                    android:minEms="11"
+                    android:textColor="@color/myaccount_text_dark"
+                    android:textSize="15sp" />
+            </LinearLayout>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="15dp"
+                android:orientation="horizontal" >
+
+                <TextView
+                    android:layout_width="80dp"
+                    android:layout_height="wrap_content"
+                    android:gravity="right"
+                    android:text="@string/money"
+                    android:textColor="@color/myaccount_text_dark"
+                    android:textSize="15sp" />
+
+                <EditText
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/myaccount_text_shap"
+                    android:gravity="left"
+                    android:maxEms="12"
+                    android:hint="0"
+                    android:maxLines="1"
+                    android:minEms="3"
+                    android:textColor="@color/myaccount_text_dark"
+                    android:textSize="15sp" />
+
+                <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:gravity="center_horizontal"
-                    android:maxLines="1"
-                    android:minEms="11"
-                    android:background="@drawable/myaccount_text_shap"
+                    android:maxEms="12"
+                    android:text="@string/yuan"
                     android:textColor="@color/myaccount_text_dark"
-                    android:textSize="15sp"
-                    android:hint="请输入您的银行卡号"
-                    />
-                
+                    android:textSize="15sp" />
             </LinearLayout>
-            <LinearLayout 
+
+            <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:gravity="center_horizontal"
                 android:layout_marginTop="30dp"
-                android:orientation="horizontal">
-                 <FrameLayout 
-       				 android:layout_width="wrap_content"
-       				 android:layout_height="wrap_content">
-                 
-                 <Button 
-                     android:layout_width="80dp"
-                     android:layout_height="35dp"
-                     android:layout_gravity="center_horizontal"
-                     android:text="@string/submit_get_cash"
-                     android:textColor="@color/myaccount_text_light"
-                     android:textSize="15sp"
-                     android:background="@color/myaccount_color"/>
-                 <Button 
-                     android:layout_width="80dp"
-                     android:layout_height="35dp"
-                     android:layout_gravity="center_horizontal"
-                     android:text="@string/submit_recharge"
-                     android:textColor="@color/myaccount_text_light"
-                     android:textSize="15sp"
-                     android:background="@color/myaccount_color"/>
-                 </FrameLayout>
-                 
+                android:gravity="center_horizontal"
+                android:orientation="horizontal" >
+
+                <Button
+                    android:layout_width="80dp"
+                    android:layout_height="35dp"
+                    android:layout_gravity="center_horizontal"
+                    android:background="@color/myaccount_color"
+                    android:text="@string/submit_recharge"
+                    android:textColor="@color/myaccount_text_light"
+                    android:textSize="15sp" />
             </LinearLayout>
-        </LinearLayout>        
-    
-    
+        </LinearLayout>
+        <!--第二层 支付宝充值 -->
+         <LinearLayout
+            android:id="@+id/myaccount_line0"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            
+            android:gravity="center_horizontal"
+            android:visibility="visible"
+            android:orientation="vertical" >
+             <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="30dp"
+                android:orientation="horizontal" >
+
+                <TextView
+                    android:layout_width="80dp"
+                    android:layout_height="wrap_content"
+                    android:gravity="right"
+                    android:text="@string/alipay_account"
+                    android:textColor="@color/myaccount_text_dark"
+                    android:textSize="15sp" />
+
+                <EditText
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/myaccount_text_shap"
+                    android:gravity="left"
+                    android:hint="请输入您的支付宝账号"
+                    android:maxLines="1"
+                    android:maxEms="12"
+                    android:minEms="11"
+                    android:textColor="@color/myaccount_text_dark"
+                    android:textSize="15sp" />
+            </LinearLayout>
+
+            
+
+
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="15dp"
+                android:orientation="horizontal" >
+
+                <TextView
+                    android:layout_width="80dp"
+                    android:layout_height="wrap_content"
+                    android:gravity="right"
+                    android:text="@string/money"
+                    android:textColor="@color/myaccount_text_dark"
+                    android:textSize="15sp" />
+
+                <EditText
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/myaccount_text_shap"
+                    android:gravity="left"
+                    android:hint="0"
+                    android:maxEms="12"
+                    android:maxLines="1"
+                    android:minEms="3"
+                    android:textColor="@color/myaccount_text_dark"
+                    android:textSize="15sp" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:gravity="center_horizontal"
+                    android:text="@string/yuan"
+                    android:textColor="@color/myaccount_text_dark"
+                    android:textSize="15sp" />
+            </LinearLayout>
+            
+                        <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="15dp"
+                android:orientation="horizontal" >
+
+                <TextView
+                    android:layout_width="80dp"
+                    android:layout_height="wrap_content"
+                    android:gravity="right"
+                    android:text="@string/alipay_password"
+                    android:textColor="@color/myaccount_text_dark"
+                    android:textSize="15sp" />
+
+                <EditText
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/myaccount_text_shap"
+                    android:gravity="left"
+                    android:hint="请输入您的支付宝密码"
+                    android:maxEms="12"
+                    android:maxLines="1"
+                    android:minEms="11"
+                    android:textColor="@color/myaccount_text_dark"
+                    android:textSize="15sp" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="30dp"
+                android:gravity="center_horizontal"
+                android:orientation="horizontal" >
+
+                <Button
+                    android:layout_width="80dp"
+                    android:layout_height="35dp"
+                    android:layout_gravity="center_horizontal"
+                    android:background="@color/myaccount_color"
+                    android:text="@string/submit_recharge"
+                    android:textColor="@color/myaccount_text_light"
+                    android:textSize="15sp" />
+            </LinearLayout>
+        </LinearLayout>
+        
+        
+        <!--第三层 支付宝提现 -->
+        
+         <LinearLayout
+            android:id="@+id/myaccount_line2"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            
+            android:gravity="center_horizontal"
+            android:visibility="gone"
+            android:orientation="vertical" >
+             <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="30dp"
+                android:orientation="horizontal" >
+
+                <TextView
+                    android:layout_width="80dp"
+                    android:layout_height="wrap_content"
+                    android:gravity="right"
+                    android:text="@string/alipay_account"
+                    android:textColor="@color/myaccount_text_dark"
+                    android:textSize="15sp" />
+
+                <EditText
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/myaccount_text_shap"
+                    android:gravity="left"
+                    android:hint="请输入您的支付宝账号"
+                    android:maxEms="12"
+                    android:maxLines="1"
+                    android:minEms="11"
+                    android:textColor="@color/myaccount_text_dark"
+                    android:textSize="15sp" />
+            </LinearLayout>
+
+            
+
+
+
+            <LinearLayout
+                
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="15dp"
+                android:orientation="horizontal" >
+
+                <TextView
+                    android:layout_width="80dp"
+                    android:layout_height="wrap_content"
+                    android:gravity="right"
+                    android:text="@string/get_the_money"
+                    android:textColor="@color/myaccount_text_dark"
+                    android:textSize="15sp" />
+
+                <EditText
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/myaccount_text_shap"
+                    android:gravity="left"
+                    android:hint="0"
+                    android:maxLines="1"
+                    android:maxEms="12"
+                    android:minEms="3"
+                    android:textColor="@color/myaccount_text_dark"
+                    android:textSize="15sp" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:gravity="center_horizontal"
+                    android:text="@string/yuan"
+                    android:textColor="@color/myaccount_text_dark"
+                    android:textSize="15sp" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="30dp"
+                android:gravity="center_horizontal"
+                android:orientation="horizontal" >
+
+                <Button
+                    android:layout_width="80dp"
+                    android:layout_height="35dp"
+                    android:layout_gravity="center_horizontal"
+                    android:background="@color/myaccount_color"
+                    android:text="@string/submit_get_cash"
+                    android:textColor="@color/myaccount_text_light"
+                    android:textSize="15sp" />
+            </LinearLayout>
+        </LinearLayout>
+        <!--第四层 银行卡提现 -->
+         <LinearLayout
+            android:id="@+id/myaccount_line3"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            
+            android:gravity="center_horizontal"
+            android:visibility="gone"
+            android:orientation="vertical" >
+             <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="30dp"
+                android:orientation="horizontal" >
+
+                <TextView
+                    android:layout_width="80dp"
+                    android:layout_height="wrap_content"
+                    android:gravity="right"
+                    android:text="@string/name"
+                    android:textColor="@color/myaccount_text_dark"
+                    android:textSize="15sp" />
+
+                <EditText
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/myaccount_text_shap"
+                    android:gravity="left"
+                    android:hint="请输入您的名字"
+                    android:maxEms="12"
+                    android:maxLines="1"
+                    android:minEms="11"
+                    android:textColor="@color/myaccount_text_dark"
+                    android:textSize="15sp" />
+            </LinearLayout>
+
+            
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="15dp"
+                android:orientation="horizontal" >
+
+                <TextView
+                    android:layout_width="80dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="5dp"
+                    android:gravity="right"
+                    android:text="@string/select_bank"
+                    android:textColor="@color/myaccount_text_dark"
+                    android:textSize="15sp" />
+
+                <Spinner
+                    android:layout_width="wrap_content"
+                    android:layout_height="40dp"
+                    android:layout_gravity="center"
+                    android:spinnerMode="dropdown"
+                    android:entries="@array/bank"
+                    android:minWidth="205dp"
+                    android:textColor="@color/myaccount_text_dark"
+                    android:textSize="15sp" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="15dp"
+                android:orientation="horizontal" >
+
+                <TextView
+                    android:layout_width="80dp"
+                    android:layout_height="wrap_content"
+                    android:gravity="right"
+                    android:text="@string/bank_card"
+                    android:textColor="@color/myaccount_text_dark"
+                    android:textSize="15sp" />
+
+                <EditText
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/myaccount_text_shap"
+                    android:gravity="left"
+                    android:hint="请输入您的银行卡号"
+                    android:maxLines="1"
+                    android:maxEms="12"
+                    android:minEms="11"
+                    android:textColor="@color/myaccount_text_dark"
+                    android:textSize="15sp" />
+            </LinearLayout>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="15dp"
+                android:orientation="horizontal" >
+
+                <TextView
+                    android:layout_width="80dp"
+                    android:layout_height="wrap_content"
+                    android:gravity="right"
+                    android:text="@string/get_the_money"
+                    android:textColor="@color/myaccount_text_dark"
+                    android:textSize="15sp" />
+
+                <EditText
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/myaccount_text_shap"
+                    android:gravity="left"
+                    android:hint="0"
+                    android:maxEms="12"
+                    android:maxLines="1"
+                    android:minEms="3"
+                    android:textColor="@color/myaccount_text_dark"
+                    android:textSize="15sp" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:gravity="center_horizontal"
+                    android:text="@string/yuan"
+                    android:textColor="@color/myaccount_text_dark"
+                    android:textSize="15sp" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="30dp"
+                android:gravity="center_horizontal"
+                android:orientation="horizontal" >
+
+                <Button
+                    android:layout_width="80dp"
+                    android:layout_height="35dp"
+                    android:layout_gravity="center_horizontal"
+                    android:background="@color/myaccount_color"
+                    android:text="@string/submit_get_cash"
+                    android:textColor="@color/myaccount_text_light"
+                    android:textSize="15sp" />
+            </LinearLayout>
+        </LinearLayout>
+    </FrameLayout>
 
 </LinearLayout>

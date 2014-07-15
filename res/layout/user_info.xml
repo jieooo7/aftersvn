@@ -1,0 +1,105 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical" >
+    <include layout="@layout/login_title" />
+    <RelativeLayout 
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+    <LinearLayout 
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="35dp"
+        android:gravity="center_horizontal"
+        android:orientation="vertical">
+        <ImageView 
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/logo"/>
+        <TextView 
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:text="@string/change_head_portrait"
+            android:textSize="15sp"
+            android:textColor="@color/mycredit_list_text"/>
+        <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="23dp"
+                android:gravity="center_horizontal"
+                android:orientation="horizontal" >
+
+                <TextView
+                    android:layout_width="37dp"
+                    android:layout_height="wrap_content"
+                    android:gravity="right"
+                    android:text="@string/pet_name"
+                    android:textColor="@color/myaccount_text_dark"
+                    android:textSize="15sp" />
+
+                <EditText
+                    android:layout_width="180dp"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/myaccount_text_shap"
+                    android:gravity="left"
+                    android:maxEms="12"
+                    android:maxLines="1"
+                    android:textColor="@color/myaccount_text_dark"
+                    android:textSize="15sp" />
+
+                <Button
+                    android:layout_width="45dp"
+                    android:layout_height="30dp"
+                    android:layout_marginLeft="10dp"
+                    android:background="@color/order_tab_bg"
+                    android:gravity="center"
+                    android:text="@string/save"
+                    android:textColor="@color/myaccount_text_dark"
+                    android:textSize="15sp" />
+            </LinearLayout>
+        
+    </LinearLayout>
+    
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:gravity="center_horizontal"
+        android:background="@color/user_info_bottom" 
+        android:orientation="vertical">
+        
+         <TextView
+                    android:layout_width="265dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="37dp"
+                    android:background="@drawable/user_info_shape"
+                    android:gravity="center_horizontal"
+                    android:text="@string/camera"
+                    android:textColor="@color/myaccount_text_dark"
+                    android:textSize="15sp" />
+         <TextView
+                    android:layout_width="265dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="22dp"
+                    android:background="@drawable/user_info_shape"
+                    android:gravity="center_horizontal"
+                    android:text="@string/from_phone"
+                    android:textColor="@color/myaccount_text_dark"
+                    android:textSize="15sp" />
+         <TextView
+                    android:layout_width="265dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="22dp"
+                    android:layout_marginBottom="20dp"
+                    android:background="@drawable/user_info_cancel_shape"
+                    android:gravity="center_horizontal"
+                    android:text="@string/cancel"
+                    android:textColor="@color/white_text"
+                    android:textSize="15sp" />
+        
+    </LinearLayout>
+    </RelativeLayout>
+
+</LinearLayout>

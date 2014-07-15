@@ -1,20 +1,19 @@
 package cn.icnt.dinners.dinner;
 
-import java.io.UnsupportedEncodingException;
 import java.util.List;
 import java.util.Map;
 
 import org.apache.commons.lang.StringUtils;
-import org.apache.http.entity.StringEntity;
 
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
-import android.telephony.TelephonyManager;
 import android.util.Log;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.View.OnFocusChangeListener;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
@@ -23,8 +22,6 @@ import cn.icnt.dinners.beans.UserLoginBean;
 import cn.icnt.dinners.http.GsonTools;
 import cn.icnt.dinners.http.HttpSendRecv;
 import cn.icnt.dinners.http.MapPackage;
-import cn.icnt.dinners.utils.Container;
-import cn.icnt.dinners.utils.MD5;
 import cn.icnt.dinners.utils.PreferencesUtils;
 
 import com.google.gson.Gson;
@@ -62,6 +59,7 @@ public class LoginActivity extends Activity {
 
 	private String userPassword;
 	private Intent intent;
+	private InputMethodManager manager;
 
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -71,7 +69,7 @@ public class LoginActivity extends Activity {
 
 	private void initview() {
 		ViewUtils.inject(this);
-
+		manager = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
 		changeBackGround();
 	}
 
@@ -112,6 +110,9 @@ public class LoginActivity extends Activity {
 			startActivity(intent);
 			break;
 		case R.id.forget_password:
+			intent = new Intent();
+			intent.setClass(LoginActivity.this, FindPassWordActivity.class);
+			startActivity(intent);
 			break;
 		case R.id.login:
 			userLogin();
@@ -254,4 +255,14 @@ public class LoginActivity extends Activity {
 			edit_password.setText("");
 		}
 	}
+	@Override  
+	 public boolean onTouchEvent(MotionEvent event) {  
+	  // TODO Auto-generated method stub  
+	  if(event.getAction() == MotionEvent.ACTION_DOWN){  
+	     if(getCurrentFocus()!=null && getCurrentFocus().getWindowToken()!=null){  
+	       manager.hideSoftInputFromWindow(getCurrentFocus().getWindowToken(), InputMethodManager.HIDE_NOT_ALWAYS);  
+	     }  
+	  }  
+	  return super.onTouchEvent(event);  
+	 }  
 }

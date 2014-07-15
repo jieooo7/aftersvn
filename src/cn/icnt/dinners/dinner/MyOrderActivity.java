@@ -1,11 +1,3 @@
-/*
- * MycollectDetailActivity.java
- * classes : cn.icnt.dinners.dinner.MycollectDetailActivity
- * author Andrew Lee
- * V 1.0.0
- * Create at 2014年7月3日 下午2:12:25
- * Copyright: 2014 Interstellar Cloud Inc. All rights reserved.
- */
 package cn.icnt.dinners.dinner;
 
 import java.util.ArrayList;
@@ -21,6 +13,8 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
+import android.widget.AdapterView.OnItemClickListener;
 import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -30,14 +24,13 @@ import android.widget.TextView;
 import cn.icnt.dinners.beans.OrderListBean;
 import cn.icnt.dinners.beans.OrderListBean.OrderList;
 import cn.icnt.dinners.http.GsonTools;
-import cn.icnt.dinners.http.MapPackage;
-import cn.icnt.dinners.utils.MD5;
 import cn.icnt.dinners.utils.ToastUtil;
 
 import com.google.gson.Gson;
 import com.lidroid.xutils.BitmapUtils;
 import com.lidroid.xutils.HttpUtils;
 import com.lidroid.xutils.ViewUtils;
+import com.lidroid.xutils.bitmap.BitmapDisplayConfig;
 import com.lidroid.xutils.exception.HttpException;
 import com.lidroid.xutils.http.RequestParams;
 import com.lidroid.xutils.http.ResponseInfo;
@@ -90,6 +83,10 @@ public class MyOrderActivity extends Activity {
 	private BitmapUtils butils;
 
 	private int orderState = 0;
+	private OrderListBean json;
+	private List<OrderList> unpay;
+
+	private List<OrderList> result;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -97,14 +94,21 @@ public class MyOrderActivity extends Activity {
 		setContentView(R.layout.myorder);
 		ViewUtils.inject(this);
 		title_center_text.setText("我的订单");
+		unpay = new ArrayList<OrderListBean.OrderList>();
 		initView();
 		initData();
+		order_list.setOnItemClickListener(new OnItemClickListener() {
 
+			@Override
+			public void onItemClick(AdapterView<?> parent, View view,
+					int position, long id) {
+
+			}
+		});
 	}
 
 	private void initView() {
 		checkedState(curCheckId);
-		butils = new BitmapUtils(MyOrderActivity.this);
 	}
 
 	private void initData() {
@@ -112,32 +116,32 @@ public class MyOrderActivity extends Activity {
 		Map<String, Object> paramap = new HashMap<String, Object>();
 		Map<String, Object> resmap = new HashMap<String, Object>();
 		Map<String, Object> map = new HashMap<String, Object>();
-//		MapPackage mp = new MapPackage();
-//		'head'=>array(
-//	            'uid'=>'31',
-//	            'no'=>11111,
-//	            'os'=>1,
-//	            'version'=>"1.1.2",
-//	            'key'=>"c02bc07f3f7ca113bab32bb334ea472d"
-//	        ),
-//	        'para'=>array(
-//	            'order'=>1,
-//	            'favorite_type'=>1,
-//	            'company_id'=>1,
-//	            'sub_company_id'=>1,
-//	            'goods_id'=>128,
-//	        ),
-//	        'result'=>array(
-//	            'start'=>0,
-//	            'count'=>4,
-//	        ),
+		// MapPackage mp = new MapPackage();
+		// 'head'=>array(
+		// 'uid'=>'31',
+		// 'no'=>11111,
+		// 'os'=>1,
+		// 'version'=>"1.1.2",
+		// 'key'=>"c02bc07f3f7ca113bab32bb334ea472d"
+		// ),
+		// 'para'=>array(
+		// 'order'=>1,
+		// 'favorite_type'=>1,
+		// 'company_id'=>1,
+		// 'sub_company_id'=>1,
+		// 'goods_id'=>128,
+		// ),
+		// 'result'=>array(
+		// 'start'=>0,
+		// 'count'=>4,
+		// ),
 		headmap.put("uid", "31");
 		headmap.put("no", "11111");
 		headmap.put("os", "1");
 		headmap.put("version", "1.1.2");
-		headmap.put("key","c02bc07f3f7ca113bab32bb334ea472d");
-//		headmap.put("key", MD5.getMD5("3112341122112311.1.2"));
-		paramap.put("order",1);
+		headmap.put("key", "c02bc07f3f7ca113bab32bb334ea472d");
+		// headmap.put("key", MD5.getMD5("3112341122112311.1.2"));
+		paramap.put("order", 1);
 		paramap.put("favorite_type", 1);
 		paramap.put("company_id", 1);
 		paramap.put("sub_company_id", 1);
@@ -147,17 +151,15 @@ public class MyOrderActivity extends Activity {
 		map.put("head", headmap);
 		map.put("para", paramap);
 		map.put("result", resmap);
-//		mp.setHead(this);
-//		mp.setPara("start", "0");
-//		mp.setPara("count", "10");
-//		Map<String, Object> maps = mp.getMap();
+		// mp.setHead(this);
+		// mp.setPara("start", "0");
+		// mp.setPara("count", "10");
+		// Map<String, Object> maps = mp.getMap();
 		RequestParams params = GsonTools.GetParams(map);
 		HttpUtils http = new HttpUtils();
 		http.send(HttpRequest.HttpMethod.POST,
 				"http://115.29.13.164/order_list.do?t=", params,
 				new RequestCallBack<String>() {
-
-					private List<OrderList> unpay;
 
 					@Override
 					public void onStart() {
@@ -170,50 +172,34 @@ public class MyOrderActivity extends Activity {
 
 					@Override
 					public void onSuccess(ResponseInfo<String> responseInfo) {
+						initclocks();
 						Log.i("order", responseInfo.result);
-						 Gson gson = new Gson();
-						 OrderListBean json =
-						 gson.fromJson(responseInfo.result,
-						 OrderListBean.class);
-						 if (json == null) {
-						 } else if (!("10000".equals(json.head.code))) {
-						 ToastUtil.show(getApplication(), json.head.msg);
-						 } else {
-						 if (json.result == null) {
-						 } else {
-						 List<OrderList> result = json.result;
-						 if (orderState == 1) {
-						 for (OrderList orderli : json.result) {
-						 if (orderli.order_state == 1) {
-						 unpay = new ArrayList<OrderListBean.OrderList>();
-						 unpay.add(orderli);
-						 }
-						 }
-						 adapter = new OrderAdapter(
-						 MyOrderActivity.this, unpay);
-						 adapter.notifyDataSetChanged();
-						 } else if (orderState == 2) {
-						 for (OrderList orderli : json.result) {
-						 if (orderli.order_state == 2) {
-						 unpay = new ArrayList<OrderListBean.OrderList>();
-						 unpay.add(orderli);
-						 }
-						 }
-						 adapter = new OrderAdapter(
-						 MyOrderActivity.this, unpay);
-						 adapter.notifyDataSetChanged();
-						 }
-						 adapter = new OrderAdapter(
-						 MyOrderActivity.this, result);
-						 order_list.setAdapter(adapter);
-						 }
-						 }
+						Gson gson = new Gson();
+						json = gson.fromJson(responseInfo.result,
+								OrderListBean.class);
+						if (json == null) {
+						} else if (!("10000".equals(json.head.code))) {
+							ToastUtil.show(getApplication(), json.head.msg);
+						} else {
+							if (json.result == null) {
+							} else {
+								result = json.result;
+								adapter = new OrderAdapter(
+										MyOrderActivity.this, result);
+								order_list.setAdapter(adapter);
+							}
+						}
 					}
 
 					@Override
 					public void onFailure(HttpException error, String msg) {
 					}
 				});
+
+	}
+
+	private void initclocks() {
+		// TODO Auto-generated method stub
 
 	}
 
@@ -235,6 +221,8 @@ public class MyOrderActivity extends Activity {
 				checkedState(R.id.order_all);
 				curCheckId = R.id.order_all;
 				orderState = 0;
+				adapter = new OrderAdapter(MyOrderActivity.this, result);
+				order_list.setAdapter(adapter);
 				// adapter.notifyDataSetChanged();
 			}
 			break;
@@ -244,6 +232,15 @@ public class MyOrderActivity extends Activity {
 				checkedState(R.id.order_obligation);
 				curCheckId = R.id.order_obligation;
 				orderState = 1;
+				unpay.clear();
+				for (OrderList orderli : json.result) {
+					if (orderli.order_state == 1) {
+						unpay.add(orderli);
+					}
+				}
+				adapter = new OrderAdapter(MyOrderActivity.this, unpay);
+				// adapter.notifyDataSetChanged();
+				order_list.setAdapter(adapter);
 				// adapter.notifyDataSetChanged();
 			}
 			break;
@@ -253,6 +250,17 @@ public class MyOrderActivity extends Activity {
 				checkedState(R.id.order_evaluate);
 				curCheckId = R.id.order_evaluate;
 				orderState = 2;
+				unpay.clear();
+				for (OrderList orderli : json.result) {
+					if (orderli.order_state == 3) {
+
+						unpay.add(orderli);
+					}
+				}
+				adapter = new OrderAdapter(MyOrderActivity.this, unpay);
+				// adapter.notifyDataSetChanged();
+				order_list.setAdapter(adapter);
+				// order_list.notify();
 				// adapter.notifyDataSetChanged();
 			}
 			break;
@@ -296,10 +304,18 @@ public class MyOrderActivity extends Activity {
 	public class OrderAdapter extends BaseAdapter {
 		public List<OrderList> lists = new ArrayList<OrderListBean.OrderList>();
 		private LayoutInflater mInflater;
+		private BitmapUtils utils;
+		private BitmapDisplayConfig config;
 
 		public OrderAdapter(Context context, List<OrderList> list) {
 			this.mInflater = LayoutInflater.from(context);
 			this.lists = list;
+			utils = new BitmapUtils(context);
+			config = new BitmapDisplayConfig();
+			config.setLoadingDrawable(getResources().getDrawable(
+					R.drawable.replace));
+			config.setLoadFailedDrawable(getResources().getDrawable(
+					R.drawable.replace));
 		}
 
 		@Override
@@ -311,17 +327,16 @@ public class MyOrderActivity extends Activity {
 		@Override
 		public Object getItem(int position) {
 			// TODO Auto-generated method stub
-			return null;
+			return lists.get(position);
 		}
 
 		@Override
 		public long getItemId(int position) {
 			// TODO Auto-generated method stub
-			return 0;
+			return position;
 		}
 
 		// ****************************************第二种方法，高手一般都用此种方法,具体原因，我还不清楚,有待研究
-
 		public View getView(int position, View convertView, ViewGroup parent) {
 			ViewHolder holder = null;
 			MyListener myListener = null;
@@ -341,10 +356,8 @@ public class MyOrderActivity extends Activity {
 						.findViewById(R.id.order_total_price);
 				holder.order_discount = (TextView) convertView
 						.findViewById(R.id.order_discount);
-				holder.del_bucket_img = (ImageView) convertView
+				holder.del_bucket_img = (RelativeLayout) convertView
 						.findViewById(R.id.del_bucket_img);
-				holder.order_pay = (TextView) convertView
-						.findViewById(R.id.order_pay);
 				holder.order_price = (TextView) convertView
 						.findViewById(R.id.order_price);
 				holder.order_pay_online = (TextView) convertView
@@ -358,11 +371,10 @@ public class MyOrderActivity extends Activity {
 				holder = (ViewHolder) convertView.getTag();
 			}
 			holder.del_bucket_img.setTag(position);
-			holder.order_pay.setTag(position);
 			holder.order_pay_online.setTag(position);
 
-			butils.display(holder.order_img,
-					lists.get(position).goods_list.get(0).img_url);
+			// butils.display(holder.order_img,
+			// lists.get(position).goods_list.get(0).img_url);
 			if (lists.get(position).order_state == 1) {
 				holder.order_state.setText("订单未支付");
 			} else if (lists.get(position).order_state == 2) {
@@ -373,15 +385,17 @@ public class MyOrderActivity extends Activity {
 			if (position == 0) {
 				holder.order_title_line_one.setVisibility(View.GONE);
 			}
-			holder.order_info.setText(lists.get(position).order_info);
+			// holder.order_info.setText(lists.get(position).order_info);
 			holder.order_store.setText(lists.get(position).order_store);
-			holder.order_total_price
-					.setText(lists.get(position).order_total_price);
+			holder.order_total_price.setText("￥"
+					+ lists.get(position).order_total_price);
 			holder.order_discount.setText(lists.get(position).order_discount);
-			holder.order_price.setText(lists.get(position).order_price);
+			holder.order_price.setText("￥" + lists.get(position).order_price);
+			utils.display(holder.order_img,
+					lists.get(position).goods_list.get(position).img_url,
+					config);
 			// 给Button添加单击事件 添加Button之后ListView将失去焦点 需要的直接把Button的焦点去掉
 			holder.del_bucket_img.setOnClickListener(myListener);
-			holder.order_pay.setOnClickListener(myListener);
 			holder.order_pay_online.setOnClickListener(myListener);
 			// holder.viewBtn.setOnClickListener(MyListener(position));
 
@@ -401,17 +415,16 @@ public class MyOrderActivity extends Activity {
 				// Toast.makeText(ListViewActivity.this, title[mPosition],
 				// Toast.LENGTH_SHORT).show();
 				switch (v.getId()) {
-				case R.id.order_pay:
-					ToastUtil.show(getApplication(), "R.id.order_pay"+mPosition);
-					break;
 				case R.id.order_pay_online:
-					ToastUtil.show(getApplication(), "order_pay_online"+mPosition);
+					ToastUtil.show(getApplication(), "order_pay_online"
+							+ mPosition);
 					break;
 				case R.id.del_bucket_img:
-					ToastUtil.show(getApplication(), "R.id.del_bucket_img"+mPosition);
+					ToastUtil.show(getApplication(), "R.id.del_bucket_img"
+							+ mPosition);
 					break;
 				}
-				
+
 			}
 		}
 
@@ -422,8 +435,7 @@ public class MyOrderActivity extends Activity {
 			public TextView order_total_price;
 			public TextView order_discount;
 			public TextView order_price;
-			public ImageView del_bucket_img;
-			public TextView order_pay;
+			public RelativeLayout del_bucket_img;
 			public TextView order_pay_online;
 			public ImageView order_img;
 			public ImageView order_title_line_one;
