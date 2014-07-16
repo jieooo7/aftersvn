@@ -13,6 +13,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.ListView;
+import android.widget.RelativeLayout;
 import android.widget.SimpleAdapter;
 import android.widget.TextView;
 
@@ -27,6 +28,7 @@ public class MycreditDetailActivity extends Activity implements OnClickListener 
 	private TextView tv1;
 	private TextView tv2;
 	private ListView lv;
+	private RelativeLayout title;
 	
 	private SimpleAdapter adapter1;
 
@@ -40,6 +42,8 @@ public class MycreditDetailActivity extends Activity implements OnClickListener 
 
 		tv1 = (TextView) findViewById(R.id.mycredit_tv1);
 		tv2 = (TextView) findViewById(R.id.mycredit_tv2);
+		title = (RelativeLayout) findViewById(R.id.title_left_btn);
+		title.setOnClickListener(this);
 		tv1.setOnClickListener(this);
 		tv2.setOnClickListener(this);
 		tv1.setText("");
@@ -79,6 +83,10 @@ public class MycreditDetailActivity extends Activity implements OnClickListener 
 					R.color.mycoupon_textback));
 			tv1.setTextColor(getResources().getColor(R.color.order_tab_text));
 			lv.setAdapter(adapter1);
+			break;
+			
+		case R.id.title_left_btn:
+			finish();
 			break;
 
 		}

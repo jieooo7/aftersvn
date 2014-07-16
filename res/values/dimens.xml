@@ -6,4 +6,8 @@
     <dimen name="slide">54dp</dimen>
 
       <dimen name="order_tab_textsize">25sp</dimen>
+      
+      <dimen name="list_tv_store">24px</dimen>
+       <dimen name="list_tv_xinx">29px</dimen>
+        <dimen name="liset_tv_near">19px</dimen>
 </resources>

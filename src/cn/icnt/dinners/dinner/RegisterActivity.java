@@ -190,7 +190,6 @@ public class RegisterActivity extends Activity {
 
 	private void regiestSend(String nickname, String username, String password) {
 		MapPackage mp = new MapPackage();
-		mp.setPath("reg.do?");
 		mp.setHead(this);
 		mp.setPara("email", nickname);
 		mp.setPara("phone", username);

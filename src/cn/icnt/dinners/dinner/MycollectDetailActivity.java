@@ -1,3 +1,4 @@
+
 /*
  * MycollectDetailActivity.java
  * classes : cn.icnt.dinners.dinner.MycollectDetailActivity
@@ -26,6 +27,7 @@ import android.widget.AdapterView.OnItemClickListener;
 import cn.icnt.dinners.adapter.AdapterSet;
 import cn.icnt.dinners.adapter.LoaderAdapter;
 import cn.icnt.dinners.adapter.MycollectAdapter;
+//import cn.icnt.dinners.adapter.MycollectAdapter;
 import cn.icnt.dinners.debug.DebugUtil;
 import cn.icnt.dinners.http.HttpSendRecv;
 import cn.icnt.dinners.http.MapPackage;
@@ -50,6 +52,7 @@ public class MycollectDetailActivity extends Activity implements
 	private RelativeLayout r0;
 	private RelativeLayout r1;
 	private RelativeLayout r2;
+	private RelativeLayout title;
 	private boolean flag0;
 	private boolean flag1;
 	private boolean flag2;
@@ -67,16 +70,18 @@ public class MycollectDetailActivity extends Activity implements
 		r0 = (RelativeLayout) findViewById(R.id.r0);
 		r1 = (RelativeLayout) findViewById(R.id.r1);
 		r2 = (RelativeLayout) findViewById(R.id.r2);
+		title=(RelativeLayout) findViewById(R.id.title_left_btn);
 		r0.setOnClickListener(this);
 		r1.setOnClickListener(this);
 		r2.setOnClickListener(this);
+		title.setOnClickListener(this);
 		lv0 = (ListView) findViewById(R.id.lv0);
 		lv1 = (ListView) findViewById(R.id.lv1);
 		lv2 = (ListView) findViewById(R.id.lv2);
 		MapPackage mp = new MapPackage();
 		mp.setPath("favorite_list");
 		mp.setHead(this);
-		mp.setPara("favorite_type", "1");
+		
 		mp.setRes("start", "1");
 		mp.setRes("count", "3");
 		try {
@@ -116,7 +121,7 @@ public class MycollectDetailActivity extends Activity implements
 				Toast.makeText(getApplicationContext(), "网络错误，请重试",
 						Toast.LENGTH_LONG).show();
 			else
-				Toast.makeText(getApplicationContext(), "出错了^_^",
+				Toast.makeText(getApplicationContext(), "出错了>_<",
 						Toast.LENGTH_LONG).show();
 
 		} finally {
@@ -294,8 +299,13 @@ public class MycollectDetailActivity extends Activity implements
 
 			}
 			break;
+			
+		case R.id.title_left_btn:
+			finish();
+			break;
 
 		}
 	}
 
 }
+

@@ -17,7 +17,10 @@ import cn.icnt.dinners.http.HttpSendRecv;
 import cn.icnt.dinners.http.MapPackage;
 import android.app.Activity;
 import android.os.Bundle;
+import android.view.View;
+import android.view.View.OnClickListener;
 import android.widget.ListView;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -26,9 +29,10 @@ import android.widget.Toast;
  * @author Andrew Lee <br/>
  * create at 2014年7月8日 上午10:37:45
  */
-public class MycouponDetailActivity extends Activity{
+public class MycouponDetailActivity extends Activity implements OnClickListener {
 	private static final String TAG = "MycouponDetailActivity";
 	private ListView lv0;
+	private RelativeLayout title;
 	private MycouponAdapter adapter;
 	private List<Map<String, String>> list;
 
@@ -39,6 +43,8 @@ public class MycouponDetailActivity extends Activity{
 		((TextView) findViewById(R.id.title_center_text))
 		.setText(getResources().getString(R.string.my_coupon));
 		lv0=(ListView) findViewById(R.id.mycoupon_lv);
+		title=(RelativeLayout) findViewById(R.id.title_left_btn);
+		title.setOnClickListener(this);
 		
 		MapPackage mp = new MapPackage();
 		mp.setPath("ticket_list");
@@ -53,7 +59,7 @@ public class MycouponDetailActivity extends Activity{
 				Toast.makeText(getApplicationContext(), "网络错误，请重试",
 						Toast.LENGTH_LONG).show();
 			else
-				Toast.makeText(getApplicationContext(), "出错了^_^",
+				Toast.makeText(getApplicationContext(), "出错了>_<",
 						Toast.LENGTH_LONG).show();
 
 		} finally {
@@ -66,4 +72,17 @@ public class MycouponDetailActivity extends Activity{
 		
 	}
 	
+	}
+
+	/* (non-Javadoc)
+	 * @see android.view.View.OnClickListener#onClick(android.view.View)
+	 */
+	@Override
+	public void onClick(View v) {
+		switch (v.getId()) {
+		case R.id.title_left_btn:
+			finish();
+			break;
+			
+		}
 	}}

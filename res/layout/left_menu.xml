@@ -50,15 +50,20 @@
 
         </LinearLayout>
         <!-- 设置小图标 -->
+        <LinearLayout 
+            android:id="@+id/set_small"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:layout_centerVertical="true"
+            android:gravity="center"
+            android:layout_alignParentRight="true"
+            android:layout_marginRight="15dp">
 
         <ImageView
-            android:id="@+id/set_small"
-            android:layout_alignParentRight="true"
             android:layout_width="17dp"
             android:layout_height="17dp"
-            android:layout_marginRight="15dp"
-            android:layout_centerVertical="true"
             android:src="@drawable/seting_small" />
+        </LinearLayout>
     </RelativeLayout>
     <!-- 首页项 -->
 
@@ -102,18 +107,17 @@
     <!-- 我的订单选项 -->
 
     <LinearLayout
+        android:id="@+id/menu_myorder"
         android:layout_width="match_parent"
         android:layout_height="50dp"
         android:background="@drawable/left_menu_color"
         android:orientation="vertical" >
 
         <RelativeLayout
-            android:id="@+id/menu_myorder"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginLeft="26dp"
             android:layout_marginTop="10dp"
-            android:clickable="true"
             >
 
             <ImageView
@@ -158,6 +162,7 @@
     <!-- 我的收藏选项 -->
 
     <LinearLayout
+        android:id="@+id/line1"
         android:layout_width="match_parent"
         android:layout_height="50dp"
         android:background="@drawable/left_menu_color"
@@ -213,6 +218,7 @@
     <!-- 我的优惠券选项 -->
 
     <LinearLayout
+        android:id="@+id/line2"
         android:layout_width="match_parent"
         android:layout_height="50dp"
         android:background="@drawable/left_menu_color"
@@ -266,6 +272,7 @@
     <!-- 我的积分选项 -->
 
     <LinearLayout
+        android:id="@+id/line3"
         android:layout_width="match_parent"
         android:layout_height="50dp"
         android:background="@drawable/left_menu_color"
@@ -318,6 +325,7 @@
     <!-- 我的账户选项 -->
 
     <LinearLayout
+        android:id="@+id/line4"
         android:layout_width="match_parent"
         android:layout_height="50dp"
         android:background="@drawable/left_menu_color"
@@ -371,6 +379,7 @@
     <!-- 底部设置选项 -->
 
     <LinearLayout
+        android:id="@+id/line5"
         android:layout_marginTop="52dp"
         android:layout_width="match_parent"
         android:layout_alignParentBottom="true"

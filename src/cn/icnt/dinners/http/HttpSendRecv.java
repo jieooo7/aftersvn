@@ -14,15 +14,21 @@ import java.io.IOException;
 
 
 
+
+import java.net.URLEncoder;
+
 import org.apache.http.HttpResponse;
 import org.apache.http.client.ClientProtocolException;
+import org.apache.http.client.entity.UrlEncodedFormEntity;
 import org.apache.http.client.methods.HttpPost;
+import org.apache.http.client.utils.URLEncodedUtils;
 import org.apache.http.entity.StringEntity;
 import org.apache.http.impl.client.DefaultHttpClient;
 
 
 import org.apache.http.util.EntityUtils;
 
+import cn.icnt.dinners.debug.DebugUtil;
 import android.os.AsyncTask;
 
 
@@ -56,9 +62,10 @@ public class HttpSendRecv extends AsyncTask<Void, Void, String>{
 		String strResult="";
 		 try  
 	        {  
-			 
-		         
-		      StringEntity se = new StringEntity(st);
+			  
+		      StringEntity se = new StringEntity(st,"UTF-8");
+		      DebugUtil.i("编码", se.toString());
+//		      UrlEncodedFormEntity entityIn = new UrlEncodedFormEntity(se,"utf-8");
 	          /* �������������������*/  
 	          httpRequest.setEntity(se); ;  
 	          /*�������󲢵ȴ���Ӧ*/  

@@ -7,17 +7,24 @@
  * Copyright: 2014 Interstellar Cloud Inc. All rights reserved.
  */
 package cn.icnt.dinners.dinner;
-
+import android.app.AlertDialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.v4.app.FragmentActivity;
-import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTabHost;
+
+import android.view.MotionEvent;
+
+
+import android.view.KeyEvent;
+
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.WindowManager;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
@@ -25,8 +32,13 @@ import android.widget.TextView;
 import cn.icnt.dinners.fragment.FragmentCoupon;
 import cn.icnt.dinners.fragment.FragmentDish;
 import cn.icnt.dinners.fragment.FragmentRes;
+import cn.icnt.dinners.utils.ActivityList;
+import cn.icnt.dinners.utils.CustomProgressDialog;
 
 import com.jeremyfeinstein.slidingmenu.lib.SlidingMenu;
+
+
+
 
 /**
  * com.cloud.app.dinner.MainActivity
@@ -43,7 +55,7 @@ public class MainActivity extends FragmentActivity implements OnClickListener {
 	private SlidingMenu menu;
 	private RelativeLayout ivUser;
 	private RelativeLayout ivSearch;
-	private RelativeLayout menu_myorder;
+	private LinearLayout menu_myorder;
 	private EditText editSearch;
 	private TextView loginTv5;
 	private LinearLayout line0;
@@ -52,11 +64,16 @@ public class MainActivity extends FragmentActivity implements OnClickListener {
 	private LinearLayout line3;
 	private LinearLayout line4;
 	private LinearLayout line5;
-	private LinearLayout line6;
+	private LinearLayout ivSet;
 	private LinearLayout left_menu_l0;
 
+	private InputMethodManager manager;
+
+	private CustomProgressDialog progressDialog;
+
+
 	private Intent intent;
-	private FragmentManager manage;
+	private android.support.v4.app.FragmentManager manage;
 
 	private SharedPreferences mainShared = null;
 
@@ -66,6 +83,7 @@ public class MainActivity extends FragmentActivity implements OnClickListener {
 				WindowManager.LayoutParams.SOFT_INPUT_ADJUST_PAN);
 		manage = getSupportFragmentManager();
 		setContentView(R.layout.right_content);
+		manager = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
 		mainShared = getApplicationContext().getSharedPreferences("userInfo",
 				Context.MODE_PRIVATE);
 		// 写入sharepreference 操作
@@ -75,12 +93,15 @@ public class MainActivity extends FragmentActivity implements OnClickListener {
 		indicator1 = getIndicatorView("优惠信息", R.layout.tab_wid);
 		mTabHost.addTab(mTabHost.newTabSpec("tab0").setIndicator(indicator1),
 				FragmentCoupon.class, null);
+		
 		indicator2 = getIndicatorView("菜品推荐", R.layout.tab_wid);
 		mTabHost.addTab(mTabHost.newTabSpec("tab1").setIndicator(indicator2),
 				FragmentDish.class, null);
+		
 		indicator3 = getIndicatorView("餐厅推荐", R.layout.tab_wid);
 		mTabHost.addTab(mTabHost.newTabSpec("tab2").setIndicator(indicator3),
 				FragmentRes.class, null);
+		
 
 		ivUser = (RelativeLayout) findViewById(R.id.left_button);
 		ivUser.setOnClickListener(this);
@@ -90,15 +111,76 @@ public class MainActivity extends FragmentActivity implements OnClickListener {
 
 		initSlidingMenu();
 		initLeftMenu();
-		loginTv5 = (TextView) findViewById(R.id.login);
-		loginTv5.setOnClickListener(this);
-		line0 = (LinearLayout) findViewById(R.id.line0);
-		line0.setOnClickListener(this);
-		menu_myorder = (RelativeLayout) findViewById(R.id.menu_myorder);
-		menu_myorder.setOnClickListener(this);
-	
+
+		initClick();
+
 		// SlidingMenu menu = new SlidingMenu(this);
 		// menu.setMode(SlidingMenu.LEFT);
+
+	}
+	
+//	监听软键盘消失
+	@Override
+	public boolean onTouchEvent(MotionEvent event) {
+		// TODO Auto-generated method stub
+		if (event.getAction() == MotionEvent.ACTION_DOWN) {
+			if (getCurrentFocus() != null
+					&& getCurrentFocus().getWindowToken() != null) {
+				manager.hideSoftInputFromWindow(getCurrentFocus()
+						.getWindowToken(), InputMethodManager.HIDE_NOT_ALWAYS);
+			}
+		}
+		return super.onTouchEvent(event);
+	}
+
+	// 侧滑菜单事件绑定
+	protected void initClick() {
+
+		// 登陆注册事件
+		loginTv5 = (TextView) findViewById(R.id.login);
+		loginTv5.setOnClickListener(this);
+		// 登陆注册事件
+		left_menu_l0 = (LinearLayout) findViewById(R.id.left_menu_l0);
+		left_menu_l0.setOnClickListener(this);
+		// 首页item
+		line0 = (LinearLayout) findViewById(R.id.line0);
+		line0.setOnClickListener(this);
+
+
+		 ActivityList.activitys.add(this);
+		
+
+		menu_myorder = (LinearLayout) findViewById(R.id.menu_myorder);
+
+		// 我的订单事件
+		menu_myorder = (LinearLayout) findViewById(R.id.menu_myorder);
+
+		menu_myorder.setOnClickListener(this);
+
+		// 我的收藏item
+		line1 = (LinearLayout) findViewById(R.id.line1);
+		line1.setOnClickListener(this);
+		// 我的优惠券item
+		line2 = (LinearLayout) findViewById(R.id.line2);
+		line2.setOnClickListener(this);
+		// 我的积分item
+		line3 = (LinearLayout) findViewById(R.id.line3);
+		line3.setOnClickListener(this);
+		// 我的账户item
+		line4 = (LinearLayout) findViewById(R.id.line4);
+		line4.setOnClickListener(this);
+		// 设置item
+		line5 = (LinearLayout) findViewById(R.id.line5);
+		line5.setOnClickListener(this);
+		// 个人中心设置
+		ivSet = (LinearLayout) findViewById(R.id.set_small);
+		ivSet.setOnClickListener(this);
+
+	
+
+		// SlidingMenu menu = new SlidingMenu(this);
+		// menu.setMode(SlidingMenu.LEFT);!
+
 
 	}
 
@@ -114,8 +196,7 @@ public class MainActivity extends FragmentActivity implements OnClickListener {
 		menu.setTouchModeAbove(SlidingMenu.TOUCHMODE_NONE);// 允许从屏幕的什么范围滑出SlidingMenu
 		menu.setMenu(R.layout.left_menu);// 设置SlidingMenu使用的layout文件
 		menu.attachToActivity(this, SlidingMenu.SLIDING_CONTENT);// 附加到activity上
-		left_menu_l0 = (LinearLayout) findViewById(R.id.left_menu_l0);
-		left_menu_l0.setOnClickListener(this);
+
 	}
 
 	private View getIndicatorView(String name, int layoutId) {
@@ -154,7 +235,21 @@ public class MainActivity extends FragmentActivity implements OnClickListener {
 		// this.loginTv5.setText(loginStv5);
 
 	}
-
+//	private void doBack() {
+//		AlertDialog.Builder localBuilder = new AlertDialog.Builder(this);
+//		localBuilder.setTitle("提示").setMessage("确定退出小皮手游助手?");
+//		localBuilder.setPositiveButton(R.string.ok,
+//				new DialogInterface.OnClickListener() {
+//
+//					@Override
+//					public void onClick(DialogInterface dialog, int which) {
+//						cn.icnt.dinners.utils.ActivityList.destoryActivity(cn.icnt.dinners.utils.ActivityList.activitys);
+//					}
+//
+//				});
+//		localBuilder.setNegativeButton(R.string.cancel, null);
+//		localBuilder.create().show();
+//	}
 	protected void onDestroy() {
 		// TODO Auto-generated method stub
 		super.onDestroy();
@@ -169,22 +264,27 @@ public class MainActivity extends FragmentActivity implements OnClickListener {
 	@Override
 	public void onClick(View v) {
 		switch (v.getId()) {
+		// 首页侧滑按钮
 		case R.id.left_button:
+			manager.hideSoftInputFromWindow(getCurrentFocus()
+					.getWindowToken(), InputMethodManager.HIDE_NOT_ALWAYS);
 			menu.toggle();
 			break;
-
+		// 首页搜索按钮
 		case R.id.right_search_button:
+			manager.hideSoftInputFromWindow(getCurrentFocus()
+					.getWindowToken(), InputMethodManager.HIDE_NOT_ALWAYS);
 			if (editSearch.getVisibility() == View.GONE) {
 				editSearch.setVisibility(View.VISIBLE);
 			} else {
 				editSearch.setVisibility(View.GONE);
 			}
 			break;
-
+		// 侧滑首页item
 		case R.id.line0:
 			menu.toggle();
 			break;
-
+		// 侧滑注册登录
 		case R.id.login:
 		case R.id.left_menu_l0:
 			// android.support.v4.app.FragmentTransaction transaction =
@@ -196,16 +296,106 @@ public class MainActivity extends FragmentActivity implements OnClickListener {
 			intent = new Intent();
 			intent.setClass(MainActivity.this, LoginActivity.class);
 			startActivity(intent);
+		
 			break;
-
+		// 侧滑订单item
 		case R.id.menu_myorder:
 			Intent i = new Intent();
 			i.setClass(MainActivity.this, MyOrderActivity.class);
 			startActivity(i);
+		
 			break;
+		// 侧滑我的收藏 item
+		case R.id.line1:
+			Intent l1 = new Intent();
+			l1.setClass(MainActivity.this, MycollectDetailActivity.class);
+			l1.putExtra("collect",
+					((TextView) findViewById(R.id.collectTv1)).getText());
+			startActivity(l1);
+			break;
+		// 侧滑我的优惠券item
+		case R.id.line2:
+			Intent l2 = new Intent();
+			l2.setClass(MainActivity.this, MycouponDetailActivity.class);
+			l2.putExtra("coupon",
+					((TextView) findViewById(R.id.couponTv2)).getText());
+			startActivity(l2);
+			break;
+		// 侧滑我的积分 item
+		case R.id.line3:
+//			Intent l3 = new Intent();
+//			l3.setClass(MainActivity.this, MycreditDetailActivity.class);
+//			l3.putExtra("credits",
+//					((TextView) findViewById(R.id.creditsTv3)).getText());
+//			startActivity(l3);
+			break;
+		// 侧滑我的账户 item
+		case R.id.line4:
+			Intent l4 = new Intent();
+			l4.setClass(MainActivity.this, MyaccountDetailActivity.class);
+			l4.putExtra("account",
+					((TextView) findViewById(R.id.accountTv4)).getText());
+			startActivity(l4);
+			break;
+		// 侧滑设置 item
+		case R.id.line5:
+			Intent l5 = new Intent();
+			l5.setClass(MainActivity.this, MysettingDetailActivity.class);
+			startActivity(l5);
+			break;
+		// 侧滑设置 个人中心
+		case R.id.set_small:
+			Intent setSmall = new Intent();
+			setSmall.setClass(MainActivity.this, UserinfoActivity.class);
+			startActivity(setSmall);
+			break;
+
 		default:
 			break;
 		}
 	}
+	@Override
+	public boolean dispatchKeyEvent(KeyEvent event) {
+		if (event.getAction() == KeyEvent.ACTION_DOWN
+				&& event.getKeyCode() == KeyEvent.KEYCODE_BACK) {
+			doBack();
+			return true;
+		}
+		return super.dispatchKeyEvent(event);
+	}
 
+	private void doBack() {
+		AlertDialog.Builder localBuilder = new AlertDialog.Builder(this);
+		localBuilder.setTitle("提示").setMessage("确定退出食尚聚惠?");
+		localBuilder.setPositiveButton(R.string.ok,
+				new DialogInterface.OnClickListener() {
+
+					@Override
+					public void onClick(DialogInterface dialog, int which) {
+						ActivityList.destoryActivity(ActivityList.activitys);
+					
+					}
+
+				});
+		localBuilder.setNegativeButton(R.string.ca, null);
+		localBuilder.create().show();
+	}
+	public void showLoadingDialog() {
+        if (isFinishing())
+            return;
+
+        if (progressDialog == null) {
+            progressDialog = CustomProgressDialog.createDialog(this);
+            progressDialog.setMessage(R.string.loading);
+        }
+        progressDialog.show();
+
+    }
+
+    public void dismissLoadingDialog() {
+        if (progressDialog != null) {
+            progressDialog.dismiss();
+            progressDialog = null;
+        }
+    }
 }

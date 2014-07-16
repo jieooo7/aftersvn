@@ -53,7 +53,7 @@
             android:layout_toRightOf="@id/order_img"
             android:ellipsize="end"
             android:maxLines="3"
-            android:text="的快速减肥了卡斯加豆腐了开始撒娇的付款链接啊是打开了房间阿卡丽师大见付款啦就是的快乐飞加快市领导将付款拉丝机打开了房间阿是考虑到放假了卡斯加的弗兰克就爱上了看到房间卡拉斯剪短发了卡机是老款的风景埃克里斯顿积分卡拉斯觉得可浪费加上可怜的房间卡拉斯 的减肥快乐加快递费骄傲是快乐到家疯了卡斯加打开了房间阿卡丽师大见付款拉丝机的付款链接阿是考虑到将付款拉丝机对方考虑加 "
+            android:text="订单详情"
             android:textColor="@color/order_tab_text"
             android:textSize="12sp" />
 
@@ -107,7 +107,9 @@
     <ImageView style="@style/order_bottom_line" />
 
     <RelativeLayout
+        android:id="@+id/control_order"
         android:layout_width="fill_parent"
+        android:visibility="gone"
         android:layout_height="wrap_content"
         android:orientation="horizontal" >
 
@@ -137,6 +139,23 @@
                 android:gravity="right"
                 android:text="线上付款" />
         </RelativeLayout>
+    </RelativeLayout>
+
+    <ImageView style="@style/order_bottom_line" />
+
+    <RelativeLayout
+        android:id="@+id/orders_evaluates"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content" >
+
+        <Button
+            android:layout_alignParentRight="true"
+            android:layout_marginRight="10dp"
+            android:id="@+id/order_evaluate"
+            android:layout_width="wrap_content"
+            android:background="@drawable/order_button"
+            android:layout_height="wrap_content" 
+            android:text="订单评价"/>
     </RelativeLayout>
 
     <ImageView style="@style/order_bottom_line" />

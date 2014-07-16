@@ -57,7 +57,7 @@ public class CouponActivity extends Activity {
 				Toast.makeText(getApplicationContext(), "网络错误，请重试",
 						Toast.LENGTH_LONG).show();
 			else
-				Toast.makeText(getApplicationContext(), "出错了^_^",
+				Toast.makeText(getApplicationContext(), "出错了>_<",
 						Toast.LENGTH_LONG).show();
 
 			this.list = EasyFile.readFile("test");

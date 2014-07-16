@@ -12,6 +12,7 @@ import android.app.Activity;
 import android.os.Bundle;
 import android.view.View;
 import android.view.View.OnClickListener;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 /**
@@ -21,6 +22,7 @@ import android.widget.TextView;
  */
 public class UserinfoActivity extends Activity implements OnClickListener{
 	private static final String TAG = "UserinfoActivity";
+	private RelativeLayout title;
 	
 	
 	
@@ -31,6 +33,9 @@ public class UserinfoActivity extends Activity implements OnClickListener{
 		// 设置include的title布局，标题文字
 		((TextView) findViewById(R.id.title_center_text))
 				.setText(getResources().getString(R.string.person_info));
+		
+		title = (RelativeLayout) findViewById(R.id.title_left_btn);
+		title.setOnClickListener(this);
 	}
 	
 	
@@ -42,5 +47,11 @@ public class UserinfoActivity extends Activity implements OnClickListener{
 	 */
 	@Override
 	public void onClick(View v) {
+		switch(v.getId()){
+		case R.id.title_left_btn:
+			finish();
+			break;
+		
+		}
 	}
 }

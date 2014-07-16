@@ -1,7 +1,6 @@
 package cn.icnt.dinners.dinner;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -16,6 +15,7 @@ import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.BaseAdapter;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ListView;
@@ -24,6 +24,7 @@ import android.widget.TextView;
 import cn.icnt.dinners.beans.OrderListBean;
 import cn.icnt.dinners.beans.OrderListBean.OrderList;
 import cn.icnt.dinners.http.GsonTools;
+import cn.icnt.dinners.http.MapPackage;
 import cn.icnt.dinners.utils.ToastUtil;
 
 import com.google.gson.Gson;
@@ -112,50 +113,12 @@ public class MyOrderActivity extends Activity {
 	}
 
 	private void initData() {
-		Map<String, Object> headmap = new HashMap<String, Object>();
-		Map<String, Object> paramap = new HashMap<String, Object>();
-		Map<String, Object> resmap = new HashMap<String, Object>();
-		Map<String, Object> map = new HashMap<String, Object>();
-		// MapPackage mp = new MapPackage();
-		// 'head'=>array(
-		// 'uid'=>'31',
-		// 'no'=>11111,
-		// 'os'=>1,
-		// 'version'=>"1.1.2",
-		// 'key'=>"c02bc07f3f7ca113bab32bb334ea472d"
-		// ),
-		// 'para'=>array(
-		// 'order'=>1,
-		// 'favorite_type'=>1,
-		// 'company_id'=>1,
-		// 'sub_company_id'=>1,
-		// 'goods_id'=>128,
-		// ),
-		// 'result'=>array(
-		// 'start'=>0,
-		// 'count'=>4,
-		// ),
-		headmap.put("uid", "31");
-		headmap.put("no", "11111");
-		headmap.put("os", "1");
-		headmap.put("version", "1.1.2");
-		headmap.put("key", "c02bc07f3f7ca113bab32bb334ea472d");
-		// headmap.put("key", MD5.getMD5("3112341122112311.1.2"));
-		paramap.put("order", 1);
-		paramap.put("favorite_type", 1);
-		paramap.put("company_id", 1);
-		paramap.put("sub_company_id", 1);
-		paramap.put("goods_id", 128);
-		resmap.put("start", 0);
-		resmap.put("count", 4);
-		map.put("head", headmap);
-		map.put("para", paramap);
-		map.put("result", resmap);
-		// mp.setHead(this);
-		// mp.setPara("start", "0");
-		// mp.setPara("count", "10");
-		// Map<String, Object> maps = mp.getMap();
-		RequestParams params = GsonTools.GetParams(map);
+		MapPackage mp = new MapPackage();
+		mp.setHead(this);
+		mp.setRes("start", 0);
+		mp.setRes("count", 10);
+		Map<String, Object> maps = mp.getMap();
+		RequestParams params = GsonTools.GetParams(maps);
 		HttpUtils http = new HttpUtils();
 		http.send(HttpRequest.HttpMethod.POST,
 				"http://115.29.13.164/order_list.do?t=", params,
@@ -172,7 +135,6 @@ public class MyOrderActivity extends Activity {
 
 					@Override
 					public void onSuccess(ResponseInfo<String> responseInfo) {
-						initclocks();
 						Log.i("order", responseInfo.result);
 						Gson gson = new Gson();
 						json = gson.fromJson(responseInfo.result,
@@ -195,11 +157,6 @@ public class MyOrderActivity extends Activity {
 					public void onFailure(HttpException error, String msg) {
 					}
 				});
-
-	}
-
-	private void initclocks() {
-		// TODO Auto-generated method stub
 
 	}
 
@@ -366,6 +323,12 @@ public class MyOrderActivity extends Activity {
 						.findViewById(R.id.order_img);
 				holder.order_title_line_one = (ImageView) convertView
 						.findViewById(R.id.order_title_line_one);
+				holder.order_evaluate = (Button) convertView
+						.findViewById(R.id.order_evaluate);
+				holder.control_order = (RelativeLayout) convertView
+						.findViewById(R.id.control_order);
+				holder.orders_evaluates = (RelativeLayout) convertView
+						.findViewById(R.id.orders_evaluates);
 				convertView.setTag(holder);
 			} else {
 				holder = (ViewHolder) convertView.getTag();
@@ -377,26 +340,34 @@ public class MyOrderActivity extends Activity {
 			// lists.get(position).goods_list.get(0).img_url);
 			if (lists.get(position).order_state == 1) {
 				holder.order_state.setText("订单未支付");
+				holder.control_order.setVisibility(View.VISIBLE);
+
 			} else if (lists.get(position).order_state == 2) {
 				holder.order_state.setText("支付完成");
+				holder.orders_evaluates.setVisibility(View.VISIBLE);
+
 			} else {
 				holder.order_state.setText("交易进行中");
+				holder.order_state.setTextColor(getResources().getColor(
+						R.color.tab_font));
+				holder.orders_evaluates.setVisibility(View.VISIBLE);
+				holder.control_order.setVisibility(View.VISIBLE);
+
 			}
 			if (position == 0) {
 				holder.order_title_line_one.setVisibility(View.GONE);
 			}
-			// holder.order_info.setText(lists.get(position).order_info);
+			holder.order_info.setText(lists.get(position).order_info);
 			holder.order_store.setText(lists.get(position).order_store);
 			holder.order_total_price.setText("￥"
 					+ lists.get(position).order_total_price);
 			holder.order_discount.setText(lists.get(position).order_discount);
 			holder.order_price.setText("￥" + lists.get(position).order_price);
-			utils.display(holder.order_img,
-					lists.get(position).goods_list.get(position).img_url,
-					config);
+			utils.display(holder.order_img,"http://g.hiphotos.baidu.com/image/pic/item/3ac79f3df8dcd1008c2e46aa708b4710b8122f8e.jpg", config);
 			// 给Button添加单击事件 添加Button之后ListView将失去焦点 需要的直接把Button的焦点去掉
 			holder.del_bucket_img.setOnClickListener(myListener);
 			holder.order_pay_online.setOnClickListener(myListener);
+			holder.order_evaluate.setOnClickListener(myListener);
 			// holder.viewBtn.setOnClickListener(MyListener(position));
 
 			return convertView;
@@ -415,12 +386,16 @@ public class MyOrderActivity extends Activity {
 				// Toast.makeText(ListViewActivity.this, title[mPosition],
 				// Toast.LENGTH_SHORT).show();
 				switch (v.getId()) {
-				case R.id.order_pay_online:
+				case R.id.order_pay_online: // 在线支付
 					ToastUtil.show(getApplication(), "order_pay_online"
 							+ mPosition);
 					break;
-				case R.id.del_bucket_img:
+				case R.id.del_bucket_img: // 订单删除
 					ToastUtil.show(getApplication(), "R.id.del_bucket_img"
+							+ mPosition);
+					break;
+				case R.id.order_evaluate: // 订单评价
+					ToastUtil.show(getApplication(), "R.id.order_evaluate"
 							+ mPosition);
 					break;
 				}
@@ -439,6 +414,9 @@ public class MyOrderActivity extends Activity {
 			public TextView order_pay_online;
 			public ImageView order_img;
 			public ImageView order_title_line_one;
+			public Button order_evaluate;
+			public RelativeLayout control_order;
+			public RelativeLayout orders_evaluates;
 		}
 
 	}

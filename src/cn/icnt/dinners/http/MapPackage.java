@@ -62,7 +62,7 @@ public class MapPackage {
 	public void setUid(Context context){
 //		shered文件中获取
 		SharedPreferences sp = context.getSharedPreferences("userInfo", context.MODE_PRIVATE);
-		this.uid=sp.getString("uid", "-1");
+		this.uid=sp.getString("uid", "31");
 		DebugUtil.i("shared","999999"+sp.getString("uid", "-1"));
 	}
 	public String getpath() {
@@ -134,6 +134,16 @@ public class MapPackage {
 
 		this.resmap.put(key, val);
 
+	}
+	/**
+	 * result信息拼装
+	 *@param key
+	 *@param val
+	 */
+	public void setRes(String key, int val) {
+		
+		this.resmap.put(key, val);
+		
 	}
 
 

@@ -74,6 +74,7 @@
                 android:textSize="15sp" />
 
             <TextView
+                android:id="@+id/myaccount_money"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textSize="15sp" 
@@ -89,6 +90,7 @@
         android:orientation="vertical" >
 
         <LinearLayout
+            android:id="@+id/myaccount_alipay_ll"
             android:layout_width="match_parent"
             android:layout_height="34dp"
             android:gravity="center_vertical"
@@ -111,6 +113,7 @@
         </LinearLayout>
 
         <LinearLayout
+            android:id="@+id/myaccount_bank_ll"
             android:layout_width="match_parent"
             android:layout_height="34dp"
             android:gravity="center_vertical"
@@ -129,6 +132,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="2dp"
                 android:layout_marginTop="6dp"
+                android:layout_marginBottom="3dp"
                 android:background="@color/myaccount_line_light" />
 
         </LinearLayout>
@@ -137,6 +141,7 @@
     <FrameLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
         android:layout_gravity="center_horizontal"
        >
         <!--第一层银行卡充值 -->
@@ -223,6 +228,7 @@
                     android:layout_height="wrap_content"
                     android:background="@drawable/myaccount_text_shap"
                     android:gravity="left"
+                    android:numeric="integer"
                     android:hint="请输入您的银行卡号"
                     android:maxEms="12"
                     android:maxLines="1"
@@ -250,6 +256,7 @@
                     android:background="@drawable/myaccount_text_shap"
                     android:gravity="left"
                     android:maxEms="12"
+                    android:numeric="decimal"
                     android:hint="0"
                     android:maxLines="1"
                     android:minEms="3"
@@ -299,9 +306,11 @@
                 android:orientation="horizontal" >
 
                 <TextView
-                    android:layout_width="80dp"
+                    android:layout_width="85dp"
                     android:layout_height="wrap_content"
                     android:gravity="right"
+                    android:maxLines="1"
+                    android:minEms="5"
                     android:text="@string/alipay_account"
                     android:textColor="@color/myaccount_text_dark"
                     android:textSize="15sp" />
@@ -330,7 +339,7 @@
                 android:orientation="horizontal" >
 
                 <TextView
-                    android:layout_width="80dp"
+                    android:layout_width="85dp"
                     android:layout_height="wrap_content"
                     android:gravity="right"
                     android:text="@string/money"
@@ -342,6 +351,7 @@
                     android:layout_height="wrap_content"
                     android:background="@drawable/myaccount_text_shap"
                     android:gravity="left"
+                    android:numeric="decimal"
                     android:hint="0"
                     android:maxEms="12"
                     android:maxLines="1"
@@ -365,7 +375,7 @@
                 android:orientation="horizontal" >
 
                 <TextView
-                    android:layout_width="80dp"
+                    android:layout_width="85dp"
                     android:layout_height="wrap_content"
                     android:gravity="right"
                     android:text="@string/alipay_password"
@@ -377,6 +387,7 @@
                     android:layout_height="wrap_content"
                     android:background="@drawable/myaccount_text_shap"
                     android:gravity="left"
+                    android:password="true"
                     android:hint="请输入您的支付宝密码"
                     android:maxEms="12"
                     android:maxLines="1"
@@ -421,9 +432,11 @@
                 android:orientation="horizontal" >
 
                 <TextView
-                    android:layout_width="80dp"
+                    android:layout_width="85dp"
                     android:layout_height="wrap_content"
                     android:gravity="right"
+                    android:maxLines="1"
+                    android:minEms="5"
                     android:text="@string/alipay_account"
                     android:textColor="@color/myaccount_text_dark"
                     android:textSize="15sp" />
@@ -433,6 +446,7 @@
                     android:layout_height="wrap_content"
                     android:background="@drawable/myaccount_text_shap"
                     android:gravity="left"
+                    android:numeric="integer"
                     android:hint="请输入您的支付宝账号"
                     android:maxEms="12"
                     android:maxLines="1"
@@ -453,7 +467,7 @@
                 android:orientation="horizontal" >
 
                 <TextView
-                    android:layout_width="80dp"
+                    android:layout_width="85dp"
                     android:layout_height="wrap_content"
                     android:gravity="right"
                     android:text="@string/get_the_money"
@@ -465,6 +479,7 @@
                     android:layout_height="wrap_content"
                     android:background="@drawable/myaccount_text_shap"
                     android:gravity="left"
+                    android:numeric="decimal"
                     android:hint="0"
                     android:maxLines="1"
                     android:maxEms="12"
@@ -581,6 +596,7 @@
                     android:layout_height="wrap_content"
                     android:background="@drawable/myaccount_text_shap"
                     android:gravity="left"
+                    android:numeric="integer"
                     android:hint="请输入您的银行卡号"
                     android:maxLines="1"
                     android:maxEms="12"
@@ -607,6 +623,7 @@
                     android:layout_height="wrap_content"
                     android:background="@drawable/myaccount_text_shap"
                     android:gravity="left"
+                    android:numeric="decimal"
                     android:hint="0"
                     android:maxEms="12"
                     android:maxLines="1"

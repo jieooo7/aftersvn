@@ -29,6 +29,8 @@
             android:text="登陆/注册"
             android:textColor="@color/white_text"
             android:textSize="20sp" />
+       
+            />
     </RelativeLayout>
 
      <RelativeLayout

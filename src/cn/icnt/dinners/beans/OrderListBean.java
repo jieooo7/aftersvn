@@ -20,7 +20,7 @@ public class OrderListBean {
 	}
 
 	public class OrderList {
-		public List<OrderListItem> goods_list; // 订单商品列表
+		public String img_url; // 优惠券
 		public String order_discount; // 优惠券
 		public String order_id;
 		public String order_info;// 订单详情
@@ -41,14 +41,14 @@ public class OrderListBean {
 		public String order_store;
 		public String order_total_price; // 订单总价
 
-		public class OrderListItem {
-			public String goods_id; // 商品编号
-			public String img_url; // 商品图片
-			public String name; // 商品名称
-			public String num; // 商品数量
-			public String order_id; // 所属订单号
-			public String price; // 商品原价
-			public String real_price; // 商品优惠价
-		}
+//		public class OrderListItem {
+//			public String goods_id; // 商品编号
+//			public String img_url; // 商品图片
+//			public String name; // 商品名称
+//			public String num; // 商品数量
+//			public String order_id; // 所属订单号
+//			public String price; // 商品原价
+//			public String real_price; // 商品优惠价
+//		}
 	}
 }

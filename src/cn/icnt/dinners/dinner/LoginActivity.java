@@ -23,6 +23,7 @@ import cn.icnt.dinners.http.GsonTools;
 import cn.icnt.dinners.http.HttpSendRecv;
 import cn.icnt.dinners.http.MapPackage;
 import cn.icnt.dinners.utils.PreferencesUtils;
+import cn.icnt.dinners.utils.ToastUtil;
 
 import com.google.gson.Gson;
 import com.lidroid.xutils.HttpUtils;
@@ -110,9 +111,15 @@ public class LoginActivity extends Activity {
 			startActivity(intent);
 			break;
 		case R.id.forget_password:
-			intent = new Intent();
-			intent.setClass(LoginActivity.this, FindPassWordActivity.class);
-			startActivity(intent);
+			String username = user_name.getText().toString().trim();
+			if (StringUtils.isEmpty(username)) {
+				ToastUtil.show(this, "请输入用户名");
+			}else {
+				intent = new Intent();
+				intent.setClass(LoginActivity.this, FindPassWordActivity.class);
+				intent.putExtra("user_name", username);
+				startActivity(intent);
+			}
 			break;
 		case R.id.login:
 			userLogin();
@@ -124,6 +131,19 @@ public class LoginActivity extends Activity {
 	private void userLogin() {
 		userName = user_name.getText().toString().trim();
 		userPassword = edit_password.getText().toString().trim();
+
+//		if (StringUtils.isEmpty(userName) && StringUtils.isEmpty(userPassword)) {
+//			Toast.makeText(this, "请正确输入！", 0).show();
+//		} else if (StringUtils.isEmpty(userName)) {
+//
+//			Toast.makeText(this, "请输入用户名哦！亲", 0).show();
+//		} else if (StringUtils.isEmpty(userPassword)) {
+//			Toast.makeText(this, "请输入密码哦！亲", 0).show();
+//		} else {
+//			sendLogin(userName, userPassword);
+//			
+//		}
+
 		if (StringUtils.isEmpty(userName) && StringUtils.isEmpty(userPassword)) {
 			Toast.makeText(this, "请正确输入！", 0).show();
 		} else if (StringUtils.isEmpty(userName)) {
@@ -136,6 +156,7 @@ public class LoginActivity extends Activity {
 			sendLogin1(userName, userPassword);
 
 		}
+
 	}
 
 	// private void sendLogin(String userName2, String userPassword2) {

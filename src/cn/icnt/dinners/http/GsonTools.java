@@ -13,22 +13,16 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 import org.apache.http.entity.StringEntity;
 
 import android.util.Log;
-import android.widget.Toast;
-import cn.icnt.dinners.beans.UserLoginBean;
-import cn.icnt.dinners.dinner.LoginActivity;
 
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
-import com.lidroid.xutils.HttpUtils;
-import com.lidroid.xutils.exception.HttpException;
 import com.lidroid.xutils.http.RequestParams;
-import com.lidroid.xutils.http.ResponseInfo;
-import com.lidroid.xutils.http.callback.RequestCallBack;
-import com.lidroid.xutils.http.client.HttpRequest;
 
 /**
  * gson ������������ ���ݲ�ͬ�ķ�װ���ö�Ӧ�ķ��� com.cloud.app.http.GsonTools
@@ -130,7 +124,7 @@ public class GsonTools {
 		String json = gson.toJson(maps);
 		StringEntity s = null;
 		try {
-			s = new StringEntity(json);
+			s = new StringEntity(json, "UTF-8");
 		} catch (UnsupportedEncodingException e) {
 			e.printStackTrace();
 		}
