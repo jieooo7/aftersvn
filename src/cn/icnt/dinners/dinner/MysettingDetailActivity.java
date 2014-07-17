@@ -123,7 +123,7 @@ public class MysettingDetailActivity extends Activity implements OnClickListener
 				Toast.makeText(getApplicationContext(), "网络错误，请重试",
 						Toast.LENGTH_LONG).show();
 			else
-				Toast.makeText(getApplicationContext(), "出错了^_^",
+				Toast.makeText(getApplicationContext(), "出错了>_<",
 						Toast.LENGTH_LONG).show();
 		}
 		if(mp.getBackHead()!=null){
@@ -189,7 +189,7 @@ public class MysettingDetailActivity extends Activity implements OnClickListener
 				Toast.makeText(getApplicationContext(), "问题或者答案不能为空",
 						Toast.LENGTH_SHORT).show();
 			}else{
-				if(send(question,answer).equals("10000")){
+				if(send(question,answer)!=null&&send(question,answer).equals("10000")){
 					Toast.makeText(getApplicationContext(), "密保设置成功",
 							Toast.LENGTH_LONG).show();
 				}else{

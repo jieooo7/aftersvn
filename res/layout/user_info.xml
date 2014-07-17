@@ -40,6 +40,7 @@
                     android:textSize="15sp" />
 
                 <EditText
+                    android:id="@+id/user_info_petname"
                     android:layout_width="180dp"
                     android:layout_height="wrap_content"
                     android:background="@drawable/myaccount_text_shap"
@@ -50,6 +51,7 @@
                     android:textSize="15sp" />
 
                 <Button
+                    android:id="@+id/user_info_sendpet"
                     android:layout_width="45dp"
                     android:layout_height="30dp"
                     android:layout_marginLeft="10dp"

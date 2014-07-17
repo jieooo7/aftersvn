@@ -12,6 +12,11 @@ public class PreferencesUtils
 	 *
 	 */
 	
+	/**
+	 * cn.icnt.dinners.utils.Keys
+	 * @author Andrew Lee <br/>
+	 * create at 2014年7月17日 下午7:39:32
+	 */
 	public static class Keys
 	{
 		/**
@@ -39,6 +44,15 @@ public class PreferencesUtils
 		 */
 		public static final String PWD = "pwd";
 		
+		/**
+		 * sharedPreference 文件名
+		 */
+		public  static final String USERINFO="userInfo";
+		/**
+		 * 昵称
+		 */
+		public  static final String NICKNAME="nickName";
+		
 
 
 	}
@@ -51,7 +65,7 @@ public class PreferencesUtils
  */
 	public static void putBooleanToSPMap(Context mContext, String key, boolean value)
 	{
-		SharedPreferences preferences = mContext.getSharedPreferences("appPreferencesMap", Context.MODE_PRIVATE);
+		SharedPreferences preferences = mContext.getSharedPreferences(Keys.USERINFO, Context.MODE_PRIVATE);
 		Editor edit = preferences.edit();
 		edit.putBoolean(key, value);
 		edit.commit();
@@ -65,7 +79,7 @@ public class PreferencesUtils
  */
 	public static Boolean getBooleanFromSPMap(Context mContext, String key)
 	{
-		SharedPreferences ferences = mContext.getSharedPreferences("appPreferencesMap",  Context.MODE_PRIVATE);
+		SharedPreferences ferences = mContext.getSharedPreferences(Keys.USERINFO,  Context.MODE_PRIVATE);
 		boolean value = ferences.getBoolean(key, false);
 		return value;
 	}
@@ -78,7 +92,7 @@ public class PreferencesUtils
  */
 	public static void putValueToSPMap(Context mContext, String key, String value)
 	{
-		SharedPreferences preferences = mContext.getSharedPreferences("appPreferencesMap", Context.MODE_PRIVATE);
+		SharedPreferences preferences = mContext.getSharedPreferences(Keys.USERINFO, Context.MODE_PRIVATE);
 		Editor edit = preferences.edit();
 		edit.putString(key, value);
 		edit.commit();
@@ -94,7 +108,7 @@ public class PreferencesUtils
 	{
 		if (null != mContext)
 		{
-			SharedPreferences ferences = mContext.getSharedPreferences("appPreferencesMap",  Context.MODE_PRIVATE);
+			SharedPreferences ferences = mContext.getSharedPreferences(Keys.USERINFO,  Context.MODE_PRIVATE);
 			String value = ferences.getString(key, "");
 			return value;
 		} else
@@ -110,11 +124,12 @@ public class PreferencesUtils
  * @param defaults 无值时取defaults
  * @return
  */
+	
 	public static String getValueFromSPMap(Context mContext, String key,String defaults )
 	{
 		if (null != mContext)
 		{
-			SharedPreferences ferences = mContext.getSharedPreferences("appPreferencesMap",  Context.MODE_PRIVATE);
+			SharedPreferences ferences = mContext.getSharedPreferences(Keys.USERINFO,  Context.MODE_PRIVATE);
 			String value = ferences.getString(key, defaults);
 			return value;
 		} else
@@ -128,7 +143,7 @@ public class PreferencesUtils
 	 */
 	public static void clearSPMap(Context mContext)
 	{
-		SharedPreferences preferences = mContext.getSharedPreferences("appPreferencesMap", Context.MODE_PRIVATE);
+		SharedPreferences preferences = mContext.getSharedPreferences(Keys.USERINFO, Context.MODE_PRIVATE);
 		Editor edit = preferences.edit();
 		edit.clear();
 		edit.commit();

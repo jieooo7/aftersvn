@@ -83,6 +83,9 @@
     <string name="shop">活动店面:</string>
     <string name="news">优惠信息:</string>
     <string name="note">注意:</string>
+    <string name="other_info">其它详情:</string>
+    <string name="summary">简介:</string>
+    <string name="special_dish">特色菜:</string>
 
 
     
@@ -93,7 +96,6 @@
     <string name="save">保存</string>
     <string name="camera">相机</string>
     <string name="from_phone">从手机相册选择</string>
-    <string name="cancel">取消</string>
     
     
 

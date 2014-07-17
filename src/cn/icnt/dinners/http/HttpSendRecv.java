@@ -64,7 +64,7 @@ public class HttpSendRecv extends AsyncTask<Void, Void, String>{
 	        {  
 			  
 		      StringEntity se = new StringEntity(st,"UTF-8");
-		      DebugUtil.i("编码", se.toString());
+//		      DebugUtil.i("发送信息编码后", se.getContent().toString());
 //		      UrlEncodedFormEntity entityIn = new UrlEncodedFormEntity(se,"utf-8");
 	          /* �������������������*/  
 	          httpRequest.setEntity(se); ;  

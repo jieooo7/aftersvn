@@ -179,7 +179,7 @@
                 android:id="@+id/left_menu_collectimg"
                 android:layout_width="19dp"
                 android:layout_height="21dp"
-                android:src="@drawable/collect" />
+                android:src="@drawable/mycollect" />
 
             <TextView
                 android:layout_toRightOf="@id/left_menu_collectimg"

@@ -166,9 +166,11 @@ public class MapPackage {
 		Gson gson = new Gson();
 //		发送请求
 		HttpSendRecv task=new HttpSendRecv(this.getpath(),gson.toJson(map));
+		DebugUtil.i("发送地址信息", this.getpath());
+		DebugUtil.i("发送信息", gson.toJson(map));
 //		返回信息
 		String backResult =task.execute().get();
-		DebugUtil.i("all", backResult);
+		DebugUtil.i("返回信息", backResult);
 		this.backResult=GsonTools.getMaps(backResult.substring(backResult.indexOf("{")));
 
 	}

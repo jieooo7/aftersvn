@@ -45,6 +45,7 @@ public class MycollectDetailActivity extends Activity implements
 	private static final String TAG = "MycollectDetailActivity";
 	private MycollectAdapter adapter;
 	private List<Map<String, String>> list;
+	private MapPackage mp;
 
 	private ListView lv0;
 	private ListView lv1;
@@ -81,7 +82,7 @@ public class MycollectDetailActivity extends Activity implements
 		MapPackage mp = new MapPackage();
 		mp.setPath("favorite_list");
 		mp.setHead(this);
-		
+		mp.setPara("favorite_type", "1");
 		mp.setRes("start", "1");
 		mp.setRes("count", "3");
 		try {
@@ -150,7 +151,7 @@ public class MycollectDetailActivity extends Activity implements
 					long arg3) {
 
 				Intent intent = new Intent();
-				intent.setClass(MycollectDetailActivity.this, ShowDetailActivity.class);
+				intent.setClass(MycollectDetailActivity.this, MycouponDetailActivity.class);
 				startActivity(intent);
 
 			}
@@ -161,7 +162,7 @@ public class MycollectDetailActivity extends Activity implements
 					long arg3) {
 
 				Intent intent = new Intent();
-				intent.setClass(MycollectDetailActivity.this, ShowDetailActivity.class);
+				intent.setClass(MycollectDetailActivity.this, MycouponDetailActivity.class);
 				startActivity(intent);
 
 			}

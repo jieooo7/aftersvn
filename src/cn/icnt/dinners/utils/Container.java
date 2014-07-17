@@ -6,10 +6,12 @@ public class Container {
 	/**
 	 * 服务端IP
 	 */
-	public static final String URL="http://115.29.13.164";
+	public static final String URL="http://115.29.13.164/";
 	/**
 	 * 登陆地址
 	 */
-	public static final String LOGIN_URL= URL+"/login.do?t=";
+	public static final String LOGIN_URL= URL+"login.do?t=";
+	
+	
 
 }

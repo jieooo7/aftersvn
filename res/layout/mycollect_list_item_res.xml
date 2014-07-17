@@ -5,7 +5,7 @@
     android:orientation="vertical" >
 
     <ImageView
-        android:id="@+id/mycollect_item_iv"
+        android:id="@+id/mycollect_item_res_iv"
         android:layout_width="104dp"
         android:layout_height="95dp"
         android:layout_marginLeft="12dp"
@@ -18,7 +18,7 @@
         android:layout_marginLeft="10dp"
         android:layout_marginTop="11dp"
         android:layout_marginRight="12dp"
-        android:layout_toRightOf="@id/mycollect_item_iv"
+        android:layout_toRightOf="@id/mycollect_item_res_iv"
         android:orientation="vertical" >
 
         <LinearLayout
@@ -27,19 +27,20 @@
             android:orientation="horizontal" >
 
             <TextView
-                android:id="@+id/mycollect_item_tv0"
+                android:id="@+id/mycollect_item_res_name1"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="大丰收:"
                 android:textColor="@color/tab_font"
                 android:textSize="12sp" />
-
             <TextView
-                android:id="@+id/mycollect_item_tv1"
+                android:id="@+id/mycollect_item_res_tv1"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="仅限xxxx店"
+                android:text="文灶店"
                 android:textSize="10sp" />
+
+           
         </LinearLayout>
 
         <LinearLayout
@@ -49,14 +50,15 @@
             android:orientation="horizontal" >
 
             <TextView
+                android:id="@+id/mycollect_item_res_name2"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@string/coupon_info_mark"
+                android:text="@string/summary"
                 android:textColor="@color/tab_font"
                 android:textSize="15sp" />
 
             <TextView
-                android:id="@+id/mycollect_item_tv2"
+                android:id="@+id/mycollect_item_res_tv2"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:maxLines="1"
@@ -71,14 +73,14 @@
             android:orientation="horizontal" >
 
             <TextView
-                android:id="@+id/mycollect_item_tv3"
+                android:id="@+id/mycollect_item_res_tv3"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="当同一个cs引用了不同的命名空间，但这些命名55控件都包括了一个相同名字123的类型的时候,可以使用using关键字来创建别名，这样会使代码更简洁。"
                 android:maxEms="23"
+                android:minLines="2"
                 android:lineSpacingExtra="3dp"
                 android:maxLines="2"
-                android:minLines="2"
                 android:ellipsize="end"
                 android:textSize="10sp" />
 
@@ -92,16 +94,16 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@string/promotions"
+                android:text="@string/special_dish"
                 android:textColor="@color/tab_font"
                 android:textSize="12sp" />
 
             <TextView
-                android:id="@+id/mycollect_item_tv4"
+                android:id="@+id/mycollect_item_res_tv4"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:maxLines="1"
-                android:text="10/1-10/7"
+                android:text="赠送果汁"
                 android:textSize="10sp" />
         </LinearLayout>        
     </LinearLayout>
