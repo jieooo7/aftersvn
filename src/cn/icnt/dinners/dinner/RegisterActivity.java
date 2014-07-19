@@ -23,6 +23,8 @@ import android.widget.Toast;
 import cn.icnt.dinners.beans.UserLoginBean;
 import cn.icnt.dinners.http.GsonTools;
 import cn.icnt.dinners.http.MapPackage;
+import cn.icnt.dinners.utils.Container;
+import cn.icnt.dinners.utils.DensityUtil;
 import cn.icnt.dinners.utils.PreferencesUtils;
 import cn.icnt.dinners.utils.ToastUtil;
 
@@ -96,22 +98,22 @@ public class RegisterActivity extends Activity {
 		Spanned text = Html.fromHtml("点击确认代表你已阅读并同意美食聚惠的: "
 				+ "<a href=\"http://www.baidu.com\">服务协议</a> " + "");
 		regiest_alert.setText(text);
-		manager = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);  
-		  
-		  
-		  
+		manager = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
+
 	}
-	
-	@Override  
-	public boolean onTouchEvent(MotionEvent event) {  
-		// TODO Auto-generated method stub  
-		if(event.getAction() == MotionEvent.ACTION_DOWN){  
-			if(getCurrentFocus()!=null && getCurrentFocus().getWindowToken()!=null){  
-				manager.hideSoftInputFromWindow(getCurrentFocus().getWindowToken(), InputMethodManager.HIDE_NOT_ALWAYS);  
-			}  
-		}  
-		return super.onTouchEvent(event);  
-	}  
+
+	@Override
+	public boolean onTouchEvent(MotionEvent event) {
+		// TODO Auto-generated method stub
+		if (event.getAction() == MotionEvent.ACTION_DOWN) {
+			if (getCurrentFocus() != null
+					&& getCurrentFocus().getWindowToken() != null) {
+				manager.hideSoftInputFromWindow(getCurrentFocus()
+						.getWindowToken(), InputMethodManager.HIDE_NOT_ALWAYS);
+			}
+		}
+		return super.onTouchEvent(event);
+	}
 
 	@OnClick({ R.id.title_left_btn, R.id.user_regiest })
 	public void clickMethod(View v) {
@@ -133,6 +135,8 @@ public class RegisterActivity extends Activity {
 		String username = edit_username.getText().toString();
 		String password = edit_password.getText().toString();
 		String password2 = edit_password2.getText().toString();
+		String email = "";
+		String phone = "";
 		if (StringUtils.isEmpty(nickname)) {
 			Toast.makeText(this, "请输入昵称", 0).show();
 		} else {
@@ -148,7 +152,12 @@ public class RegisterActivity extends Activity {
 						if (!password.equals(password2)) {
 							Toast.makeText(this, "两次密码输入不一致，请重新输入", 0).show();
 						} else {
-							regiestSend(nickname, username, password);
+							if (DensityUtil.isMobileNO(username)) {
+								phone = username;
+								regiestSend(nickname, phone, password);
+							}else {
+								Toast.makeText(this, "请正确输入手机号", 0).show();
+							}
 						}
 					}
 				}
@@ -188,21 +197,20 @@ public class RegisterActivity extends Activity {
 	//
 	// }
 
-	private void regiestSend(String nickname, String username, String password) {
+	private void regiestSend(String nickname, String phone, String password) {
 		MapPackage mp = new MapPackage();
 		mp.setHead(this);
-		mp.setPara("email", nickname);
-		mp.setPara("phone", username);
+		mp.setPara("nickname", nickname);
+		mp.setPara("phone", phone);
 		mp.setPara("pwd", password);
 		Map<String, Object> maps = mp.getssMap();
 		RequestParams params = GsonTools.GetParams(maps);
 		HttpUtils http = new HttpUtils();
-		http.send(HttpRequest.HttpMethod.POST,
-				"http://115.29.13.164/reg.do?t=", params,
+		http.send(HttpRequest.HttpMethod.POST, Container.REGIEST, params,
 				new RequestCallBack<String>() {
-
 					@Override
 					public void onStart() {
+						ToastUtil.showProgressDialog(RegisterActivity.this);
 					}
 
 					@Override
@@ -217,13 +225,25 @@ public class RegisterActivity extends Activity {
 						UserLoginBean userInfo = gson.fromJson(
 								responseInfo.result, UserLoginBean.class);
 						if ("10000".equals(userInfo.head.code)) {
-							PreferencesUtils.putValueToSPMap(RegisterActivity.this, PreferencesUtils.Keys.UID, userInfo.para.user_id);
-							PreferencesUtils.putValueToSPMap(RegisterActivity.this, PreferencesUtils.Keys.ACCOUNT, userInfo.para.email);
-							PreferencesUtils.putValueToSPMap(RegisterActivity.this, PreferencesUtils.Keys.PHONE, userInfo.para.phone);
-							ToastUtil.show(RegisterActivity.this, userInfo.head.msg);
+							PreferencesUtils.putValueToSPMap(
+									RegisterActivity.this,
+									PreferencesUtils.Keys.UID,
+									userInfo.para.user_id);
+							PreferencesUtils.putValueToSPMap(
+									RegisterActivity.this,
+									PreferencesUtils.Keys.EMAIL,
+									userInfo.para.email);
+							PreferencesUtils.putValueToSPMap(
+									RegisterActivity.this,
+									PreferencesUtils.Keys.PHONE,
+									userInfo.para.phone);
+							// ToastUtil.show(RegisterActivity.this,
+							// userInfo.head.msg);
+							ToastUtil.closeProgressDialog();
 							RegisterActivity.this.finish();
-						}else {
-							ToastUtil.show(RegisterActivity.this, userInfo.head.msg);
+						} else {
+							ToastUtil.show(RegisterActivity.this,
+									userInfo.head.msg);
 						}
 					}
 
@@ -231,7 +251,6 @@ public class RegisterActivity extends Activity {
 					public void onFailure(HttpException error, String msg) {
 					}
 				});
-
 	}
 
 	/**

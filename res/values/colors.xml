@@ -18,46 +18,42 @@
     <color name="num_back">#353639</color>
 
     <!-- right_content用到的颜色 -->
-	
-	
-	<!-- title红色背景颜色 -->
+
+
+    <!-- title红色背景颜色 -->
     <color name="red_title">#ed655f</color>
     <!-- tab选中背景颜色 -->
     <color name="tab_select">#232323</color>
     <!-- tab未选中背景颜色 -->
     <color name="tab_unselect">#353535</color>
     <!-- tab字体颜色 -->
-    <color name="tab_font">#ed655f</color>    
-
-    
+    <color name="tab_font">#ed655f</color>
     <color name="list_white">#ffffff</color>
-    
 
     <!-- 登陆界面 灰色 -->
-    <color name="login_gray">#7a7a7a</color>   
+    <color name="login_gray">#7a7a7a</color>
 
     <!-- 我的收藏界面 未选中色 -->
-    <color name="mycollect_unselect">#e7eaeb</color>  
-   
+    <color name="mycollect_unselect">#e7eaeb</color>
+
     <!-- 我的账户界面 背景色 -->
-    <color name="myaccount_color">#e7eceb</color>  
+    <color name="myaccount_color">#e7eceb</color>
     <!-- 我的账户界面 字体色 -->
     <color name="myaccount_text_dark">#989b9a</color>
     <!-- 我的账户界面 字体色 -->
     <color name="myaccount_text_light">#ed6562</color>
     <!-- 我的账户分割线字体色 -->
     <color name="myaccount_line_light">#edeeed</color>
-    
-    
+
     <!-- 我的优惠券界面 未选中色 -->
-    <color name="mycoupon_textback">#e7eaea</color>  
+    <color name="mycoupon_textback">#e7eaea</color>
     <!-- 我的优惠券界面item背景色 -->
-    <color name="mycoupon_item">#e0645d</color>      
-     <!-- 我的订单  按钮背景色 -->
-    <color name="order_tab_bg">#e7eaeb</color>  
-          <!-- 我的订单  灰色字 -->
-    <color name="order_tab_text">#9c9c9c</color>    
-     <!-- 我的积分title背景色 -->
+    <color name="mycoupon_item">#e0645d</color>
+    <!-- 我的订单  按钮背景色 -->
+    <color name="order_tab_bg">#e7eaeb</color>
+    <!-- 我的订单  灰色字 -->
+    <color name="order_tab_text">#9c9c9c</color>
+    <!-- 我的积分title背景色 -->
     <color name="mycredit_back_select">#d8d8d8</color>
     <color name="mycredit_list_text">#b5b4b5</color>
     <color name="login_btn_bg">#e6eaeb</color>
@@ -66,11 +62,8 @@
     <!-- user info 底部颜色 -->
     <color name="user_info_bottom">#f3f4f3</color>
     <color name="cancel_back_color">#7f7f7f</color>
-    
-
     <color name="transparent">#00000000</color>
-    <color name="white">#FFFFFFFF</color> 
+    <color name="white">#FFFFFFFF</color>
+    <color name="transparent">#00000000</color>
 
-    
-    
 </resources>

@@ -27,6 +27,8 @@ import android.widget.AdapterView.OnItemClickListener;
 import cn.icnt.dinners.adapter.AdapterSet;
 import cn.icnt.dinners.adapter.LoaderAdapter;
 import cn.icnt.dinners.adapter.MycollectAdapter;
+import cn.icnt.dinners.adapter.MycollectDishAdapter;
+import cn.icnt.dinners.adapter.MycollectResAdapter;
 //import cn.icnt.dinners.adapter.MycollectAdapter;
 import cn.icnt.dinners.debug.DebugUtil;
 import cn.icnt.dinners.http.HttpSendRecv;
@@ -44,8 +46,16 @@ public class MycollectDetailActivity extends Activity implements
 		OnClickListener {
 	private static final String TAG = "MycollectDetailActivity";
 	private MycollectAdapter adapter;
+	private MycollectDishAdapter adapter1;
+	private MycollectResAdapter adapter2;
 	private List<Map<String, String>> list;
-	private MapPackage mp;
+	private List<Map<String, String>> list1;
+	private List<Map<String, String>> list2;
+	
+	private Map<String, String> map;
+	private Map<String, String> map1;
+	private Map<String, String> map2;
+//	private MapPackage mp;
 
 	private ListView lv0;
 	private ListView lv1;
@@ -53,6 +63,10 @@ public class MycollectDetailActivity extends Activity implements
 	private RelativeLayout r0;
 	private RelativeLayout r1;
 	private RelativeLayout r2;
+	
+	private TextView tv0;//左侧数字
+	private TextView tv1;
+	private TextView tv2;
 	private RelativeLayout title;
 	private boolean flag0;
 	private boolean flag1;
@@ -79,14 +93,37 @@ public class MycollectDetailActivity extends Activity implements
 		lv0 = (ListView) findViewById(R.id.lv0);
 		lv1 = (ListView) findViewById(R.id.lv1);
 		lv2 = (ListView) findViewById(R.id.lv2);
+		
+		tv0=(TextView)findViewById(R.id.mycollect_tv0);
+		tv1=(TextView)findViewById(R.id.mycollect_tv1);
+		tv2=(TextView)findViewById(R.id.mycollect_tv2);
+		
+		tv0.setText("");
+		tv1.setText("");
+		tv2.setText("");
+		
 		MapPackage mp = new MapPackage();
 		mp.setPath("favorite_list");
 		mp.setHead(this);
 		mp.setPara("favorite_type", "1");
-		mp.setRes("start", "1");
-		mp.setRes("count", "3");
+		mp.setRes("start", "0");
+		mp.setRes("count", "0");
+		MapPackage mp1 = new MapPackage();
+		mp1.setPath("favorite_goods");
+		mp1.setHead(this);
+		mp1.setPara("favorite_type", "2");
+		mp1.setRes("start", "0");
+		mp1.setRes("count", "0");
+		MapPackage mp2 = new MapPackage();
+		mp2.setPath("favorite_company");
+		mp2.setHead(this);
+		mp2.setPara("favorite_type", "3");
+		mp2.setRes("start", "0");
+		mp2.setRes("count", "0");
 		try {
 			mp.send();
+			mp1.send();
+			mp2.send();
 			// list = mp.getBackResult();
 			// if (list != null) {
 			// boolean bs = EasyFile.writeFile("test", list);
@@ -117,6 +154,7 @@ public class MycollectDetailActivity extends Activity implements
 			//
 			// }
 			// }
+		
 		} catch (Exception e) {
 			if (HttpSendRecv.netStat)
 				Toast.makeText(getApplicationContext(), "网络错误，请重试",
@@ -129,17 +167,33 @@ public class MycollectDetailActivity extends Activity implements
 
 		}
 		list = mp.getBackResult();
+		list1 = mp1.getBackResult();
+		list2 = mp2.getBackResult();
+		map=mp.getBackPara();
+		map1=mp1.getBackPara();
+		map2=mp2.getBackPara();
+		
+		if(map!=null&&map1!=null&&map2!=null){
+		tv0.setText(getNo(map.get("total")));
+		
+		tv1.setText(getNo(map1.get("total")));
+		tv2.setText(getNo(map2.get("total")));
+		}
 		adapter=new MycollectAdapter(this,list);
-		if(list!=null){
+		adapter1=new MycollectDishAdapter(this,list1);
+		adapter2=new MycollectResAdapter(this,list2);
+		
+		if(list!=null&&list1!=null&&list2!=null){
 		lv0.setAdapter(adapter);
-		lv1.setAdapter(adapter);
-		lv2.setAdapter(adapter);
+		lv1.setAdapter(adapter1);
+		lv2.setAdapter(adapter2);
 		lv0.setOnItemClickListener(new OnItemClickListener() {
 
 			public void onItemClick(AdapterView<?> arg0, View arg1, int arg2,
 					long arg3) {
 
 				Intent intent = new Intent();
+//				intent.pute
 				intent.setClass(MycollectDetailActivity.this, MycouponDetailActivity.class);
 				startActivity(intent);
 
@@ -171,7 +225,38 @@ public class MycollectDetailActivity extends Activity implements
 //		AdapterSet.setAdapter( mp, list, adapter, lv0, "test0");
 //		AdapterSet.setAdapter( mp, list, adapter, lv1, "test1");
 //		AdapterSet.setAdapter( mp, list, adapter, lv2, "test2");
+//		初始化操作
+		
+		
+		
+		r0.setBackgroundColor(getResources().getColor(
+				R.color.tab_unselect));
+		r1.setBackgroundColor(getResources().getColor(
+				R.color.mycollect_unselect));
+		r2.setBackgroundColor(getResources().getColor(
+				R.color.mycollect_unselect));
+		lv0.setVisibility(View.VISIBLE);
+		lv1.setVisibility(View.GONE);
+		lv2.setVisibility(View.GONE);
+		flag0 = false;
+		flag1 = true;
+		flag2 = true;
+		DebugUtil.w("000000", "ok");
 
+	}
+	
+	
+	protected String getNo(String no){
+		
+		if(no.equals("0")){
+			
+			return "";
+		}else{
+			
+			return no;
+		}
+		
+		
 	}
 
 	@Override

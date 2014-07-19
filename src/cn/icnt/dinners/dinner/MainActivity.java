@@ -80,7 +80,7 @@ public class MainActivity extends FragmentActivity implements OnClickListener {
 		manage = getSupportFragmentManager();
 		setContentView(R.layout.right_content);
 		manager = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
-		mainShared = getApplicationContext().getSharedPreferences("userInfo",
+		mainShared = getApplicationContext().getSharedPreferences(PreferencesUtils.Keys.USERINFO,
 				Context.MODE_PRIVATE);
 		// 写入sharepreference 操作
 
@@ -210,7 +210,7 @@ public class MainActivity extends FragmentActivity implements OnClickListener {
 			nickName = PreferencesUtils.getValueFromSPMap(
 					getApplicationContext(), PreferencesUtils.Keys.NICKNAME,
 					PreferencesUtils.getValueFromSPMap(
-							getApplicationContext(), PreferencesUtils.Keys.ACCOUNT,
+							getApplicationContext(), PreferencesUtils.Keys.EMAIL,
 							"登陆/注册"));
 
 
@@ -226,16 +226,16 @@ public class MainActivity extends FragmentActivity implements OnClickListener {
 		// String accountStv4 = mainShared.getString("account", "0");
 		// String loginStv5 = mainShared.getString("login", "登陆/注册");
 		((TextView) findViewById(R.id.orderTv0)).setText(mainShared.getString(
-				"order", "0"));
+				PreferencesUtils.Keys.ORDERNO_NO, "0"));
 		;
 		((TextView) findViewById(R.id.collectTv1)).setText(mainShared
-				.getString("collect", "0"));
+				.getString(PreferencesUtils.Keys.COLLECT_NO, "0"));
 		((TextView) findViewById(R.id.couponTv2)).setText(mainShared.getString(
-				"coupon", "0"));
+				PreferencesUtils.Keys.COUPON_NO, "0"));
 		((TextView) findViewById(R.id.creditsTv3)).setText(mainShared
-				.getString("credits", "0"));
+				.getString(PreferencesUtils.Keys.CREDITS_NO, "0"));
 		((TextView) findViewById(R.id.accountTv4)).setText(mainShared
-				.getString("account", "0"));
+				.getString(PreferencesUtils.Keys.ACCOUNT_NO, "0"));
 		((TextView) findViewById(R.id.login)).setText(this.nickName());
 		// this.orderTv0.setText(orderStv0);
 		// this.collectTv1.setText(collectStv1);
@@ -311,7 +311,7 @@ public class MainActivity extends FragmentActivity implements OnClickListener {
 			break;
 		// 侧滑订单item
 		case R.id.menu_myorder:
-			if (mainShared.getString("uid", "31").equals("-1") != true) {
+			if (mainShared.getString("uid", "-1").equals("-1") != true) {
 				Intent i = new Intent();
 				i.setClass(MainActivity.this, MyOrderActivity.class);
 				startActivity(i);
@@ -323,7 +323,7 @@ public class MainActivity extends FragmentActivity implements OnClickListener {
 			break;
 		// 侧滑我的收藏 item
 		case R.id.line1:
-			if (mainShared.getString("uid", "31").equals("-1") != true) {
+			if (mainShared.getString("uid", "-1").equals("-1") != true) {
 				Intent l1 = new Intent();
 				l1.setClass(MainActivity.this, MycollectDetailActivity.class);
 				l1.putExtra("collect",
@@ -336,7 +336,7 @@ public class MainActivity extends FragmentActivity implements OnClickListener {
 			break;
 		// 侧滑我的优惠券item
 		case R.id.line2:
-			if (mainShared.getString("uid", "31").equals("-1") != true) {
+			if (mainShared.getString("uid", "-1").equals("-1") != true) {
 				Intent l2 = new Intent();
 				l2.setClass(MainActivity.this, MycouponDetailActivity.class);
 				l2.putExtra("coupon",
@@ -349,7 +349,7 @@ public class MainActivity extends FragmentActivity implements OnClickListener {
 			break;
 		// 侧滑我的积分 item
 		case R.id.line3:
-			if (mainShared.getString("uid", "31").equals("-1") != true) {
+			if (mainShared.getString("uid", "-1").equals("-1") != true) {
 
 				Toast.makeText(getApplicationContext(), "积分兑换即将上线,敬请期待",
 						Toast.LENGTH_SHORT).show();
@@ -365,7 +365,7 @@ public class MainActivity extends FragmentActivity implements OnClickListener {
 			break;
 		// 侧滑我的账户 item
 		case R.id.line4:
-			if (mainShared.getString("uid", "31").equals("-1") != true) {
+			if (mainShared.getString("uid", "-1").equals("-1") != true) {
 				Intent l4 = new Intent();
 				l4.setClass(MainActivity.this, MyaccountDetailActivity.class);
 				l4.putExtra("account",
@@ -378,7 +378,7 @@ public class MainActivity extends FragmentActivity implements OnClickListener {
 			break;
 		// 侧滑设置 item
 		case R.id.line5:
-			if (mainShared.getString("uid", "31").equals("-1") != true) {
+			if (mainShared.getString("uid", "-1").equals("-1") != true) {
 				Intent l5 = new Intent();
 				l5.setClass(MainActivity.this, MysettingDetailActivity.class);
 				startActivity(l5);
@@ -389,7 +389,7 @@ public class MainActivity extends FragmentActivity implements OnClickListener {
 			break;
 		// 侧滑设置 个人中心
 		case R.id.set_small:
-			if (mainShared.getString("uid", "31").equals("-1") != true) {
+			if (mainShared.getString("uid", "-1").equals("-1") != true) {
 				Intent setSmall = new Intent();
 				setSmall.setClass(MainActivity.this, UserinfoActivity.class);
 				startActivity(setSmall);

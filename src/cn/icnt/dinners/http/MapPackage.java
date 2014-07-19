@@ -22,6 +22,7 @@ import android.telephony.TelephonyManager;
 import cn.icnt.dinners.beans.UserLoginBean;
 import cn.icnt.dinners.debug.DebugUtil;
 import cn.icnt.dinners.utils.MD5;
+import cn.icnt.dinners.utils.PreferencesUtils;
 
 import com.google.gson.Gson;
 
@@ -61,9 +62,11 @@ public class MapPackage {
 //	uid设置，默认为-1（游客）
 	public void setUid(Context context){
 //		shered文件中获取
-		SharedPreferences sp = context.getSharedPreferences("userInfo", context.MODE_PRIVATE);
-		this.uid=sp.getString("uid", "31");
-		DebugUtil.i("shared","999999"+sp.getString("uid", "-1"));
+
+		SharedPreferences sp = context.getSharedPreferences(PreferencesUtils.Keys.USERINFO, context.MODE_PRIVATE);
+		this.uid=sp.getString(PreferencesUtils.Keys.UID, "-1");
+		
+
 	}
 	public String getpath() {
 		Date date = new Date();
@@ -92,7 +95,7 @@ public class MapPackage {
 		TelephonyManager telephonyManager=(TelephonyManager) context.getSystemService(Context.TELEPHONY_SERVICE);
 //		用户id
 		setUid(context);
-		this.headmap.put("uid","31");
+		this.headmap.put("uid",this.getUid());
 		this.headmap.put("no", telephonyManager.getDeviceId());
 		this.headmap.put("os", OS);
 		this.headmap.put("version",VERSION);

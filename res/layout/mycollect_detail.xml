@@ -27,13 +27,14 @@
             android:textSize="14sp" />
 
         <TextView
+            android:id="@+id/mycollect_tv0"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentRight="true"
             android:layout_centerVertical="true"
             android:layout_marginRight="27dp"
             android:gravity="center"
-            android:text="5"
+            android:text=""
             android:textColor="@color/tab_font"
             android:textSize="14sp" />
     </RelativeLayout>
@@ -64,13 +65,14 @@
             android:textSize="14sp" />
 
         <TextView
+            android:id="@+id/mycollect_tv1"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentRight="true"
             android:layout_centerVertical="true"
             android:layout_marginRight="27dp"
             android:gravity="center"
-            android:text="5"
+            android:text=""
             android:textColor="@color/tab_font"
             android:textSize="14sp" />
     </RelativeLayout>
@@ -101,13 +103,14 @@
             android:textSize="14sp" />
 
         <TextView
+            android:id="@+id/mycollect_tv2"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentRight="true"
             android:layout_centerVertical="true"
             android:layout_marginRight="27dp"
             android:gravity="center"
-            android:text="5"
+            android:text=""
             android:textColor="@color/tab_font"
             android:textSize="14sp" />
     </RelativeLayout>

@@ -13,11 +13,13 @@
         android:layout_marginTop="35dp"
         android:gravity="center_horizontal"
         android:orientation="vertical">
-        <ImageView 
+        <ImageView
+            android:id="@+id/user_info_iv_portrait" 
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:src="@drawable/logo"/>
         <TextView 
+            android:id="@+id/user_info_change_portrait"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="16dp"
@@ -73,6 +75,7 @@
         android:orientation="vertical">
         
          <TextView
+             		android:id="@+id/user_info_camera"
                     android:layout_width="265dp"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="37dp"
@@ -82,6 +85,7 @@
                     android:textColor="@color/myaccount_text_dark"
                     android:textSize="15sp" />
          <TextView
+             		android:id="@+id/user_info_from_phone"
                     android:layout_width="265dp"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="22dp"
@@ -90,7 +94,8 @@
                     android:text="@string/from_phone"
                     android:textColor="@color/myaccount_text_dark"
                     android:textSize="15sp" />
-         <TextView
+         <TextView	
+             		android:id="@+id/user_info_cancel"
                     android:layout_width="265dp"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="22dp"

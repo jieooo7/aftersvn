@@ -1,11 +1,13 @@
 package cn.icnt.dinners.utils;
 
-import android.content.Context;  
-import android.view.Gravity;  
-import android.view.View;  
-import android.widget.ImageView;  
-import android.widget.LinearLayout;  
-import android.widget.Toast;  
+import android.app.ProgressDialog;
+import android.content.Context;
+import android.view.Gravity;
+import android.view.View;
+import android.widget.ImageView;
+import android.widget.LinearLayout;
+import android.widget.Toast;
+import cn.icnt.dinners.dinner.R;
   
 public class ToastUtil {  
     private static Toast toast = null;  
@@ -54,4 +56,21 @@ public class ToastUtil {
         //显示消息  
         toast.show();  
     }  
+    
+    
+	private static ProgressDialog dialog;
+
+	public static void showProgressDialog(Context context) {
+		dialog = new ProgressDialog(context);
+		dialog.setIcon(R.drawable.ic_launcher);
+		dialog.setTitle(R.string.app_name);
+		dialog.setMessage("请等候，数据加载中……");
+		dialog.show();
+	}
+
+	public static void closeProgressDialog() {
+		if (dialog != null && dialog.isShowing()) {
+			dialog.dismiss();
+		}
+	}
 }  

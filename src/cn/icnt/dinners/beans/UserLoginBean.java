@@ -14,6 +14,7 @@ public class UserLoginBean {
 		public String level_id;
 		public String balance;
 		public String picture_url;
+		public String nickname;
 		public String login_time;
 		public String login_ip;
 		public String user_status;

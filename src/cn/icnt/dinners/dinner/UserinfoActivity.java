@@ -8,17 +8,21 @@
  */
 package cn.icnt.dinners.dinner;
 
+import java.io.File;
+
 import org.apache.commons.lang.StringUtils;
 
 import cn.icnt.dinners.http.HttpSendRecv;
 import cn.icnt.dinners.http.MapPackage;
 import cn.icnt.dinners.utils.PreferencesUtils;
 import android.app.Activity;
+import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -33,7 +37,23 @@ public class UserinfoActivity extends Activity implements OnClickListener{
 	private RelativeLayout title;
 	private EditText ev;
 	private Button bt;
-	private String petName;
+	private String petName;//昵称
+	private TextView tv0;//修改头像
+	private TextView tv1;//相机
+	private TextView tv2;//从相册选取
+	private TextView tv3;//取消
+	
+	private static final int PHOTO_REQUEST_CAMERA = 1;// 拍照
+	private static final int PHOTO_REQUEST_GALLERY = 2;// 从相册中选择
+	private static final int PHOTO_REQUEST_CUT = 3;// 结果
+
+	private ImageView mFace;
+	private Bitmap bitmap;
+
+	/* 头像名称 */
+	private static final String PHOTO_FILE_NAME = "temp_photo.jpg";
+	private File tempFile;
+	
 	
 	
 	
@@ -51,6 +71,18 @@ public class UserinfoActivity extends Activity implements OnClickListener{
 		bt=(Button) findViewById(R.id.user_info_sendpet);
 		bt.setOnClickListener(this);
 		title.setOnClickListener(this);
+		
+		this.mFace = (ImageView) this.findViewById(R.id.user_info_iv_portrait);
+		
+		tv0=(TextView) findViewById(R.id.user_info_change_portrait);
+		tv1=(TextView) findViewById(R.id.user_info_camera);
+		tv2=(TextView) findViewById(R.id.user_info_from_phone);
+		tv3=(TextView) findViewById(R.id.user_info_cancel);
+		tv0.setOnClickListener(this);
+		tv1.setOnClickListener(this);
+		tv2.setOnClickListener(this);
+		tv3.setOnClickListener(this);
+		
 	}
 	
 	
@@ -93,16 +125,24 @@ public class UserinfoActivity extends Activity implements OnClickListener{
 			break;
 		case R.id.user_info_sendpet:
 			
+			
 			petName=ev.getText().toString();
+			String send=send(petName);
 			
 			if(StringUtils.isEmpty(petName) ||StringUtils.isEmpty(petName)){
 				Toast.makeText(getApplicationContext(), "昵称不能为空",
 						Toast.LENGTH_SHORT).show();
-			}else{
-				if(send(petName)!=null&&send(petName).equals("10000")){
-					PreferencesUtils.putValueToSPMap(getApplicationContext(), PreferencesUtils.Keys.NICKNAME, petName);
+			}
+			else if(petName.length()>6){
+					Toast.makeText(getApplicationContext(), "昵称必须小于6位",
+							Toast.LENGTH_SHORT).show();
+				}
+			
+			else{
+				if(send!=null&&send.equals("10000")){
 					Toast.makeText(getApplicationContext(), "昵称设置成功",
 							Toast.LENGTH_LONG).show();
+					PreferencesUtils.putValueToSPMap(getApplicationContext(), PreferencesUtils.Keys.NICKNAME, petName);
 				}else{
 					Toast.makeText(getApplicationContext(), "昵称设置失败，请重新设置",
 							Toast.LENGTH_LONG).show();

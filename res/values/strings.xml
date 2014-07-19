@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-    <string name="app_name">dinners</string>
+    <string name="app_name">食惠</string>
     <string name="action_settings">Settings</string>
 
     <!-- left_menu用到的文字 -->

@@ -158,32 +158,53 @@ public class DetailsActivity extends Activity implements OnClickListener {
 //		// myLotion.desClient();
 //	}
 
+//	@Override
+//	public void onClick(View v) {
+//		switch (v.getId()) {
+//		case R.id.iv_collection:
+//			Intent intent=new Intent(this,ShareActivity.class);
+//			startActivity(intent);
+//			break;
+//		case R.id.iv_comments:
+//			Intent intent11=new Intent(this,ShareActivity.class);
+//			startActivity(intent11);
+//			break;
+//		case R.id.iv_share:
+//			Intent intent1=new Intent(this,ShareActivity.class);
+//			startActivity(intent1);
+//			break;
+//		case R.id.iv_order:
+//			Intent intent111=new Intent(this,ShareActivity.class);
+//			startActivity(intent111);
+//			break;
+//
+//		
+//		}
+//
+//	}
+	
+	
+
 	@Override
 	public void onClick(View v) {
 		switch (v.getId()) {
 		case R.id.iv_collection:
-			Intent intent=new Intent(this,ShareActivity.class);
-			startActivity(intent);
+			Toast.makeText(this,"收藏成功", 0).show();
 			break;
 		case R.id.iv_comments:
-			Intent intent11=new Intent(this,ShareActivity.class);
-			startActivity(intent11);
+			Toast.makeText(this,"评论成功", 0).show();
 			break;
 		case R.id.iv_share:
 			Intent intent1=new Intent(this,ShareActivity.class);
 			startActivity(intent1);
 			break;
 		case R.id.iv_order:
-			Intent intent111=new Intent(this,ShareActivity.class);
-			startActivity(intent111);
+			Toast.makeText(this,"点餐成功", 0).show();
 			break;
 
 		
 		}
 
 	}
-	
-	
-	
 
 }

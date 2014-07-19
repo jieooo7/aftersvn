@@ -38,7 +38,11 @@ public class PreferencesUtils
 		/**
 		 * 用户名
 		 */
-		public static final String ACCOUNT = "account";
+
+		public static final String ACCOUNT = "account_name";
+
+		public static final String EMAIL = "account_name";
+
 		/**
 		 * 用户密码
 		 */
@@ -52,7 +56,29 @@ public class PreferencesUtils
 		 * 昵称
 		 */
 		public  static final String NICKNAME="nickName";
+		/**
+		 * 侧滑订单计数
+		 */
+		public  static final String ORDERNO_NO="order";
+		/**
+		 * 侧滑收藏计数
+		 */
+		public  static final String COLLECT_NO="collect";
+		/**
+		 * 侧滑优惠券计数
+		 */
+		public  static final String COUPON_NO="coupon";
+		/**
+		 * 侧滑积分计数
+		 */
+		public  static final String CREDITS_NO="credits";
+		/**
+		 * 侧滑我的账户计数
+		 */
+		public  static final String ACCOUNT_NO="account";
+
 		
+
 
 
 	}

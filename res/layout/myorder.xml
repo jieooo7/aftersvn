@@ -121,17 +121,37 @@
             android:id="@+id/order_evaluate"
             style="@style/order_tab"
             android:text="待评价" />
-    </RadioGroup>
-    -->
+    </RadioGroup> -->
 
     <ListView
         android:id="@+id/order_list"
-        android:layout_marginLeft="15dp"
-        android:layout_marginRight="15dp"
-	android:divider="@null"
         android:layout_width="fill_parent"
         android:layout_height="0dp"
-        android:layout_weight="1" >
+        android:layout_marginLeft="15dp"
+        android:layout_marginRight="15dp"
+        android:layout_weight="1"
+        android:divider="@null"
+        android:scrollbars="none" >
     </ListView>
-
+  <ListView
+        android:id="@+id/order_list_nopay"
+        android:layout_width="fill_parent"
+        android:layout_height="0dp"
+        android:layout_marginLeft="15dp"
+        android:layout_marginRight="15dp"
+        android:layout_weight="1"
+        android:divider="@null"
+        android:visibility="gone"
+        android:scrollbars="none" >
+    </ListView>  <ListView
+        android:id="@+id/order_list_nosend"
+        android:visibility="gone"
+        android:layout_width="fill_parent"
+        android:layout_height="0dp"
+        android:layout_marginLeft="15dp"
+        android:layout_marginRight="15dp"
+        android:layout_weight="1"
+        android:divider="@null"
+        android:scrollbars="none" >
+    </ListView>
 </LinearLayout>

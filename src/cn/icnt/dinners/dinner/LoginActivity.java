@@ -22,6 +22,7 @@ import cn.icnt.dinners.beans.UserLoginBean;
 import cn.icnt.dinners.http.GsonTools;
 import cn.icnt.dinners.http.HttpSendRecv;
 import cn.icnt.dinners.http.MapPackage;
+import cn.icnt.dinners.utils.Container;
 import cn.icnt.dinners.utils.PreferencesUtils;
 import cn.icnt.dinners.utils.ToastUtil;
 
@@ -114,7 +115,7 @@ public class LoginActivity extends Activity {
 			String username = user_name.getText().toString().trim();
 			if (StringUtils.isEmpty(username)) {
 				ToastUtil.show(this, "请输入用户名");
-			}else {
+			} else {
 				intent = new Intent();
 				intent.setClass(LoginActivity.this, FindPassWordActivity.class);
 				intent.putExtra("user_name", username);
@@ -132,17 +133,18 @@ public class LoginActivity extends Activity {
 		userName = user_name.getText().toString().trim();
 		userPassword = edit_password.getText().toString().trim();
 
-//		if (StringUtils.isEmpty(userName) && StringUtils.isEmpty(userPassword)) {
-//			Toast.makeText(this, "请正确输入！", 0).show();
-//		} else if (StringUtils.isEmpty(userName)) {
-//
-//			Toast.makeText(this, "请输入用户名哦！亲", 0).show();
-//		} else if (StringUtils.isEmpty(userPassword)) {
-//			Toast.makeText(this, "请输入密码哦！亲", 0).show();
-//		} else {
-//			sendLogin(userName, userPassword);
-//			
-//		}
+		// if (StringUtils.isEmpty(userName) &&
+		// StringUtils.isEmpty(userPassword)) {
+		// Toast.makeText(this, "请正确输入！", 0).show();
+		// } else if (StringUtils.isEmpty(userName)) {
+		//
+		// Toast.makeText(this, "请输入用户名哦！亲", 0).show();
+		// } else if (StringUtils.isEmpty(userPassword)) {
+		// Toast.makeText(this, "请输入密码哦！亲", 0).show();
+		// } else {
+		// sendLogin(userName, userPassword);
+		//
+		// }
 
 		if (StringUtils.isEmpty(userName) && StringUtils.isEmpty(userPassword)) {
 			Toast.makeText(this, "请正确输入！", 0).show();
@@ -190,8 +192,7 @@ public class LoginActivity extends Activity {
 		Map<String, Object> maps = mp.getMap();
 		RequestParams params = GsonTools.GetParams(maps);
 		HttpUtils http = new HttpUtils();
-		http.send(HttpRequest.HttpMethod.POST,
-				"http://115.29.13.164/login.do?t=", params,
+		http.send(HttpRequest.HttpMethod.POST, Container.LOGIN_URL, params,
 				new RequestCallBack<String>() {
 
 					@Override
@@ -205,10 +206,12 @@ public class LoginActivity extends Activity {
 
 					@Override
 					public void onSuccess(ResponseInfo<String> responseInfo) {
+						 Log.i("LoginActivity", responseInfo.result);
 						Gson gson = new Gson();
 						UserLoginBean userInfo = gson.fromJson(
 								responseInfo.result, UserLoginBean.class);
 						action(userInfo);
+						
 					}
 
 					@Override
@@ -266,9 +269,11 @@ public class LoginActivity extends Activity {
 			PreferencesUtils.putValueToSPMap(this, PreferencesUtils.Keys.UID,
 					userInfo.para.user_id);
 			PreferencesUtils.putValueToSPMap(this,
-					PreferencesUtils.Keys.ACCOUNT, userInfo.para.email);
+					PreferencesUtils.Keys.EMAIL, userInfo.para.email);
 			PreferencesUtils.putValueToSPMap(this, PreferencesUtils.Keys.PHONE,
 					userInfo.para.phone);
+			PreferencesUtils.putValueToSPMap(this, PreferencesUtils.Keys.NICKNAME,
+					userInfo.para.nickname);
 			this.finish();
 
 		} else {
@@ -276,14 +281,17 @@ public class LoginActivity extends Activity {
 			edit_password.setText("");
 		}
 	}
-	@Override  
-	 public boolean onTouchEvent(MotionEvent event) {  
-	  // TODO Auto-generated method stub  
-	  if(event.getAction() == MotionEvent.ACTION_DOWN){  
-	     if(getCurrentFocus()!=null && getCurrentFocus().getWindowToken()!=null){  
-	       manager.hideSoftInputFromWindow(getCurrentFocus().getWindowToken(), InputMethodManager.HIDE_NOT_ALWAYS);  
-	     }  
-	  }  
-	  return super.onTouchEvent(event);  
-	 }  
+
+	@Override
+	public boolean onTouchEvent(MotionEvent event) {
+		// TODO Auto-generated method stub
+		if (event.getAction() == MotionEvent.ACTION_DOWN) {
+			if (getCurrentFocus() != null
+					&& getCurrentFocus().getWindowToken() != null) {
+				manager.hideSoftInputFromWindow(getCurrentFocus()
+						.getWindowToken(), InputMethodManager.HIDE_NOT_ALWAYS);
+			}
+		}
+		return super.onTouchEvent(event);
+	}
 }
