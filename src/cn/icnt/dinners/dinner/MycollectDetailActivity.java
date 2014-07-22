@@ -31,6 +31,8 @@ import cn.icnt.dinners.adapter.MycollectDishAdapter;
 import cn.icnt.dinners.adapter.MycollectResAdapter;
 //import cn.icnt.dinners.adapter.MycollectAdapter;
 import cn.icnt.dinners.debug.DebugUtil;
+import cn.icnt.dinners.entity.Dishes;
+import cn.icnt.dinners.entity.Result;
 import cn.icnt.dinners.http.HttpSendRecv;
 import cn.icnt.dinners.http.MapPackage;
 import cn.icnt.dinners.utils.EasyFile;
@@ -189,36 +191,89 @@ public class MycollectDetailActivity extends Activity implements
 		lv2.setAdapter(adapter2);
 		lv0.setOnItemClickListener(new OnItemClickListener() {
 
-			public void onItemClick(AdapterView<?> arg0, View arg1, int arg2,
+			public void onItemClick(AdapterView<?> arg0, View arg1, int position,
 					long arg3) {
 
-				Intent intent = new Intent();
-//				intent.pute
-				intent.setClass(MycollectDetailActivity.this, MycouponDetailActivity.class);
-				startActivity(intent);
+				Intent intent = new Intent(MycollectDetailActivity.this, DetailsActivity.class);
+				Bundle bundle = new Bundle();
+				bundle.putSerializable(
+						"result",
+						new Result(list.get(position).get("address_str"),
+								position, position, list.get(position).get(
+										"information_str"), list.get(position)
+										.get("name_store"), list.get(position)
+										.get("name_url"), list.get(position)
+										.get("phone_str"), list.get(position)
+										.get("remind"), list.get(position).get(
+										"store_str"), position, list.get(
+										position).get("description"), list.get(
+										position).get("end_time"), list.get(
+										position).get("lager_picture"),
+								position));
+				intent.putExtras(bundle);
+				MycollectDetailActivity.this.startActivity(intent);
 
 			}
 		});
 		lv1.setOnItemClickListener(new OnItemClickListener() {
 
-			public void onItemClick(AdapterView<?> arg0, View arg1, int arg2,
+			public void onItemClick(AdapterView<?> arg0, View arg1, int position,
 					long arg3) {
 
-				Intent intent = new Intent();
-				intent.setClass(MycollectDetailActivity.this, MycouponDetailActivity.class);
-				startActivity(intent);
+				Intent intent = new Intent(MycollectDetailActivity.this, DetailcActivity.class);
+				Bundle bundle = new Bundle();
+				bundle.putSerializable(
+						"result",
+						new Dishes(list.get(position).get("address_str"),
+								position, position, list.get(position).get(
+										"description"), list.get(position).get(
+										"end_time"), position, list.get(
+										position).get("food_str"), list.get(
+										position).get("giving_str"), list.get(
+										position).get("information_str"), list.get(
+										position).get("name_store"), list.get(
+										position).get("name_url"), list.get(
+										position).get("phone_str"), list.get(
+										position).get("remark"), list.get(
+										position).get("remind"), position,
+								list.get(position).get("start_time"), list.get(
+										position).get("store_str"), position,
+								position,list.get(
+										position).get("store_str")));
+				
+				intent.putExtras(bundle);
+				MycollectDetailActivity.this.startActivity(intent);
 
 			}
 		});
 		lv2.setOnItemClickListener(new OnItemClickListener() {
 
-			public void onItemClick(AdapterView<?> arg0, View arg1, int arg2,
+			public void onItemClick(AdapterView<?> arg0, View arg1, int position,
 					long arg3) {
 
-				Intent intent = new Intent();
-				intent.setClass(MycollectDetailActivity.this, MycouponDetailActivity.class);
-				startActivity(intent);
-
+				Intent intent = new Intent(MycollectDetailActivity.this, DetailcActivity.class);
+				Bundle bundle = new Bundle();
+				bundle.putSerializable(
+						"result",
+						new Dishes(list.get(position).get("address_str"),
+								position, position, list.get(position).get(
+										"description"), list.get(position).get(
+										"end_time"), position, list.get(
+										position).get("food_str"), list.get(
+										position).get("giving_str"), list.get(
+										position).get("information_str"), list.get(
+										position).get("name_store"), list.get(
+										position).get("name_url"), list.get(
+										position).get("phone_str"), list.get(
+										position).get("remark"), list.get(
+										position).get("remind"), position,
+								list.get(position).get("start_time"), list.get(
+										position).get("store_str"), position,
+								position,list.get(
+										position).get("store_str")));
+				
+				intent.putExtras(bundle);
+				MycollectDetailActivity.this.startActivity(intent);
 			}
 		});
 		}

@@ -55,8 +55,8 @@ public class FragmentRes extends Fragment {
 		mp.setHead(getActivity());
 		mp.setPara("order", "1");
 		mp.setPara("sub_company_id", 1);
-		mp.setRes("start", "1");
-		mp.setRes("count", "3");
+		mp.setRes("start", "0");
+		mp.setRes("count", "4");
 		
 		try {
 			mp.send();
@@ -74,7 +74,7 @@ public class FragmentRes extends Fragment {
 		}
 		list = mp.getBackResult();
 
-		adapter = new FragmentResAdapter(getActivity(), list);
+		adapter =new FragmentResAdapter(getActivity(), list);
 		if (list != null) {
 			mlv.setAdapter(adapter);
 

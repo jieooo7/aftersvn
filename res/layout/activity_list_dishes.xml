@@ -71,6 +71,7 @@
                     android:layout_height="wrap_content"
                     android:layout_toRightOf="@+id/list_tv_xinx"
                     android:text="仅售154，价值304"
+                    android:singleLine="true"
                     android:textColor="@color/order_tab_text"
                     android:textSize="@dimen/list_tv_store" />
             </LinearLayout>
@@ -85,6 +86,7 @@
                     android:id="@+id/list_tv_introduce"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:singleLine="true"
                     android:text="仅售154，价值304南中店5人套餐！独特的鱼锅，鲜美的味道。。。。"
                     android:textColor="@color/order_tab_text"
                     android:textSize="@dimen/list_tv_store" />

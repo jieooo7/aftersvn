@@ -76,11 +76,7 @@ public class PreferencesUtils
 		 * 侧滑我的账户计数
 		 */
 		public  static final String ACCOUNT_NO="account";
-
-		
-
-
-
+	
 	}
 
 /**

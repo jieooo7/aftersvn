@@ -6,8 +6,10 @@ import java.util.Map;
 
 import cn.icnt.dinners.adapter.FragmentCouponAdapter;
 import cn.icnt.dinners.cache.ImageLoader;
+import cn.icnt.dinners.entity.Dishes;
 import cn.icnt.dinners.entity.Present;
 import cn.icnt.dinners.entity.Result;
+import cn.icnt.dinners.entity.Store;
 
 import cn.icnt.dinners.entity.Present.ResultList;
 import cn.icnt.dinners.http.GsonTools;
@@ -44,7 +46,7 @@ import android.widget.TextView;
 import android.widget.TextView.BufferType;
 import android.widget.Toast;
 
-public class DetailsActivity extends Activity implements OnClickListener {
+public class DetailaActivity extends Activity implements OnClickListener {
 	// private TextView locationInfoTextView = null;
 	// private Button startButton = null;
 	// private List<Map<String, String>> list;
@@ -62,6 +64,7 @@ public class DetailsActivity extends Activity implements OnClickListener {
 	private TextView mtv5;
 	private TextView mtv6;
 	private ImageLoader mImageLoader;
+	private TextView mtv_it;
 
 	// MyBaiduLotion myLotion;
 	// MyLocation myLocation;
@@ -70,7 +73,7 @@ public class DetailsActivity extends Activity implements OnClickListener {
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		setContentView(R.layout.activity_details_item);
+		setContentView(R.layout.activity_detaila_item);
 		//
 		// locationInfoTextView = (TextView) this
 		// .findViewById(R.id.title_center_text);
@@ -85,23 +88,25 @@ public class DetailsActivity extends Activity implements OnClickListener {
 		mtv4 = (TextView) this.findViewById(R.id.tv_details_activity);
 		mtv5 = (TextView) this.findViewById(R.id.tv_youhuixinxi);
 		mtv6 = (TextView) this.findViewById(R.id.tv_introduce);
+		mtv_it = (TextView) this.findViewById(R.id.login_titles);
 		mCollection.setOnClickListener(this);
 		mComments.setOnClickListener(this);
 		mShare.setOnClickListener(this);
 		mOrder.setOnClickListener(this);
 		Bundle bundle = getIntent().getExtras();
-		Result result = (Result) bundle.getSerializable("result");
-		mtv6.setText(result.getDescription());
-		mtv5.setText(result.getInformation_str());
-		mtv4.setText(result.getStore_str());
-		mtv3.setText(result.getDate());
-		mtv2.setText(result.getRemind());
-		mtv1.setText(result.getStore_str());
-
+		Store store = (Store) bundle.getSerializable("result");
+		
+		mtv6.setText(store.getDescription());
+		mtv5.setText(store.getInformation_str());
+		mtv4.setText(store.getStore_str());
+		mtv3.setText(store.getName_store());
+		mtv2.setText(store.getRemind());
+		mtv1.setText(store.getStore_str());
+		mtv_it.setText("详情页");
 		mImageLoader = new ImageLoader(this);
-		mImageLoader.DisplayImage(MapPackage.PATH + result.getLager_picture(), mtv,
+		mImageLoader.DisplayImage(MapPackage.PATH + store.getLager_picture(), mtv,
 				false);
-		System.out.println(mtv);
+		System.out.println(store);
 		((TextView) findViewById(R.id.title_center_text))
 		.setText(getResources().getString(R.string.my_accounts));
 

@@ -80,8 +80,8 @@ public class MainActivity extends FragmentActivity implements OnClickListener {
 		manage = getSupportFragmentManager();
 		setContentView(R.layout.right_content);
 		manager = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
-		mainShared = getApplicationContext().getSharedPreferences(PreferencesUtils.Keys.USERINFO,
-				Context.MODE_PRIVATE);
+		mainShared = getApplicationContext().getSharedPreferences(
+				PreferencesUtils.Keys.USERINFO, Context.MODE_PRIVATE);
 		// 写入sharepreference 操作
 
 		mTabHost = (FragmentTabHost) findViewById(android.R.id.tabhost);
@@ -90,6 +90,13 @@ public class MainActivity extends FragmentActivity implements OnClickListener {
 		mTabHost.addTab(mTabHost.newTabSpec("tab0").setIndicator(indicator1),
 				FragmentCoupon.class, null);
 
+		// indicator2 = getIndicatorView("菜品推荐", R.layout.tab_wid);
+		// mTabHost.addTab(mTabHost.newTabSpec("tab1").setIndicator(indicator2),
+		// FragmentCoupon.class, null);
+		//
+		// indicator3 = getIndicatorView("餐厅推荐", R.layout.tab_wid);
+		// mTabHost.addTab(mTabHost.newTabSpec("tab2").setIndicator(indicator3),
+		// FragmentCoupon.class, null);
 		indicator2 = getIndicatorView("菜品推荐", R.layout.tab_wid);
 		mTabHost.addTab(mTabHost.newTabSpec("tab1").setIndicator(indicator2),
 				FragmentDish.class, null);
@@ -198,21 +205,20 @@ public class MainActivity extends FragmentActivity implements OnClickListener {
 
 	protected String nickName() {
 		String nickName = "";
-//		String nickName =PreferencesUtils.getValueFromSPMap(getApplicationContext(),
-//				PreferencesUtils.Keys.NICKNAME, "");
-//		if (PreferencesUtils.getValueFromSPMap(getApplicationContext(),
-//				PreferencesUtils.Keys.NICKNAME, "").equals("")) {
-//			nickName = PreferencesUtils.getValueFromSPMap(
-//					getApplicationContext(), PreferencesUtils.Keys.ACCOUNT,
-//					"登陆/注册");
-//
-//		} 
+		// String nickName
+		// =PreferencesUtils.getValueFromSPMap(getApplicationContext(),
+		// PreferencesUtils.Keys.NICKNAME, "");
+		if (PreferencesUtils.getValueFromSPMap(getApplicationContext(),
+				PreferencesUtils.Keys.NICKNAME, "").equals("")) {
 			nickName = PreferencesUtils.getValueFromSPMap(
-					getApplicationContext(), PreferencesUtils.Keys.NICKNAME,
-					PreferencesUtils.getValueFromSPMap(
-							getApplicationContext(), PreferencesUtils.Keys.EMAIL,
-							"登陆/注册"));
+					getApplicationContext(), PreferencesUtils.Keys.ACCOUNT,
+					"登陆/注册");
 
+		}
+		nickName = PreferencesUtils.getValueFromSPMap(getApplicationContext(),
+				PreferencesUtils.Keys.NICKNAME, PreferencesUtils
+						.getValueFromSPMap(getApplicationContext(),
+								PreferencesUtils.Keys.EMAIL, "登陆/注册"));
 
 		return nickName;
 	}
@@ -307,7 +313,7 @@ public class MainActivity extends FragmentActivity implements OnClickListener {
 			intent = new Intent();
 			intent.setClass(MainActivity.this, LoginActivity.class);
 			startActivity(intent);
-
+			finish();
 			break;
 		// 侧滑订单item
 		case R.id.menu_myorder:

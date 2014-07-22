@@ -13,6 +13,8 @@
     <string name="my_favor">我的收藏</string>
     <string name="my_intergral">我的积分</string>
     <string name="my_account">我的账户</string>
+    <string name="my_accounts">详情页</string>
+     <string name="my_accoun">分享</string>
 
     <!-- right_ content用到的文字 -->
     <string name="ximen">厦门</string>

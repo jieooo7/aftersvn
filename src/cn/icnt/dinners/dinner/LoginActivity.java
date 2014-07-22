@@ -15,6 +15,7 @@ import android.view.View;
 import android.view.View.OnFocusChangeListener;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
+import android.widget.FrameLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -40,11 +41,11 @@ import com.lidroid.xutils.view.annotation.event.OnClick;
 public class LoginActivity extends Activity {
 	@ViewInject(R.id.title_left_btn)
 	private RelativeLayout back; // 返回按钮
-	@ViewInject(R.id.edit_phone_bg)
-	private RelativeLayout edit_phone_bg; // 用户名输入框背景
-
-	@ViewInject(R.id.edit_password_bg)
-	private RelativeLayout edit_password_bg; // 密码输入框背景
+	// @ViewInject(R.id.edit_phone_bg)
+	// private RelativeLayout edit_phone_bg; // 用户名输入框背景
+	//
+	// @ViewInject(R.id.edit_password_bg)
+	// private RelativeLayout edit_password_bg; // 密码输入框背景
 	@ViewInject(R.id.user_name)
 	private EditText user_name;// 用户名输入框
 	@ViewInject(R.id.edit_password)
@@ -55,6 +56,10 @@ public class LoginActivity extends Activity {
 	private TextView forget_password;// 忘记密码
 	@ViewInject(R.id.login)
 	private TextView login; // 登陆
+	@ViewInject(R.id.login_phone_editing)
+	private FrameLayout login_phone_editing; // 用户输入状态
+	@ViewInject(R.id.login_pwd_editing)
+	private FrameLayout login_pwd_editing; // 密码输入状态
 	private List<Map<String, String>> list;
 
 	private String userName;
@@ -80,8 +85,8 @@ public class LoginActivity extends Activity {
 			@Override
 			public void onFocusChange(View v, boolean hasFocus) {
 				setViewVisible(hasFocus || user_name.getText().length() > 0,
-						edit_phone_bg, user_name, R.string.login_user_name,
-						R.drawable.mailbox);
+						login_phone_editing, user_name,
+						R.string.login_user_name);
 			}
 		});
 		edit_password.setOnFocusChangeListener(new OnFocusChangeListener() {
@@ -89,8 +94,8 @@ public class LoginActivity extends Activity {
 			public void onFocusChange(View v, boolean hasFocus) {
 				setViewVisible(
 						hasFocus || edit_password.getText().length() > 0,
-						edit_password_bg, edit_password,
-						R.string.login_user_password, R.drawable.password);
+						login_pwd_editing, edit_password,
+						R.string.login_user_password);
 			}
 		});
 	}
@@ -206,12 +211,12 @@ public class LoginActivity extends Activity {
 
 					@Override
 					public void onSuccess(ResponseInfo<String> responseInfo) {
-						 Log.i("LoginActivity", responseInfo.result);
+						Log.i("LoginActivity", responseInfo.result);
 						Gson gson = new Gson();
 						UserLoginBean userInfo = gson.fromJson(
 								responseInfo.result, UserLoginBean.class);
 						action(userInfo);
-						
+
 					}
 
 					@Override
@@ -228,7 +233,7 @@ public class LoginActivity extends Activity {
 		mp.setPara("account", userName2);
 		mp.setPara("pwd", userPassword2);
 		Map<String, Object> maps = mp.getMap();
-		// Log.i("LoginActivity", mp.toString());
+		// Log.i("LoginActivity", mp.toString());s
 		try {
 			UserLoginBean userInfo = mp.send(UserLoginBean.class);
 			// List<Map<String, String>> backResult = mp.getBackResult();
@@ -251,29 +256,55 @@ public class LoginActivity extends Activity {
 		}
 	}
 
-	private void setViewVisible(boolean need_visible, RelativeLayout tv,
-			EditText et, int id, int bg) {
+	private void setViewVisible(boolean need_visible, FrameLayout tv,
+			EditText et, int id) {
+		// RelativeLayout.LayoutParams linearParams
+		// =(RelativeLayout.LayoutParams) tv.getLayoutParams();
+		// //取控件textView当前的布局参数
+		// linearParams.height = 20;// 控件的高强制设成20
+		//
+		// linearParams.width = 30;// 控件的宽强制设成30
+		//
 		if (need_visible) {
-			tv.setBackgroundResource(bg);
+			tv.setVisibility(View.VISIBLE);
+			// tv.setLayoutParams(linearParams); //使设置好的布局参数应用到控件</pre>
 			et.setHint("");
 		} else {
-			tv.setBackgroundResource(R.drawable.loginedit);
+			tv.setVisibility(View.INVISIBLE);
 			et.setHint(getResources().getString(id));
 		}
-
 	}
 
 	private void action(UserLoginBean userInfo) {
 		if (userInfo == null) {
 		} else if ("10000".equals(userInfo.head.code)) {
-			PreferencesUtils.putValueToSPMap(this, PreferencesUtils.Keys.UID,
-					userInfo.para.user_id);
-			PreferencesUtils.putValueToSPMap(this,
+			PreferencesUtils.putValueToSPMap(LoginActivity.this,
+					PreferencesUtils.Keys.UID, userInfo.para.user_id);
+			PreferencesUtils.putValueToSPMap(LoginActivity.this,
 					PreferencesUtils.Keys.EMAIL, userInfo.para.email);
-			PreferencesUtils.putValueToSPMap(this, PreferencesUtils.Keys.PHONE,
-					userInfo.para.phone);
-			PreferencesUtils.putValueToSPMap(this, PreferencesUtils.Keys.NICKNAME,
-					userInfo.para.nickname);
+			PreferencesUtils.putValueToSPMap(LoginActivity.this,
+					PreferencesUtils.Keys.PHONE, userInfo.para.phone);
+			PreferencesUtils.putValueToSPMap(LoginActivity.this,
+					PreferencesUtils.Keys.NICKNAME, userInfo.para.nickname);
+			// 账户订单数
+			PreferencesUtils.putValueToSPMap(LoginActivity.this,
+					PreferencesUtils.Keys.ORDERNO_NO, userInfo.para.order_num);
+			// 账户收藏
+			PreferencesUtils.putValueToSPMap(LoginActivity.this,
+					PreferencesUtils.Keys.COLLECT_NO,
+					userInfo.para.favorite_num);
+			// 账户优惠券
+			PreferencesUtils.putValueToSPMap(LoginActivity.this,
+					PreferencesUtils.Keys.COUPON_NO, userInfo.para.ticket_num);
+			// 积分
+			PreferencesUtils.putValueToSPMap(LoginActivity.this,
+					PreferencesUtils.Keys.CREDITS_NO, userInfo.para.point_num);
+			// 账户余额************************************************
+			PreferencesUtils.putValueToSPMap(LoginActivity.this,
+					PreferencesUtils.Keys.ACCOUNT_NO, userInfo.para.balance);
+			intent = new Intent();
+			intent.setClass(LoginActivity.this, MainActivity.class);
+			startActivity(intent);
 			this.finish();
 
 		} else {

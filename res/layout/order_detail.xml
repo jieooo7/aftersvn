@@ -27,7 +27,7 @@
             android:id="@+id/order_detail_info"
             style="@style/order_taxtview"
             android:layout_width="fill_parent"
-            android:text="skdjflkajs dflkja sdlkfja lskdf" />
+            android:text="菜品12份" />
 
         <TextView
             android:id="@+id/order_total_price"
@@ -39,7 +39,7 @@
             android:layout_marginBottom="4dp"
             android:layout_marginLeft="3dp"
             android:layout_marginTop="4dp"
-            android:text="￥250"
+            android:text="￥280"
             android:textColor="@color/order_tab_text"
             android:textSize="12sp" />
 
@@ -66,7 +66,7 @@
                 android:id="@+id/order_price"
                 style="@style/order_taxtview"
                 android:layout_alignParentRight="true"
-                android:text="￥250"
+                android:text="￥280"
                 android:textColor="@color/tab_font"
                 android:textSize="20sp" />
 

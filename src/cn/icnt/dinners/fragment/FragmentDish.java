@@ -52,11 +52,11 @@ public class FragmentDish extends Fragment{
 
 		MapPackage mp = new MapPackage();
 		mp.setPath("goods.do?");
-		System.out.println("111111111111111111");
+		
 		mp.setHead(getActivity());
 		mp.setPara("order", "1");
-		mp.setRes("start", "1");
-		mp.setRes("count", "3");
+		mp.setRes("start", "0");
+		mp.setRes("count", "4");
 
 		try {
 			mp.send();

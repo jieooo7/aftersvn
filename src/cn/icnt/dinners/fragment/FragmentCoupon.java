@@ -1,5 +1,6 @@
 package cn.icnt.dinners.fragment;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 
 import java.util.List;
@@ -19,6 +20,7 @@ import android.app.AlertDialog;
 import android.app.Dialog;
 import android.content.Context;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.v4.app.Fragment;
@@ -29,12 +31,17 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import android.widget.AdapterView;
+import android.widget.AdapterView.OnItemClickListener;
 import android.widget.ListView;
+import android.widget.TextView;
 import android.widget.Toast;
 
+import cn.icnt.dinners.dinner.DetailsActivity;
 import cn.icnt.dinners.dinner.R;
 import cn.icnt.dinners.entity.Present;
 import cn.icnt.dinners.entity.Present.ResultList;
+import cn.icnt.dinners.entity.Result;
 import cn.icnt.dinners.http.GsonTools;
 import cn.icnt.dinners.http.HttpSendRecv;
 import cn.icnt.dinners.http.MapPackage;
@@ -52,6 +59,7 @@ public class FragmentCoupon extends Fragment {
 	private ListView mlv;
 	private List<Map<String, String>> list;
 	private FragmentCouponAdapter adapter;
+	private Result result;
 
 	public View onCreateView(LayoutInflater inflater, ViewGroup container,
 			Bundle savedInstanceState) {
@@ -60,17 +68,18 @@ public class FragmentCoupon extends Fragment {
 		getAdInfo();
 
 		mlv = (ListView) view.findViewById(R.id.coupon_list);
-
+//		((TextView) findViewById(R.id.title_center_text))
+//		.setText(getResources().getString(R.string.my_accounts));
 		MapPackage mp = new MapPackage();
 		mp.setPath("discount");
 		
 		mp.setHead(getActivity());
 		mp.setPara("order", "1");
-		mp.setPara("company_id", 1);
-	
+//		mp.setPara("company_id", 1);
+//	
 		mp.setPara("sub_company_id", 2);
-		mp.setRes("start", "1");
-		mp.setRes("count", "3");
+		mp.setRes("start", "0");
+		mp.setRes("count", "4");
 	
 
 		try {
@@ -92,11 +101,28 @@ public class FragmentCoupon extends Fragment {
 		adapter = new FragmentCouponAdapter(getActivity(), list);
 		if (list != null) {
 			mlv.setAdapter(adapter);
-
+//			mlv.setOnItemClickListener(new OnItemClickListener() {
+//
+//				@Override
+//				public void onItemClick(AdapterView<?> arg0, View arg1,
+//						int arg2, long arg3) {
+//					
+//					  
+//	              
+//					
+//				}
+//
+//			
+//			});
 		}
 
 		return view;
 
+	}
+
+	private TextView findViewById(int titleCenterText) {
+		// TODO Auto-generated method stub
+		return null;
 	}
 
 	private void getAdInfo() {

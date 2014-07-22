@@ -6,6 +6,7 @@ import java.util.Map;
 
 import cn.icnt.dinners.adapter.FragmentCouponAdapter;
 import cn.icnt.dinners.cache.ImageLoader;
+import cn.icnt.dinners.entity.Dishes;
 import cn.icnt.dinners.entity.Present;
 import cn.icnt.dinners.entity.Result;
 
@@ -44,7 +45,7 @@ import android.widget.TextView;
 import android.widget.TextView.BufferType;
 import android.widget.Toast;
 
-public class DetailsActivity extends Activity implements OnClickListener {
+public class DetailcActivity extends Activity implements OnClickListener {
 	// private TextView locationInfoTextView = null;
 	// private Button startButton = null;
 	// private List<Map<String, String>> list;
@@ -70,7 +71,7 @@ public class DetailsActivity extends Activity implements OnClickListener {
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		setContentView(R.layout.activity_details_item);
+		setContentView(R.layout.activity_detailc_item);
 		//
 		// locationInfoTextView = (TextView) this
 		// .findViewById(R.id.title_center_text);
@@ -90,129 +91,25 @@ public class DetailsActivity extends Activity implements OnClickListener {
 		mShare.setOnClickListener(this);
 		mOrder.setOnClickListener(this);
 		Bundle bundle = getIntent().getExtras();
-		Result result = (Result) bundle.getSerializable("result");
-		mtv6.setText(result.getDescription());
-		mtv5.setText(result.getInformation_str());
-		mtv4.setText(result.getStore_str());
-		mtv3.setText(result.getDate());
-		mtv2.setText(result.getRemind());
-		mtv1.setText(result.getStore_str());
+		Dishes dishes = (Dishes) bundle.getSerializable("result");
+		
+		mtv6.setText(dishes.getDescription());
+		mtv5.setText(dishes.getInformation_str());
+		mtv4.setText(dishes.getStore_str());
+		mtv3.setText(dishes.getName_store());
+		mtv2.setText(dishes.getRemind());
+		mtv1.setText(dishes.getStore_str());
 
 		mImageLoader = new ImageLoader(this);
-		mImageLoader.DisplayImage(MapPackage.PATH + result.getLager_picture(), mtv,
+		mImageLoader.DisplayImage(MapPackage.PATH + dishes.getLager_picture(), mtv,
 				false);
-		System.out.println(mtv);
+		System.out.println(dishes);
 		((TextView) findViewById(R.id.title_center_text))
 		.setText(getResources().getString(R.string.my_accounts));
 
 	}
 
-	// MapPackage mp = new MapPackage();
-	// mp.setPath("discount");
-	//
-	// mp.setHead(this);
-	// mp.setPara("order", "1");
-	// mp.setRes("start", "1");
-	// mp.setRes("count", "3");
-	//
-	// try {
-	// mp.send();
-	//
-	// } catch (Exception e) {
-	// if (HttpSendRecv.netStat)
-	// Toast.makeText(this, "网络错误，请重试", Toast.LENGTH_LONG)
-	// .show();
-	// else
-	// Toast.makeText(this, "出错了^_^", Toast.LENGTH_LONG)
-	// .show();
-	//
-	// } finally {
-	//
-	// }
-	//
-	//
-	// }
-	// }
-	//
-	// startButton.setOnClickListener(new OnClickListener() {
-
-	// @Override
-	// public void onClick(View v) {
-	// myLotion = new MyBaiduLotion(DetailsActivity.this);
-	// myLocation = new MyLocation();
-	// myLotion.opetateClient();
-	// new LocationTHread().start();
-	// }
-	// });
-	//
-	// }
-
-	// class LocationTHread extends Thread {
-	// @Override
-	// public void run() {
-	// // TODO Auto-generated method stub
-	// super.run();
-	// if (myLotion != null)
-	// while (!myLotion.getIsFinish()) {
-	// try {
-	// sleep(1000);
-	// } catch (InterruptedException e) {
-	// // TODO Auto-generated catch block
-	// e.printStackTrace();
-	// }
-	// }
-	// if (myLotion.myBDcoordinate != null) {
-	// strlocation = myLocation.getAddress(
-	// myLotion.getLatValue() + "", myLotion.getLongValue()
-	// + "");
-	// myHandler.sendEmptyMessage(1);
-	// }
-	//
-	// }
-
-	// }
-
-	// Handler myHandler = new Handler() {
-	// @Override
-	// public void handleMessage(Message msg) {
-	// // TODO Auto-generated method stub
-	// super.handleMessage(msg);
-	// locationInfoTextView.setText(strlocation);
-	// }
-	//
-	// };
-
-	// @Override
-	// protected void onDestroy() {
-	// super.onDestroy();
-	// // myLotion.desClient();
-	// }
-
-	// @Override
-	// public void onClick(View v) {
-	// switch (v.getId()) {
-	// case R.id.iv_collection:
-	// Intent intent=new Intent(this,ShareActivity.class);
-	// startActivity(intent);
-	// break;
-	// case R.id.iv_comments:
-	// Intent intent11=new Intent(this,ShareActivity.class);
-	// startActivity(intent11);
-	// break;
-	// case R.id.iv_share:
-	// Intent intent1=new Intent(this,ShareActivity.class);
-	// startActivity(intent1);
-	// break;
-	// case R.id.iv_order:
-	// Intent intent111=new Intent(this,ShareActivity.class);
-	// startActivity(intent111);
-	// break;
-	//
-	//
-	// }
-	//
-	// }
-
+	
 	@Override
 	public void onClick(View v) {
 		switch (v.getId()) {

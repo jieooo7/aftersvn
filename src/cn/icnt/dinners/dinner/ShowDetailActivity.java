@@ -4,14 +4,18 @@ import java.util.List;
 import java.util.Map;
 
 import android.app.Activity;
+import android.app.Dialog;
 import android.content.Context;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.WindowManager;
+import android.view.View.OnClickListener;
 import android.widget.BaseAdapter;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.GridView;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
@@ -95,7 +99,8 @@ public class ShowDetailActivity extends Activity {
 			break;
 		case R.id.order_evaluate:
 			ToastUtil.show(ShowDetailActivity.this, "评论订单");
-			finish();
+			showProgressDialog(ShowDetailActivity.this, 9);
+//			finish();
 			break;
 		case R.id.order_pay_online:
 			ToastUtil.show(ShowDetailActivity.this, "支付订单");
@@ -108,7 +113,7 @@ public class ShowDetailActivity extends Activity {
 	private void initData() {
 		MapPackage mp = new MapPackage();
 		mp.setHead(this);
-		mp.setPara("order_id", "4");
+		mp.setPara("order_id", "948");
 		Map<String, Object> map = mp.getssMap();
 		RequestParams params = GsonTools.GetParams(map);
 		HttpUtils http = new HttpUtils();
@@ -203,7 +208,7 @@ public class ShowDetailActivity extends Activity {
 				holder = (ViewHolder) convertView.getTag();
 			}
 			bitmapUtils.display(holder.orderdetails_img, Container.URL
-					+ list.get(0).img_url, img_config);
+					+ list.get(position).img_url, img_config);
 			return convertView;
 		}
 
@@ -211,5 +216,41 @@ public class ShowDetailActivity extends Activity {
 			ImageView orderdetails_img;
 		}
 
+	}
+
+	private static EditText order_msg_edit;
+
+	private static RelativeLayout order_msg_send;
+	private Dialog mDeleteDialog;
+	public void showProgressDialog(Context mContext, int mPosition) {
+
+		mDeleteDialog = new Dialog(mContext, R.style.order_dialog_msg);
+		WindowManager.LayoutParams params = mDeleteDialog.getWindow()
+				.getAttributes();
+		params.width = 200;
+		params.height = 200;
+		mDeleteDialog.getWindow().setAttributes(params);
+		LayoutInflater inflater = (LayoutInflater) mContext
+				.getSystemService(LAYOUT_INFLATER_SERVICE);
+		View layout = inflater.inflate(R.layout.order_evaluate_dialog, null);
+		mDeleteDialog.setContentView(layout);
+		order_msg_edit = (EditText) layout.findViewById(R.id.order_msg_edit);
+		order_msg_send = (RelativeLayout) layout
+				.findViewById(R.id.order_msg_send);
+		order_msg_send.setOnClickListener(new OnClickListener() {
+			@Override
+			public void onClick(View v) {
+				// switch (v.getId()) {
+				// case R.id.order_msg_send:
+				String msg = order_msg_edit.getText().toString();
+				Log.i("order", msg +"评论成功");
+				// SendMsg(positions);
+				// break;
+				ToastUtil.show(ShowDetailActivity.this, msg +"评论成功");
+				// }
+				mDeleteDialog.dismiss();
+			}
+		});
+		mDeleteDialog.show();
 	}
 }

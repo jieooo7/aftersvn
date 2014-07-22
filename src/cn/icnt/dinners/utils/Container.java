@@ -28,5 +28,17 @@ public class Container {
 	 * 订单列表地址
 	 */
 	public static final String MYORDERLIST= URL+"order_list.do?t=";
+	/**
+	 * 提交评价
+	 */
+	public static final String COMMENTUPDATE= URL+"update_comment.do?t=";
+	/**
+	 * 评价列表请求
+	 */
+	public static final String COMMENT= URL+"comment.do?t=";
+	/**
+	 * 删除订单
+	 */
+	public static final String DELETEORDER= URL+"delete_order.do?t=";
 
 }

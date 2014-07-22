@@ -12,7 +12,7 @@ public class UserLoginBean {
 		public String phone;
 		public String user_pwd;
 		public String level_id;
-		public String balance;
+		public String balance; //账户余额
 		public String picture_url;
 		public String nickname;
 		public String login_time;
@@ -29,6 +29,10 @@ public class UserLoginBean {
 		public String area;
 		public String address;
 		public String zip;
+		public String favorite_num;//收藏数
+		public String order_num;// 订单数
+		public String ticket_num;//优惠券
+		public String point_num; //积分
 	}
 
 	public class UserInfosHead {

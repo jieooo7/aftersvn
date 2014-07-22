@@ -9,7 +9,7 @@
     <ImageView android:layout_width="fill_parent"
         android:layout_height="160dp"
         android:id="@+id/food_connoisseur_img"
-        android:src="@drawable/logo_qzone"/>
+        android:src="@drawable/account"/>
     
     <ListView 
         android:id="@+id/food_connoisseur_list"

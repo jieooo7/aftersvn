@@ -8,6 +8,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.ImageView;
+import android.widget.TextView;
 import cn.sharesdk.framework.Platform;
 import cn.sharesdk.framework.Platform.ShareParams;
 import cn.sharesdk.framework.PlatformActionListener;
@@ -39,6 +40,8 @@ public class ShareActivity extends Activity implements OnClickListener {
 		miv.setOnClickListener(this);
 		miv1.setOnClickListener(this);
 		miv2.setOnClickListener(this);
+		((TextView) findViewById(R.id.title_center_text))
+		.setText(getResources().getString(R.string.my_accoun));
 
 	}
 
