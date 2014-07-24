@@ -40,5 +40,9 @@ public class Container {
 	 * 删除订单
 	 */
 	public static final String DELETEORDER= URL+"delete_order.do?t=";
+	/**
+	 * 订单评论接口
+	 */
+	public static final String ORDERCOMMENT= URL+"order_comment.do";
 
 }

@@ -2,7 +2,6 @@ package cn.icnt.dinners.fragment;
 
 import java.io.Serializable;
 import java.util.ArrayList;
-
 import java.util.List;
 import java.util.Map;
 
@@ -15,7 +14,6 @@ import com.lidroid.xutils.http.client.HttpRequest;
 import com.lidroid.xutils.util.LogUtils;
 
 import cn.icnt.dinners.adapter.FragmentCouponAdapter;
-
 import android.app.AlertDialog;
 import android.app.Dialog;
 import android.content.Context;
@@ -30,13 +28,12 @@ import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
-
+import cn.icnt.dinners.debug.DebugUtil;
 import cn.icnt.dinners.dinner.DetailsActivity;
 import cn.icnt.dinners.dinner.R;
 import cn.icnt.dinners.entity.Present;
@@ -83,7 +80,11 @@ public class FragmentCoupon extends Fragment {
 	
 
 		try {
+			long startTime = System.currentTimeMillis();
 			mp.send();
+			long endtTime = System.currentTimeMillis();
+			DebugUtil.i("结束时间",""+endtTime);
+			DebugUtil.i("时间差",""+(endtTime-startTime));
 
 		} catch (Exception e) {
 			if (HttpSendRecv.netStat)

@@ -15,7 +15,8 @@
         <EditText
             android:id="@+id/order_msg_edit"
             android:layout_width="fill_parent"
-            android:layout_height="240dp"
+            android:layout_height="0dp"
+            android:layout_weight="1"
             android:layout_alignParentTop="true"
             android:background="@null"
             android:gravity="top"

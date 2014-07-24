@@ -95,7 +95,8 @@ public class MapPackage {
 		TelephonyManager telephonyManager=(TelephonyManager) context.getSystemService(Context.TELEPHONY_SERVICE);
 //		用户id
 		setUid(context);
-		this.headmap.put("uid",this.getUid());
+//		this.headmap.put("uid",PreferencesUtils.getValueFromSPMap(context, PreferencesUtils.Keys.UID));
+		this.headmap.put("uid","31");
 		this.headmap.put("no", telephonyManager.getDeviceId());
 		this.headmap.put("os", OS);
 		this.headmap.put("version",VERSION);

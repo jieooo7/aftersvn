@@ -93,7 +93,7 @@ public class CouponActivity extends Activity {
 					long arg3) {
 
 				Intent intent = new Intent();
-				intent.setClass(CouponActivity.this, ShowDetailActivity.class);
+				intent.setClass(CouponActivity.this, ShowOrderDetailActivity.class);
 				startActivity(intent);
 
 			}

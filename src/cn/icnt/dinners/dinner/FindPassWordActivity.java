@@ -62,7 +62,12 @@ public class FindPassWordActivity extends Activity {
 	private RelativeLayout change_password;
 	@ViewInject(R.id.text_change_password)
 	private TextView text_change_password;
-
+/*******验证码**********/
+	@ViewInject(R.id.server_send_captcha)
+	private TextView server_send_captcha;
+	@ViewInject(R.id.findpwd_captcha)
+	private EditText findpwd_captcha;
+	
 	private InputMethodManager manager;
 	private boolean canChange = false;
 	private HttpUtils http;
@@ -73,6 +78,7 @@ public class FindPassWordActivity extends Activity {
 	private String state;
 	private String answer2;
 	private Map<String, Object> headmap;
+	private String captcha;
 
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -120,7 +126,6 @@ public class FindPassWordActivity extends Activity {
 					public void onLoading(long total, long current,
 							boolean isUploading) {
 					}
-
 					@Override
 					public void onSuccess(ResponseInfo<String> responseInfo) {
 						Log.i("order", responseInfo.result);
@@ -143,7 +148,7 @@ public class FindPassWordActivity extends Activity {
 
 	private void initview() {
 		ViewUtils.inject(this);
-		title_center_text.setText("忘记密码");
+		title_center_text.setText("修改账户密码");
 		manager = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
 	}
 
@@ -160,7 +165,7 @@ public class FindPassWordActivity extends Activity {
 		return super.onTouchEvent(event);
 	}
 
-	@OnClick({ R.id.answer, R.id.change_password, R.id.title_left_btn })
+	@OnClick({ R.id.answer, R.id.change_password, R.id.title_left_btn ,R.id.server_send_captcha})
 	public void clickMethod(View v) {
 		switch (v.getId()) {
 		case R.id.title_left_btn:
@@ -168,9 +173,12 @@ public class FindPassWordActivity extends Activity {
 			break;
 		case R.id.answer:
 			answer2 = edit_answer.getText().toString().trim();
+			captcha = findpwd_captcha.getText().toString().trim(); //验证码
 			if (!canChange) {
 				if (StringUtils.isEmpty(answer2)) {
 					ToastUtil.show(this, "请输入密保");
+				} else if ( StringUtils.isEmpty(captcha)) {
+					ToastUtil.show(this, "请输入验证码");
 				} else {
 					answering(answer2);
 				}
@@ -195,6 +203,10 @@ public class FindPassWordActivity extends Activity {
 				ToastUtil.show(this, "请先验证密保问题");
 			}
 			break;
+		case R.id.server_send_captcha:
+			
+			//想服务器发送 索要验证码 请求
+			break;
 		}
 	}
 
@@ -218,7 +230,7 @@ public class FindPassWordActivity extends Activity {
 		// Map<String, Object> maps = mp.getssMap();
 		RequestParams params = GsonTools.GetParams(maps);
 		http.send(HttpRequest.HttpMethod.POST,
-				"http://115.29.13.164/reset_password.do?t=", params,
+				Container.FINDPASSWOED, params,
 				new RequestCallBack<String>() {
 
 					@Override
@@ -252,7 +264,6 @@ public class FindPassWordActivity extends Activity {
 					@Override
 					public void onFailure(HttpException arg0, String arg1) {
 						// TODO Auto-generated method stub
-
 					}
 				});
 	}
@@ -277,7 +288,7 @@ public class FindPassWordActivity extends Activity {
 		// Map<String, Object> maps = mp.getssMap();
 		RequestParams params = GsonTools.GetParams(maps);
 		http.send(HttpRequest.HttpMethod.POST,
-				"http://115.29.13.164/reset_password.do?t=", params,
+				Container.FINDPASSWOED, params,
 				new RequestCallBack<String>() {
 					@Override
 					public void onFailure(HttpException arg0, String arg1) {

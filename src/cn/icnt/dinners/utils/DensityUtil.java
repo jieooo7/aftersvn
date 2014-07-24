@@ -12,6 +12,14 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 import android.content.Context;
+import android.graphics.Bitmap;
+import android.graphics.Canvas;
+import android.graphics.Paint;
+import android.graphics.PorterDuffXfermode;
+import android.graphics.Rect;
+import android.graphics.RectF;
+import android.graphics.Bitmap.Config;
+import android.graphics.PorterDuff.Mode;
 /**
  * cn.icnt.dinners.utils.DensityUtil
  * @author Andrew Lee <br/>
@@ -48,4 +56,5 @@ public class DensityUtil {
         Matcher m = p.matcher(email);     
         return m.matches();     
     } 
+    
 }

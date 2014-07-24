@@ -12,10 +12,11 @@ import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.View.OnClickListener;
+import android.view.ViewConfiguration;
 import android.view.ViewGroup;
-import android.view.Window;
 import android.view.WindowManager;
 import android.widget.BaseAdapter;
 import android.widget.Button;
@@ -81,12 +82,12 @@ public class MyOrderActivity extends Activity {
 	@ViewInject(R.id.order_obligation_line)
 	private ImageView order_obligation_line;
 
-	@ViewInject(R.id.order_evaluate)
-	private LinearLayout order_evaluate;
-	@ViewInject(R.id.order_evaluate_text)
-	private TextView order_evaluate_text;
-	@ViewInject(R.id.order_evaluate_line)
-	private ImageView order_evaluate_line;
+//	@ViewInject(R.id.order_evaluate)
+//	private LinearLayout order_evaluate;
+//	@ViewInject(R.id.order_evaluate_text)
+//	private TextView order_evaluate_text;
+//	@ViewInject(R.id.order_evaluate_line)
+//	private ImageView order_evaluate_line;
 
 	private int curCheckId = R.id.order_all;
 
@@ -100,13 +101,14 @@ public class MyOrderActivity extends Activity {
 
 	private List<OrderList> resultList; // 原始
 	private List<OrderList> newlist;// 条件
-	private List<OrderList> newlist1;// 条件1
-	private List<OrderList> newlist2;// 条件2
+//	private List<OrderList> newlist1;// 条件1
+//	private List<OrderList> newlist2;// 条件2
 
 	private static EditText order_msg_edit;
 
 	private static RelativeLayout order_msg_send;
 
+	private static boolean isNeedSetAda = true;
 	public static int num = 0;
 
 	private Dialog mDeleteDialog;
@@ -170,9 +172,10 @@ public class MyOrderActivity extends Activity {
 							} else {
 								resultList = json.result;
 								newlist = json.result;
-								adapter = new OrderAdapter(
-										MyOrderActivity.this, newlist);
-								order_list.setAdapter(adapter);
+									adapter = new OrderAdapter(
+											MyOrderActivity.this, newlist);
+									order_list.setAdapter(adapter);
+									isNeedSetAda = false;
 								// newlist = resultList;
 								// order_list.setVerticalScrollBarEnabled(true);
 								// order_list.setOnItemClickListener(new
@@ -204,9 +207,9 @@ public class MyOrderActivity extends Activity {
 	 * 根据不同的button 事件为listview。setadapter 传入不同数据的list 而后notify
 	 * 
 	 * @param v
+//	R.id.order_evaluate 
 	 */
-	@OnClick({ R.id.title_left_btn, R.id.order_all, R.id.order_obligation,
-			R.id.order_evaluate })
+	@OnClick({ R.id.title_left_btn, R.id.order_all, R.id.order_obligation})
 	public void clickMethod(View v) {
 		switch (v.getId()) {
 		case R.id.title_left_btn:
@@ -217,6 +220,7 @@ public class MyOrderActivity extends Activity {
 			} else {
 				checkedState(R.id.order_all);
 				curCheckId = R.id.order_all;
+				initData();
 				// // adapter= new OrderAdapter(
 				// // MyOrderActivity.this, newlist);
 				// // order_list.setAdapter(adapter);
@@ -235,6 +239,13 @@ public class MyOrderActivity extends Activity {
 			} else {
 				checkedState(R.id.order_obligation);
 				curCheckId = R.id.order_obligation;
+				 newlist.clear();
+				 for (OrderList ol : resultList) {
+					 if (ol.order_state == 1) {
+						 newlist.add(ol);
+					}
+				 }
+				 adapter.notifyDataSetChanged();
 				// orderState = 1;
 				// newlist.clear();
 				// for (OrderList ol : resultList) {
@@ -258,17 +269,19 @@ public class MyOrderActivity extends Activity {
 				// adapter.notifyDataSetChanged();
 			}
 			break;
-		case R.id.order_evaluate: // 待支付
-			if (curCheckId == R.id.order_evaluate) {
-			} else {
-				checkedState(R.id.order_evaluate);
-				curCheckId = R.id.order_evaluate;
-				// // orderState = 2;
-				// newlist.clear();
-				// for (OrderList ol : resultList) {
-				// newlist.add(ol);
-				// }
-				// adapter.notifyDataSetChanged();
+//		case R.id.order_evaluate: // 待支付
+//			if (curCheckId == R.id.order_evaluate) {
+//			} else {
+//				checkedState(R.id.order_evaluate);
+//				curCheckId = R.id.order_evaluate;
+//				// // orderState = 2;
+//				 newlist.clear();
+//				 for (OrderList ol : resultList) {
+//					 if (ol.order_state == 2) {
+//						 newlist.add(ol);
+//					}
+//				 }
+//				 adapter.notifyDataSetChanged();
 				// adapter2 = new OrderAdapter(MyOrderActivity.this, newlist2);
 				// order_list.setAdapter(adapter2);
 				// OrderAdapter orderAdapter2 = new OrderAdapter(
@@ -289,8 +302,8 @@ public class MyOrderActivity extends Activity {
 				// // order_list.notify();
 				// order_list.notify();
 				// adapter.notifyDataSetChanged();
-			}
-			break;
+//			}
+//			break;
 		}
 	}
 
@@ -309,12 +322,12 @@ public class MyOrderActivity extends Activity {
 			order_obligation_line.setVisibility(View.VISIBLE);
 			// order_list_nosend.setVisibility(View.VISIBLE);
 			break;
-		case R.id.order_evaluate:
-			order_evaluate_text.setTextColor(getResources().getColor(
-					R.color.tab_font));
-			order_evaluate_line.setVisibility(View.VISIBLE);
-			// order_list_nopay.setVisibility(View.VISIBLE);
-			break;
+//		case R.id.order_evaluate:
+//			order_evaluate_text.setTextColor(getResources().getColor(
+//					R.color.tab_font));
+//			order_evaluate_line.setVisibility(View.VISIBLE);
+//			// order_list_nopay.setVisibility(View.VISIBLE);
+//			break;
 		}
 	}
 
@@ -323,12 +336,12 @@ public class MyOrderActivity extends Activity {
 				R.color.order_tab_text));
 		order_obligation_text.setTextColor(getResources().getColor(
 				R.color.order_tab_text));
-		order_evaluate_text.setTextColor(getResources().getColor(
-				R.color.order_tab_text));
+//		order_evaluate_text.setTextColor(getResources().getColor(
+//				R.color.order_tab_text));
 
 		order_all_line.setVisibility(View.GONE);
 		order_obligation_line.setVisibility(View.GONE);
-		order_evaluate_line.setVisibility(View.GONE);
+//		order_evaluate_line.setVisibility(View.GONE);
 
 		// order_list.setVisibility(View.GONE);
 		// order_list_nosend.setVisibility(View.GONE);
@@ -400,12 +413,12 @@ public class MyOrderActivity extends Activity {
 						.findViewById(R.id.order_img);
 				holder.order_title_line_one = (ImageView) convertView
 						.findViewById(R.id.order_title_line_one);
-				holder.order_evaluate = (Button) convertView
-						.findViewById(R.id.order_evaluate);
+//				holder.order_evaluate = (Button) convertView
+//						.findViewById(R.id.order_evaluate);
 				holder.control_order = (RelativeLayout) convertView
 						.findViewById(R.id.control_order);
-				holder.orders_evaluates = (RelativeLayout) convertView
-						.findViewById(R.id.orders_evaluates);
+//				holder.orders_evaluates = (RelativeLayout) convertView
+//						.findViewById(R.id.orders_evaluates);
 				holder.order_desc = (RelativeLayout) convertView
 						.findViewById(R.id.order_desc);
 				convertView.setTag(holder);
@@ -417,16 +430,16 @@ public class MyOrderActivity extends Activity {
 			if (lists.get(position).order_state == 1) {
 				holder.order_state.setText("订单未支付");
 				holder.control_order.setVisibility(View.VISIBLE);
-				holder.orders_evaluates.setVisibility(View.GONE);
+//				holder.orders_evaluates.setVisibility(View.GONE);
 			} else if (lists.get(position).order_state == 2) {
 				holder.order_state.setText("支付完成");
-				holder.orders_evaluates.setVisibility(View.VISIBLE);
+//				holder.orders_evaluates.setVisibility(View.VISIBLE);
 				holder.control_order.setVisibility(View.GONE);
 			} else {
 				holder.order_state.setText("交易进行中");
 				holder.order_state.setTextColor(getResources().getColor(
 						R.color.tab_font));
-				holder.orders_evaluates.setVisibility(View.GONE);
+//				holder.orders_evaluates.setVisibility(View.GONE);
 				holder.control_order.setVisibility(View.VISIBLE);
 			}
 			if (position == 0) {
@@ -445,12 +458,12 @@ public class MyOrderActivity extends Activity {
 			// 给Button添加单击事件 添加Button之后ListView将失去焦点 需要的直接把Button的焦点去掉
 			holder.del_bucket_img.setTag(position);
 			holder.order_pay_online.setTag(position);
-			holder.order_evaluate.setTag(position);
+//			holder.order_evaluate.setTag(position);
 			holder.order_desc.setTag(position);
 
 			holder.del_bucket_img.setOnClickListener(myListener);
 			holder.order_pay_online.setOnClickListener(myListener);
-			holder.order_evaluate.setOnClickListener(myListener);
+//			holder.order_evaluate.setOnClickListener(myListener);
 			holder.order_desc.setOnClickListener(myListener);
 			// holder.viewBtn.setOnClickListener(MyListener(position));
 
@@ -477,16 +490,17 @@ public class MyOrderActivity extends Activity {
 				case R.id.del_bucket_img: // 订单删除
 					deleteOrder(mPosition);
 					break;
-				case R.id.order_evaluate: // 订单评价
-					ToastUtil.show(MyOrderActivity.this, "R.id.order_evaluate"
-							+ position);
-					showProgressDialog(mContext, mPosition);
-					break;
+//				case R.id.order_evaluate: // 订单评价
+//					ToastUtil.show(MyOrderActivity.this, "R.id.order_evaluate"
+//							+ position);
+//					
+//					showProgressDialog(mContext, lists.get(mPosition).order_info_id);
+//					break;
 				case R.id.order_desc: // item onclick
 					ToastUtil.show(MyOrderActivity.this, "R.id.order_desc"
 							+ position);
 					Intent i = new Intent();
-					i.setClass(MyOrderActivity.this, ShowDetailActivity.class);
+					i.setClass(MyOrderActivity.this, ShowOrderDetailActivity.class);
 					startActivity(i);
 					break;
 				}
@@ -506,9 +520,9 @@ public class MyOrderActivity extends Activity {
 			public TextView order_pay_online;
 			public ImageView order_img;
 			public ImageView order_title_line_one;
-			public Button order_evaluate;
+//			public Button order_evaluate;
 			public RelativeLayout control_order;
-			public RelativeLayout orders_evaluates;
+//			public RelativeLayout orders_evaluates;
 			public RelativeLayout order_desc;
 		}
 
@@ -554,38 +568,36 @@ public class MyOrderActivity extends Activity {
 				});
 
 	}
-
-	public void showProgressDialog(Context mContext, int mPosition) {
-
-		mDeleteDialog = new Dialog(mContext, R.style.order_dialog_msg);
-		WindowManager.LayoutParams params = mDeleteDialog.getWindow()
-				.getAttributes();
-		params.width = 200;
-		params.height = 200;
-		mDeleteDialog.getWindow().setAttributes(params);
-		LayoutInflater inflater = (LayoutInflater) mContext
-				.getSystemService(LAYOUT_INFLATER_SERVICE);
-		View layout = inflater.inflate(R.layout.order_evaluate_dialog, null);
-		mDeleteDialog.setContentView(layout);
-		order_msg_edit = (EditText) layout.findViewById(R.id.order_msg_edit);
-		order_msg_send = (RelativeLayout) layout
-				.findViewById(R.id.order_msg_send);
-		order_msg_send.setOnClickListener(new OnClickListener() {
-			@Override
-			public void onClick(View v) {
-				// switch (v.getId()) {
-				// case R.id.order_msg_send:
-				String msg = order_msg_edit.getText().toString();
-				Log.i("order", "“"+ msg +"”评价成功");
-				
-				// SendMsg(positions);
-				// break;
-				// }
-				mDeleteDialog.dismiss();
-				}
-		});
-		mDeleteDialog.show();
-
+	/**
+	 * dialog 订单评价窗口，确定后发生http请求
+	 */
+//	public void showProgressDialog(Context mContext, String order_inf_id) {
+//		final String order_info_ids = order_inf_id;
+//		mDeleteDialog = new Dialog(mContext, R.style.order_dialog_msg);
+//		mDeleteDialog.setCanceledOnTouchOutside(false);
+//		WindowManager.LayoutParams params = mDeleteDialog.getWindow()
+//				.getAttributes();
+//		params.width = 200;
+//		params.height = 200;
+//		mDeleteDialog.getWindow().setAttributes(params);
+//		LayoutInflater inflater = (LayoutInflater) mContext
+//				.getSystemService(LAYOUT_INFLATER_SERVICE);
+//		View layout = inflater.inflate(R.layout.order_evaluate_dialog, null);
+//		mDeleteDialog.setContentView(layout);
+//		order_msg_edit = (EditText) layout.findViewById(R.id.order_msg_edit);
+//		order_msg_send = (RelativeLayout) layout
+//				.findViewById(R.id.order_msg_send);
+//		order_msg_send.setOnClickListener(new OnClickListener() {
+//			@Override
+//			public void onClick(View v) {
+//			
+//				String msg = order_msg_edit.getText().toString();
+//				Log.i("order", "“"+ msg +"”评价成功");
+//				orderListSendMsg(order_info_ids ,msg);
+//				mDeleteDialog.dismiss();
+//				}
+//		});
+//		mDeleteDialog.show();
 		// mDeleteDialog.getWindow().setGravity(Gravity.CENTER);
 		// AlertDialog.Builder builder;
 		// AlertDialog alertDialog;
@@ -614,6 +626,39 @@ public class MyOrderActivity extends Activity {
 		// dialog.setTitle(R.string.app_name);
 		// dialog.setMessage("请等候，数据加载中……");
 		// dialog.show();
-	}
+//	}
+/**
+ * 订单评价·
+ * @param order_info_ids 订单号
+ * @param msg  评论内容
+ */
+//	protected void orderListSendMsg(String order_info_ids, String msg) {
+//		MapPackage mp = new MapPackage();
+//		mp.setHead(this);
+//		mp.setPara("order_info_id", order_info_ids);
+//		mp.setPara("msg", msg);
+//		Map<String, Object> maps = mp.getMap();
+//		RequestParams params = GsonTools.GetParams(maps);
+//
+//		HttpUtils http = new HttpUtils();
+//		http.send(HttpRequest.HttpMethod.POST, Container.ORDERCOMMENT, params,
+//				new RequestCallBack<String>() {
+//					@Override
+//					public void onFailure(HttpException arg0, String arg1) {
+//					}
+//
+//					@Override
+//					public void onSuccess(ResponseInfo<String> arg0) {
+//						Log.e("order11", "############\r\n"+ arg0.result);
+//						
+//					
+//							// Intent ii = new Intent();
+//							// ii.setClass(MyOrderActivity.this,
+//							// MyOrderActivity.class);
+//							// startActivity(ii);
+//							// MyOrderActivity.this.finish();
+//					}
+//				});
+//	}
 
 }

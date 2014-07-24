@@ -95,9 +95,9 @@ public class RegisterActivity extends Activity {
 		title_center_text.setText("注册");
 		// setViewVisible( );
 		setEditBackground();
-//		Spanned text = Html.fromHtml("点击确认代表你已阅读并同意美食聚惠的: "
-//				+ "<a href=\"http://www.baidu.com\" >服务协议</a> " + "");
-//		regiest_alert.setText(text);
+		// Spanned text = Html.fromHtml("点击确认代表你已阅读并同意美食聚惠的: "
+		// + "<a href=\"http://www.baidu.com\" >服务协议</a> " + "");
+		// regiest_alert.setText(text);
 		manager = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
 
 	}
@@ -155,7 +155,7 @@ public class RegisterActivity extends Activity {
 							if (DensityUtil.isMobileNO(username)) {
 								phone = username;
 								regiestSend(nickname, phone, password);
-							}else {
+							} else {
 								Toast.makeText(this, "请正确输入手机号", 0).show();
 							}
 						}
@@ -241,36 +241,42 @@ public class RegisterActivity extends Activity {
 									RegisterActivity.this,
 									PreferencesUtils.Keys.NICKNAME,
 									userInfo.para.nickname);
-							 //账户订单数
+							// 账户订单数
 							PreferencesUtils.putValueToSPMap(
 									RegisterActivity.this,
 									PreferencesUtils.Keys.ORDERNO_NO,
 									userInfo.para.order_num);
-							 //账户收藏
+							// 账户收藏
 							PreferencesUtils.putValueToSPMap(
 									RegisterActivity.this,
 									PreferencesUtils.Keys.COLLECT_NO,
 									userInfo.para.favorite_num);
-							 //账户优惠券
+							// 账户优惠券
 							PreferencesUtils.putValueToSPMap(
 									RegisterActivity.this,
 									PreferencesUtils.Keys.COUPON_NO,
 									userInfo.para.ticket_num);
-							//积分
+							// 积分
 							PreferencesUtils.putValueToSPMap(
 									RegisterActivity.this,
-									PreferencesUtils.Keys.CREDITS_NO, 
+									PreferencesUtils.Keys.CREDITS_NO,
 									userInfo.para.point_num);
-							 //账户余额************************************************
+							// 头像
 							PreferencesUtils.putValueToSPMap(
 									RegisterActivity.this,
-									PreferencesUtils.Keys.ACCOUNT_NO, 
+									PreferencesUtils.Keys.USER_PORTRAIT,
+									userInfo.para.picture_url);
+							// 账户余额************************************************
+							PreferencesUtils.putValueToSPMap(
+									RegisterActivity.this,
+									PreferencesUtils.Keys.ACCOUNT_NO,
 									userInfo.para.balance);
 							// ToastUtil.show(RegisterActivity.this,
 							// userInfo.head.msg);
 							ToastUtil.closeProgressDialog();
 							Intent intent = new Intent();
-							intent.setClass(RegisterActivity.this, MainActivity.class);
+							intent.setClass(RegisterActivity.this,
+									MainActivity.class);
 							startActivity(intent);
 							RegisterActivity.this.finish();
 						} else {

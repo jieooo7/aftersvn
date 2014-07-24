@@ -36,7 +36,6 @@ public class ShareActivity extends Activity implements OnClickListener {
 		miv1 = (ImageView) this.findViewById(R.id.iv_sian);
 		miv2 = (ImageView) this.findViewById(R.id.iv_letter);
 
-
 		miv.setOnClickListener(this);
 		miv1.setOnClickListener(this);
 		miv2.setOnClickListener(this);

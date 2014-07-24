@@ -10,4 +10,14 @@
       <dimen name="list_tv_store">24px</dimen>
        <dimen name="list_tv_xinx">29px</dimen>
         <dimen name="liset_tv_near">19px</dimen>
+        
+<!-- ********登录 ******** -->        
+        <dimen name="user_login_desc_phone_marginleft">23dp</dimen>
+        <dimen name="user_login_desc_phone_margintop">13dp</dimen>
+        <dimen name="user_login_desc_pwd_marginleft">23dp</dimen>
+        <dimen name="user_login_desc_pwd_margintop">3dp</dimen>
+
+    <!-- ******注册 ******** -->
+    <dimen name="user_reg_text_size">13sp</dimen>
+    <dimen name="user_reg_text_size_red">15sp</dimen>
 </resources>

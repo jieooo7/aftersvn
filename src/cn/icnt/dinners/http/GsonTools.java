@@ -130,6 +130,7 @@ public class GsonTools {
 		}
 		params.setContentType("application/json");
 		params.setBodyEntity(s);
+	
 		return params;
 	}
 }

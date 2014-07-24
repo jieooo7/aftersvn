@@ -115,7 +115,7 @@
 
         <ImageView style="@style/order_bottom_line" />
 
-        <RelativeLayout
+    <!--     <RelativeLayout
             android:id="@+id/orders_evaluates"
             android:layout_width="fill_parent"
              android:visibility="visible"
@@ -130,7 +130,7 @@
                 android:background="@drawable/order_button"
                 android:text="订单评价" />
         </RelativeLayout>
-
+ -->
         <ImageView style="@style/order_bottom_line" 
             android:layout_marginBottom="60dp"/>
     </LinearLayout>

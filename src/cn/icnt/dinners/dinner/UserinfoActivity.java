@@ -14,12 +14,14 @@ import java.io.File;
 import org.apache.http.Header;
 import org.apache.commons.lang.StringUtils;
 
+import cn.icnt.dinners.cache.ImageLoader;
 import cn.icnt.dinners.debug.DebugUtil;
 import cn.icnt.dinners.http.HttpSendRecv;
 import cn.icnt.dinners.http.MapPackage;
 import cn.icnt.dinners.uploadimg.AsyncHttpClient;
 import cn.icnt.dinners.uploadimg.AsyncHttpResponseHandler;
 import cn.icnt.dinners.uploadimg.RequestParams;
+import cn.icnt.dinners.utils.DensityUtil;
 import cn.icnt.dinners.utils.PreferencesUtils;
 import android.annotation.SuppressLint;
 import android.app.Activity;
@@ -41,20 +43,22 @@ import android.widget.Toast;
 
 /**
  * cn.icnt.dinners.dinner.UserinfoActivity
+ * 
  * @author Andrew Lee <br/>
- * create at 2014年7月15日 上午9:52:34
+ *         create at 2014年7月15日 上午9:52:34
  */
-@SuppressLint("NewApi") public class UserinfoActivity extends Activity implements OnClickListener{
+@SuppressLint("NewApi")
+public class UserinfoActivity extends Activity implements OnClickListener {
 	private static final String TAG = "UserinfoActivity";
 	private RelativeLayout title;
 	private EditText ev;
 	private Button bt;
-	private String petName;//昵称
-	private TextView tv0;//修改头像
-	private TextView tv1;//相机
-	private TextView tv2;//从相册选取
-	private TextView tv3;//取消
-	
+	private String petName;// 昵称
+	private TextView tv0;// 修改头像
+	private TextView tv1;// 相机
+	private TextView tv2;// 从相册选取
+	private TextView tv3;// 取消
+
 	private static final int PHOTO_REQUEST_CAMERA = 1;// 拍照
 	private static final int PHOTO_REQUEST_GALLERY = 2;// 从相册中选择
 	private static final int PHOTO_REQUEST_CUT = 3;// 结果
@@ -65,11 +69,7 @@ import android.widget.Toast;
 	/* 头像名称 */
 	private static final String PHOTO_FILE_NAME = "temp_photo.jpg";
 	private File tempFile;
-	
-	
-	
-	
-	
+
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.user_info);
@@ -77,38 +77,47 @@ import android.widget.Toast;
 		// 设置include的title布局，标题文字
 		((TextView) findViewById(R.id.title_center_text))
 				.setText(getResources().getString(R.string.person_info));
-		
+
 		title = (RelativeLayout) findViewById(R.id.title_left_btn);
-		ev=(EditText) findViewById(R.id.user_info_petname);
-		bt=(Button) findViewById(R.id.user_info_sendpet);
+		ev = (EditText) findViewById(R.id.user_info_petname);
+		bt = (Button) findViewById(R.id.user_info_sendpet);
 		bt.setOnClickListener(this);
 		title.setOnClickListener(this);
-		
+
 		this.mFace = (ImageView) this.findViewById(R.id.user_info_iv_portrait);
 		
-		tv0=(TextView) findViewById(R.id.user_info_change_portrait);
-		tv1=(TextView) findViewById(R.id.user_info_camera);
-		tv2=(TextView) findViewById(R.id.user_info_from_phone);
-		tv3=(TextView) findViewById(R.id.user_info_cancel);
+		String st=PreferencesUtils
+				.getValueFromSPMap(getApplicationContext(),
+						PreferencesUtils.Keys.USER_PORTRAIT, "");
+		if(!StringUtils.isEmpty(st)){
+			ImageLoader mImageLoader = new ImageLoader(this);
+			mImageLoader.DisplayImage(
+					MapPackage.PATH + st,
+					mFace, false);
+		
+		}
+
+		tv0 = (TextView) findViewById(R.id.user_info_change_portrait);
+		tv1 = (TextView) findViewById(R.id.user_info_camera);
+		tv2 = (TextView) findViewById(R.id.user_info_from_phone);
+		tv3 = (TextView) findViewById(R.id.user_info_cancel);
 		tv0.setOnClickListener(this);
 		tv1.setOnClickListener(this);
 		tv2.setOnClickListener(this);
 		tv3.setOnClickListener(this);
-		
+
 	}
-	
-	
-	protected String send(String pet){
-		
-		MapPackage mp=new MapPackage();
+
+	protected String send(String pet) {
+
+		MapPackage mp = new MapPackage();
 		mp.setPath("update_nickname");
 		mp.setHead(this);
 		mp.setPara("nickname", pet);
-		try{
+		try {
 			mp.send();
-			
-			
-		}catch(Exception e){
+
+		} catch (Exception e) {
 			if (HttpSendRecv.netStat)
 				Toast.makeText(getApplicationContext(), "网络错误，请重试",
 						Toast.LENGTH_LONG).show();
@@ -116,16 +125,14 @@ import android.widget.Toast;
 				Toast.makeText(getApplicationContext(), "出错了>_<",
 						Toast.LENGTH_LONG).show();
 		}
-		if(mp.getBackHead()!=null){
-		return mp.getBackHead().get("code");
-		}else{
+		if (mp.getBackHead() != null) {
+			return mp.getBackHead().get("code");
+		} else {
 			return null;
 		}
-		
+
 	}
-	
-	
-	
+
 	public void upload() {
 		try {
 			ByteArrayOutputStream out = new ByteArrayOutputStream();
@@ -133,12 +140,20 @@ import android.widget.Toast;
 			out.flush();
 			out.close();
 			byte[] buffer = out.toByteArray();
+			String s = new String(buffer);
+			DebugUtil.i("base64编码--before", s);
 
-			byte[] encode = Base64.encode(buffer, Base64.DEFAULT);//需要api8 以上
+			byte[] encode = Base64.encode(buffer, Base64.DEFAULT);// 需要api8 以上
 			String photo = new String(encode);
+			DebugUtil.i("base64编码", photo);
 
 			RequestParams params = new RequestParams();
 			params.put("photo", photo);
+			params.put(PreferencesUtils.Keys.UID, PreferencesUtils
+					.getValueFromSPMap(getApplicationContext(),
+							PreferencesUtils.Keys.UID, "-1"));
+			DebugUtil.i("用户uid", PreferencesUtils.getValueFromSPMap(
+					getApplicationContext(), PreferencesUtils.Keys.UID, "-1"));
 			String url = "http://115.29.13.164/upload_photo.do";
 
 			AsyncHttpClient client = new AsyncHttpClient();
@@ -147,10 +162,17 @@ import android.widget.Toast;
 				public void onSuccess(int statusCode, Header[] headers,
 						byte[] responseBody) {
 					try {
-						if (statusCode == 200) {
+						String body=new String(responseBody);
+						
+						DebugUtil.i("上传头像返回值", body);
+						String good_body=body.substring(body.indexOf("t"), body.lastIndexOf("g")+1);
+						DebugUtil.i("上传头像截取后返回值", good_body);
+						if (statusCode == 200&&!StringUtils.isEmpty(good_body)) {
 
 							Toast.makeText(UserinfoActivity.this, "头像上传成功!", 0)
 									.show();
+							PreferencesUtils.putValueToSPMap(getApplicationContext(), PreferencesUtils.Keys.USER_PORTRAIT, good_body);
+							
 						} else {
 							Toast.makeText(UserinfoActivity.this,
 									"网络访问异常，错误码：" + statusCode, 0).show();
@@ -235,11 +257,8 @@ import android.widget.Toast;
 	}
 
 	/**
-	 * 剪切图片
+	 * 裁剪图片
 	 * 
-	 * @function:
-	 * @author:Jerry
-	 * @date:2013-12-30
 	 * @param uri
 	 */
 	private void crop(Uri uri) {
@@ -251,8 +270,8 @@ import android.widget.Toast;
 		intent.putExtra("aspectX", 1);
 		intent.putExtra("aspectY", 1);
 		// 裁剪后输出图片的尺寸大小
-		intent.putExtra("outputX", 250);
-		intent.putExtra("outputY", 250);
+		intent.putExtra("outputX", DensityUtil.dip2px(getApplicationContext(), 62));
+		intent.putExtra("outputY", DensityUtil.dip2px(getApplicationContext(), 62));
 		// 图片格式
 		intent.putExtra("outputFormat", "JPEG");
 		intent.putExtra("noFaceDetection", true);// 取消人脸识别
@@ -268,50 +287,48 @@ import android.widget.Toast;
 			return false;
 		}
 	}
-	
-	
 
-	/* (non-Javadoc)
+	/*
+	 * (non-Javadoc)
+	 * 
 	 * @see android.view.View.OnClickListener#onClick(android.view.View)
 	 */
 	@Override
 	public void onClick(View v) {
-		switch(v.getId()){
+		switch (v.getId()) {
 		case R.id.title_left_btn:
 			finish();
 			break;
 		case R.id.user_info_sendpet:
-			
-			
-			petName=ev.getText().toString();
-			String send=send(petName);
-			
-			if(StringUtils.isEmpty(petName) ||StringUtils.isEmpty(petName)){
+
+			petName = ev.getText().toString();
+			String send = send(petName);
+
+			if (StringUtils.isEmpty(petName) || StringUtils.isEmpty(petName)) {
 				Toast.makeText(getApplicationContext(), "昵称不能为空",
 						Toast.LENGTH_SHORT).show();
+			} else if (petName.length() > 6) {
+				Toast.makeText(getApplicationContext(), "昵称必须小于6位",
+						Toast.LENGTH_SHORT).show();
 			}
-			else if(petName.length()>6){
-					Toast.makeText(getApplicationContext(), "昵称必须小于6位",
-							Toast.LENGTH_SHORT).show();
-				}
-			
-			else{
-				if(send!=null&&send.equals("10000")){
+
+			else {
+				if (send != null && send.equals("10000")) {
 					Toast.makeText(getApplicationContext(), "昵称设置成功",
 							Toast.LENGTH_LONG).show();
-					PreferencesUtils.putValueToSPMap(getApplicationContext(), PreferencesUtils.Keys.NICKNAME, petName);
-				}else{
+					PreferencesUtils.putValueToSPMap(getApplicationContext(),
+							PreferencesUtils.Keys.NICKNAME, petName);
+				} else {
 					Toast.makeText(getApplicationContext(), "昵称设置失败，请重新设置",
 							Toast.LENGTH_LONG).show();
 				}
 			}
-			
-			
+
 			break;
 		case R.id.user_info_camera:
 			camera();
 			break;
-			
+
 		case R.id.user_info_from_phone:
 			gallery();
 			break;

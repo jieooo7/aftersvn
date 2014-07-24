@@ -8,6 +8,8 @@
  */
 package cn.icnt.dinners.dinner;
 
+import org.apache.commons.lang.StringUtils;
+
 import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
@@ -17,20 +19,22 @@ import android.os.Bundle;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentTabHost;
 import android.view.MotionEvent;
-
 import android.view.KeyEvent;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.WindowManager;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
+import cn.icnt.dinners.cache.ImageLoader;
 import cn.icnt.dinners.fragment.FragmentCoupon;
 import cn.icnt.dinners.fragment.FragmentDish;
 import cn.icnt.dinners.fragment.FragmentRes;
+import cn.icnt.dinners.http.MapPackage;
 import cn.icnt.dinners.utils.ActivityList;
 import cn.icnt.dinners.utils.CustomProgressDialog;
 import cn.icnt.dinners.utils.PreferencesUtils;
@@ -243,6 +247,22 @@ public class MainActivity extends FragmentActivity implements OnClickListener {
 		((TextView) findViewById(R.id.accountTv4)).setText(mainShared
 				.getString(PreferencesUtils.Keys.ACCOUNT_NO, "0"));
 		((TextView) findViewById(R.id.login)).setText(this.nickName());
+		
+		ImageView userImg=(ImageView) findViewById(R.id.left_menu_user);
+		
+		String st=PreferencesUtils
+				.getValueFromSPMap(getApplicationContext(),
+						PreferencesUtils.Keys.USER_PORTRAIT, "");
+		if(!StringUtils.isEmpty(st)){
+			ImageLoader mImageLoader = new ImageLoader(this);
+			mImageLoader.DisplayImage(
+					MapPackage.PATH + st,
+					userImg, false);
+		
+		}
+
+		
+		
 		// this.orderTv0.setText(orderStv0);
 		// this.collectTv1.setText(collectStv1);
 		// this.couponTv2.setText(couponStv2);

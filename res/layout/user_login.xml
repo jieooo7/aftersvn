@@ -42,6 +42,7 @@
                         android:layout_marginLeft="20dp"
                         android:layout_marginRight="15dp"
                         android:background="@null"
+                        android:inputType="phone"
                         android:hint="手机号"
                         android:singleLine="true" >
                     </EditText>
@@ -57,14 +58,14 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginLeft="23dp"
-                    android:layout_marginTop="13dp"
+                    android:layout_marginLeft="@dimen/user_login_desc_phone_marginleft"
+                    android:layout_marginTop="@dimen/user_login_desc_phone_margintop"
                     android:background="#ffffff"
                     android:paddingLeft="6dp"
                     android:paddingRight="6dp"
                     android:text="手机号 "
                     android:textColor="@color/tab_font"
-                    android:textSize="19dp"
+                    android:textSize="19sp"
                     android:textStyle="bold" />
             </FrameLayout>
         </RelativeLayout>
@@ -74,7 +75,7 @@
         <RelativeLayout
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="22dp" >
+            android:layout_marginTop="8dp" >
 
             <FrameLayout
                 android:layout_width="fill_parent"
@@ -84,7 +85,7 @@
                 <RelativeLayout
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="16dp"
+                       android:layout_gravity="bottom"
                     android:background="@drawable/login_shap" >
 
                     <EditText
@@ -106,19 +107,19 @@
                 android:id="@+id/login_pwd_editing"
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
-                android:visibility="visible" >
+                android:visibility="gone" >
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginLeft="23dp"
-                    android:layout_marginTop="4dp"
+                    android:layout_marginLeft="@dimen/user_login_desc_pwd_marginleft"
+                    android:layout_marginTop="@dimen/user_login_desc_pwd_margintop"
                     android:background="#ffffff"
                     android:paddingLeft="6dp"
                     android:paddingRight="6dp"
                     android:text="密码 "
                     android:textColor="@color/tab_font"
-                    android:textSize="19dp"
+                    android:textSize="19sp"
                     android:textStyle="bold" />
             </FrameLayout>
         </RelativeLayout>
@@ -143,7 +144,7 @@
                     android:focusable="false"
                     android:text="注册"
                     android:textColor="@color/red_title"
-                    android:textSize="22sp"
+                    android:textSize="21sp"
                     android:textStyle="bold" />
             </LinearLayout>
 
@@ -175,9 +176,9 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:clickable="true"
-                    android:text="登陆"
+                    android:text="登录"
                     android:textColor="@color/red_title"
-                    android:textSize="22sp"
+                    android:textSize="21sp"
                     android:textStyle="bold" />
             </LinearLayout>
         </LinearLayout>

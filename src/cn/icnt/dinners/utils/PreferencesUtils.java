@@ -76,6 +76,17 @@ public class PreferencesUtils
 		 * 侧滑我的账户计数
 		 */
 		public  static final String ACCOUNT_NO="account";
+		
+				/**
+		 * 登陆令牌
+		 */
+		public  static final String TOKEN="access_token";
+		/**
+		 * 用户头像
+		 */
+		public  static final String USER_PORTRAIT="user_portrait";
+		
+
 	
 	}
 

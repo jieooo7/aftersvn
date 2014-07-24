@@ -1,5 +1,6 @@
 package cn.icnt.dinners.dinner;
 
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -9,13 +10,20 @@ import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Handler.Callback;
+import android.os.Message;
+import android.text.TextUtils;
 import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
+import android.view.View.OnClickListener;
 import android.view.View.OnFocusChangeListener;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
 import android.widget.FrameLayout;
+import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -26,6 +34,12 @@ import cn.icnt.dinners.http.MapPackage;
 import cn.icnt.dinners.utils.Container;
 import cn.icnt.dinners.utils.PreferencesUtils;
 import cn.icnt.dinners.utils.ToastUtil;
+import cn.sharesdk.framework.Platform;
+import cn.sharesdk.framework.PlatformActionListener;
+import cn.sharesdk.framework.ShareSDK;
+import cn.sharesdk.framework.utils.UIHandler;
+import cn.sharesdk.sina.weibo.SinaWeibo;
+import cn.sharesdk.tencent.qzone.QZone;
 
 import com.google.gson.Gson;
 import com.lidroid.xutils.HttpUtils;
@@ -38,12 +52,12 @@ import com.lidroid.xutils.http.client.HttpRequest;
 import com.lidroid.xutils.view.annotation.ViewInject;
 import com.lidroid.xutils.view.annotation.event.OnClick;
 
-public class LoginActivity extends Activity {
+public class LoginActivity extends Activity implements Callback, 
+OnClickListener, PlatformActionListener {
 	@ViewInject(R.id.title_left_btn)
 	private RelativeLayout back; // 返回按钮
 	// @ViewInject(R.id.edit_phone_bg)
 	// private RelativeLayout edit_phone_bg; // 用户名输入框背景
-	//
 	// @ViewInject(R.id.edit_password_bg)
 	// private RelativeLayout edit_password_bg; // 密码输入框背景
 	@ViewInject(R.id.user_name)
@@ -60,6 +74,12 @@ public class LoginActivity extends Activity {
 	private FrameLayout login_phone_editing; // 用户输入状态
 	@ViewInject(R.id.login_pwd_editing)
 	private FrameLayout login_pwd_editing; // 密码输入状态
+	
+	@ViewInject(R.id.sina)
+	private LinearLayout sina; // 新浪登陆
+	@ViewInject(R.id.tencent)
+	private LinearLayout tencent; // qq登录
+	
 	private List<Map<String, String>> list;
 
 	private String userName;
@@ -71,6 +91,7 @@ public class LoginActivity extends Activity {
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.user_login);
+		ShareSDK.initSDK(this);
 		initview();
 	}
 
@@ -101,7 +122,7 @@ public class LoginActivity extends Activity {
 	}
 
 	@OnClick({ R.id.title_left_btn, R.id.user_regiest, R.id.forget_password,
-			R.id.login })
+			R.id.login , R.id.sina, R.id.tencent})
 	public void clickMethod(View v) {
 		switch (v.getId()) {
 		case R.id.title_left_btn:
@@ -129,11 +150,54 @@ public class LoginActivity extends Activity {
 			break;
 		case R.id.login:
 			userLogin();
-
+			break;
+		case R.id.sina:
+			authorize(new SinaWeibo(this));
+			break;
+		case R.id.tencent:
+			authorize(new QZone(this));
+//			userLogin();
+			
 			break;
 		}
 	}
-
+	private static final int MSG_USERID_FOUND = 1;
+	private static final int MSG_LOGIN = 2;
+	private void authorize(Platform plat) {
+		if (plat == null) {
+			return;
+		}
+		
+		if(plat.isValid()) {
+			String userId = plat.getDb().getUserId();
+			if (!TextUtils.isEmpty(userId)) {
+				UIHandler.sendEmptyMessage(MSG_USERID_FOUND, this);
+				login(plat.getName(), userId, null);
+				return;
+			}
+		}
+		plat.setPlatformActionListener(this);
+		plat.SSOSetting(true);
+		plat.showUser(null);
+	}
+	private void login(String plat, String userId, HashMap<String, Object> userInfo) {
+		Message msg = new Message();
+		msg.what = MSG_LOGIN;
+		msg.obj = plat;
+		Log.e("login", plat);
+		UIHandler.sendMessage(msg, this);
+	}
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
 	private void userLogin() {
 		userName = user_name.getText().toString().trim();
 		userPassword = edit_password.getText().toString().trim();
@@ -190,7 +254,6 @@ public class LoginActivity extends Activity {
 
 	private void sendLogin1(String name, String password) {
 		MapPackage mp = new MapPackage();
-		mp.setPath("login.do?");
 		mp.setHead(this);
 		mp.setPara("account", name);
 		mp.setPara("pwd", password);
@@ -216,24 +279,23 @@ public class LoginActivity extends Activity {
 						UserLoginBean userInfo = gson.fromJson(
 								responseInfo.result, UserLoginBean.class);
 						action(userInfo);
-
 					}
 
 					@Override
 					public void onFailure(HttpException error, String msg) {
 					}
 				});
-
 	}
 
 	private void sendLogin(String userName2, String userPassword2) {
+
 		MapPackage mp = new MapPackage();
 		mp.setPath("login.do?");
 		mp.setHead(this);
 		mp.setPara("account", userName2);
 		mp.setPara("pwd", userPassword2);
 		Map<String, Object> maps = mp.getMap();
-		// Log.i("LoginActivity", mp.toString());s
+		// Log.i("LoginActivity", mp.toString());
 		try {
 			UserLoginBean userInfo = mp.send(UserLoginBean.class);
 			// List<Map<String, String>> backResult = mp.getBackResult();
@@ -265,12 +327,17 @@ public class LoginActivity extends Activity {
 		//
 		// linearParams.width = 30;// 控件的宽强制设成30
 		//
+		
 		if (need_visible) {
+			Animation animation = AnimationUtils.loadAnimation(this,R.anim.user_login_v);
 			tv.setVisibility(View.VISIBLE);
+			tv.setAnimation(animation);
 			// tv.setLayoutParams(linearParams); //使设置好的布局参数应用到控件</pre>
 			et.setHint("");
 		} else {
+			Animation animations = AnimationUtils.loadAnimation(this,R.anim.user_login_inv);
 			tv.setVisibility(View.INVISIBLE);
+			tv.setAnimation(animations);
 			et.setHint(getResources().getString(id));
 		}
 	}
@@ -302,6 +369,8 @@ public class LoginActivity extends Activity {
 			// 账户余额************************************************
 			PreferencesUtils.putValueToSPMap(LoginActivity.this,
 					PreferencesUtils.Keys.ACCOUNT_NO, userInfo.para.balance);
+			PreferencesUtils.putValueToSPMap(LoginActivity.this,
+					PreferencesUtils.Keys.USER_PORTRAIT, userInfo.para.picture_url);
 			intent = new Intent();
 			intent.setClass(LoginActivity.this, MainActivity.class);
 			startActivity(intent);
@@ -325,4 +394,39 @@ public class LoginActivity extends Activity {
 		}
 		return super.onTouchEvent(event);
 	}
+
+	@Override
+	public void onCancel(Platform arg0, int arg1) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void onComplete(Platform arg0, int arg1, HashMap<String, Object> arg2) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void onError(Platform arg0, int arg1, Throwable arg2) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void onClick(View v) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public boolean handleMessage(Message msg) {
+		// TODO Auto-generated method stub
+		return false;
+	}
+@Override
+protected void onDestroy() {
+	ShareSDK.stopSDK(this);
+	super.onDestroy();
+}
 }

@@ -41,7 +41,7 @@ import com.lidroid.xutils.http.client.HttpRequest;
 import com.lidroid.xutils.view.annotation.ViewInject;
 import com.lidroid.xutils.view.annotation.event.OnClick;
 
-public class ShowDetailActivity extends Activity {
+public class ShowOrderDetailActivity extends Activity {
 	@ViewInject(R.id.title_left_btn)
 	private RelativeLayout title_left_btn;
 	@ViewInject(R.id.title_left_btn_img)
@@ -66,10 +66,10 @@ public class ShowDetailActivity extends Activity {
 	@ViewInject(R.id.order_pay_online)
 	private RelativeLayout order_pay_online;// 线上支付
 
-	@ViewInject(R.id.orders_evaluates)
-	private RelativeLayout orders_evaluates;// 订单评价行
-	@ViewInject(R.id.order_evaluate)
-	private Button order_evaluate;// 订单评价
+//	@ViewInject(R.id.orders_evaluates)
+//	private RelativeLayout orders_evaluates;// 订单评价行
+//	@ViewInject(R.id.order_evaluate)
+//	private Button order_evaluate;// 订单评价
 
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -86,7 +86,7 @@ public class ShowDetailActivity extends Activity {
 
 	};
 
-	@OnClick({ R.id.order_evaluate, R.id.del_bucket_img, R.id.title_left_btn,
+	@OnClick({ R.id.del_bucket_img, R.id.title_left_btn,
 			R.id.order_pay_online })
 	public void clickMethod(View v) {
 		switch (v.getId()) {
@@ -94,16 +94,16 @@ public class ShowDetailActivity extends Activity {
 			finish();
 			break;
 		case R.id.del_bucket_img:
-			ToastUtil.show(ShowDetailActivity.this, "删除订单");
+			ToastUtil.show(ShowOrderDetailActivity.this, "删除订单");
 			finish();
 			break;
-		case R.id.order_evaluate:
-			ToastUtil.show(ShowDetailActivity.this, "评论订单");
-			showProgressDialog(ShowDetailActivity.this, 9);
-//			finish();
-			break;
+//		case R.id.order_evaluate:
+//			ToastUtil.show(ShowOrderDetailActivity.this, "评论订单");
+//			showProgressDialog(ShowOrderDetailActivity.this, 9);
+////			finish();
+//			break;
 		case R.id.order_pay_online:
-			ToastUtil.show(ShowDetailActivity.this, "支付订单");
+			ToastUtil.show(ShowOrderDetailActivity.this, "支付订单");
 			finish();
 			break;
 
@@ -121,7 +121,7 @@ public class ShowDetailActivity extends Activity {
 				new RequestCallBack<String>() {
 					@Override
 					public void onStart() {
-						ToastUtil.showProgressDialog(ShowDetailActivity.this);
+						ToastUtil.showProgressDialog(ShowOrderDetailActivity.this);
 					}
 					@Override
 					public void onLoading(long total, long current,
@@ -138,7 +138,7 @@ public class ShowDetailActivity extends Activity {
 								OrderDetail orderInfo = orderDetail.result;
 								List<OrderListItem> goods_lists = orderInfo.goods_list;
 								if (goods_lists!= null) {
-									GridAdapter adapter = new GridAdapter(ShowDetailActivity.this,goods_lists);
+									GridAdapter adapter = new GridAdapter(ShowOrderDetailActivity.this,goods_lists);
 									gridview.setAdapter(adapter);
 									order_detail_info.setText(orderInfo.order_info);
 									order_total_price.setText(orderInfo.order_total_price);
@@ -246,7 +246,7 @@ public class ShowDetailActivity extends Activity {
 				Log.i("order", msg +"评论成功");
 				// SendMsg(positions);
 				// break;
-				ToastUtil.show(ShowDetailActivity.this, msg +"评论成功");
+				ToastUtil.show(ShowOrderDetailActivity.this, msg +"评论成功");
 				// }
 				mDeleteDialog.dismiss();
 			}

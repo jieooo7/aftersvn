@@ -70,7 +70,7 @@
             </LinearLayout>
         </LinearLayout>
 
-        <LinearLayout
+    <!--     <LinearLayout
             android:id="@+id/order_evaluate"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
@@ -97,7 +97,7 @@
                     android:layout_height="1dp"
                     android:background="@color/tab_font" />
             </LinearLayout>
-        </LinearLayout>
+        </LinearLayout> -->
     </LinearLayout>
     <!--
     <RadioGroup
