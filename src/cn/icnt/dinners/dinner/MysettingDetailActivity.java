@@ -27,6 +27,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 import cn.icnt.dinners.http.HttpSendRecv;
 import cn.icnt.dinners.http.MapPackage;
+import cn.icnt.dinners.utils.MD5;
 
 /**
  * cn.icnt.dinners.dinner.SettingDetailActivity
@@ -37,14 +38,21 @@ public class MysettingDetailActivity extends Activity implements OnClickListener
 	private static final String TAG = "SettingDetailActivity";
 	private TextView tv1;
 	private TextView tv2;
+	private TextView tv3;
 	private LinearLayout lv;
+	private LinearLayout lv1;
 	private ImageView iv;
 	private RelativeLayout title;
 	private EditText et1;
 	private EditText et2;
+	private EditText et3;
+	private EditText et4;
 	private Button bt;
+	private Button bt1;
 	private String question;
 	private String answer;
+	private String passwd1;
+	private String passwd2;
 	private MapPackage mp;
 	private InputMethodManager manager;
 	
@@ -65,18 +73,25 @@ public class MysettingDetailActivity extends Activity implements OnClickListener
 		
 		tv1=(TextView) findViewById(R.id.myseting_tv1);
 		tv2=(TextView) findViewById(R.id.myseting_tv2);
+		tv3=(TextView) findViewById(R.id.myseting_tv3);
 		title = (RelativeLayout) findViewById(R.id.title_left_btn);
 		title.setOnClickListener(this);
 		tv1.setOnClickListener(this);
 		tv2.setOnClickListener(this);
+		tv3.setOnClickListener(this);
 		
 		lv=(LinearLayout) findViewById(R.id.myseting_lv);
 		iv=(ImageView) findViewById(R.id.myseting_iv);
+		lv1=(LinearLayout) findViewById(R.id.myseting_lv1);
 		
 		
 		et1=(EditText) findViewById(R.id.myset_question);
 		et2=(EditText) findViewById(R.id.myset_answer);
+		et3=(EditText) findViewById(R.id.myset_question1);
+		et4=(EditText) findViewById(R.id.myset_answer1);
 		bt=(Button) findViewById(R.id.myset_button);
+		bt1=(Button) findViewById(R.id.myset_button1);
+		bt1.setOnClickListener(this);
 		bt.setOnClickListener(this);
 		
 		
@@ -133,6 +148,32 @@ public class MysettingDetailActivity extends Activity implements OnClickListener
 		}
 		
 	}
+	
+protected String sendpasswd(String passwd){
+		
+		mp=new MapPackage();
+		mp.setPath("add_payment_password");
+		mp.setHead(this);
+		mp.setPara("payment_pwd", MD5.getMD5(passwd));
+		try{
+			mp.send();
+			
+			
+		}catch(Exception e){
+			if (HttpSendRecv.netStat)
+				Toast.makeText(getApplicationContext(), "网络错误，请重试",
+						Toast.LENGTH_LONG).show();
+			else
+				Toast.makeText(getApplicationContext(), "出错了>_<",
+						Toast.LENGTH_LONG).show();
+		}
+		if(mp.getBackHead()!=null){
+		return mp.getBackHead().get("code");
+		}else{
+			return null;
+		}
+		
+	}
 
 	@Override
 	public boolean onTouchEvent(MotionEvent event) {
@@ -161,8 +202,11 @@ public class MysettingDetailActivity extends Activity implements OnClickListener
 					R.color.mycredit_back_select));
 			tv2.setBackgroundColor(getResources().getColor(
 					R.color.mycoupon_textback));
+			tv3.setBackgroundColor(getResources().getColor(
+					R.color.mycoupon_textback));
 			lv.setVisibility(View.VISIBLE);
 			iv.setVisibility(View.GONE);
+			lv1.setVisibility(View.GONE);
 			break;
 		case R.id.myseting_tv2:
 //			manager.hideSoftInputFromWindow(getCurrentFocus()
@@ -171,8 +215,23 @@ public class MysettingDetailActivity extends Activity implements OnClickListener
 					R.color.mycredit_back_select));
 			tv1.setBackgroundColor(getResources().getColor(
 					R.color.mycoupon_textback));
+			tv3.setBackgroundColor(getResources().getColor(
+					R.color.mycoupon_textback));
 			iv.setVisibility(View.VISIBLE);
 			lv.setVisibility(View.GONE);
+			lv1.setVisibility(View.GONE);
+			break;
+			
+		case R.id.myseting_tv3:
+			tv3.setBackgroundColor(getResources().getColor(
+					R.color.mycredit_back_select));
+			tv1.setBackgroundColor(getResources().getColor(
+					R.color.mycoupon_textback));
+			tv2.setBackgroundColor(getResources().getColor(
+					R.color.mycoupon_textback));
+			lv1.setVisibility(View.VISIBLE);
+			lv.setVisibility(View.GONE);
+			iv.setVisibility(View.GONE);
 			break;
 			
 		case R.id.title_left_btn:
@@ -198,6 +257,32 @@ public class MysettingDetailActivity extends Activity implements OnClickListener
 				}
 			}
 			break;
+			
+		case R.id.myset_button1:
+			passwd1=et3.getText().toString();
+			passwd2=et4.getText().toString();
+			if(StringUtils.isEmpty(passwd1) ||StringUtils.isEmpty(passwd2)){
+				Toast.makeText(getApplicationContext(), "密码不能为空",
+						Toast.LENGTH_SHORT).show();
+				
+			}else if(StringUtils.equals(passwd1, passwd2)){
+				if(sendpasswd(passwd1)!=null&&sendpasswd(passwd1).equals("10000")){
+					Toast.makeText(getApplicationContext(), "支付密码设置成功",
+							Toast.LENGTH_LONG).show();
+				}else{
+					Toast.makeText(getApplicationContext(), "支付密码设置失败，请重新设置",
+							Toast.LENGTH_LONG).show();
+				}
+				
+				
+			}else{
+				
+				Toast.makeText(getApplicationContext(), "两次密码必须一致",
+						Toast.LENGTH_SHORT).show();
+			}
+			
+			break;
+			
 		}
 	}
 	

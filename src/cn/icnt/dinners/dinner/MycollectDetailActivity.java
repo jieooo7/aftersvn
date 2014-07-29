@@ -224,21 +224,21 @@ public class MycollectDetailActivity extends Activity implements
 				Bundle bundle = new Bundle();
 				bundle.putSerializable(
 						"result",
-						new Dishes(list.get(position).get("address_str"),
-								position, position, list.get(position).get(
-										"description"), list.get(position).get(
-										"end_time"), position, list.get(
-										position).get("food_str"), list.get(
-										position).get("giving_str"), list.get(
-										position).get("information_str"), list.get(
-										position).get("name_store"), list.get(
-										position).get("name_url"), list.get(
-										position).get("phone_str"), list.get(
-										position).get("remark"), list.get(
+						new Dishes(list1.get(position).get("address_str"),
+								position, position, list1.get(position).get(
+										"description"), list1.get(position).get(
+										"end_time"), position, list1.get(
+										position).get("food_str"), list1.get(
+										position).get("giving_str"), list1.get(
+										position).get("information_str"), list1.get(
+										position).get("name_store"), list1.get(
+										position).get("name_url"), list1.get(
+										position).get("phone_str"), list1.get(
+										position).get("remark"), list1.get(
 										position).get("remind"), position,
-								list.get(position).get("start_time"), list.get(
+								list1.get(position).get("start_time"), list1.get(
 										position).get("store_str"), position,
-								position,list.get(
+								position,list1.get(
 										position).get("store_str")));
 				
 				intent.putExtras(bundle);
@@ -251,25 +251,25 @@ public class MycollectDetailActivity extends Activity implements
 			public void onItemClick(AdapterView<?> arg0, View arg1, int position,
 					long arg3) {
 
-				Intent intent = new Intent(MycollectDetailActivity.this, DetailcActivity.class);
+				Intent intent = new Intent(MycollectDetailActivity.this, DetailaActivity.class);
 				Bundle bundle = new Bundle();
 				bundle.putSerializable(
 						"result",
-						new Dishes(list.get(position).get("address_str"),
-								position, position, list.get(position).get(
-										"description"), list.get(position).get(
-										"end_time"), position, list.get(
-										position).get("food_str"), list.get(
-										position).get("giving_str"), list.get(
-										position).get("information_str"), list.get(
-										position).get("name_store"), list.get(
-										position).get("name_url"), list.get(
-										position).get("phone_str"), list.get(
-										position).get("remark"), list.get(
+						new Dishes(list2.get(position).get("address_str"),
+								position, position, list2.get(position).get(
+										"description"), list2.get(position).get(
+										"end_time"), position, list2.get(
+										position).get("food_str"), list2.get(
+										position).get("giving_str"), list2.get(
+										position).get("information_str"), list2.get(
+										position).get("name_store"), list2.get(
+										position).get("name_url"), list2.get(
+										position).get("phone_str"), list2.get(
+										position).get("remark"), list2.get(
 										position).get("remind"), position,
-								list.get(position).get("start_time"), list.get(
+								list2.get(position).get("start_time"), list2.get(
 										position).get("store_str"), position,
-								position,list.get(
+								position,list2.get(
 										position).get("store_str")));
 				
 				intent.putExtras(bundle);
@@ -283,20 +283,20 @@ public class MycollectDetailActivity extends Activity implements
 //		初始化操作
 		
 		
-		
-		r0.setBackgroundColor(getResources().getColor(
-				R.color.tab_unselect));
-		r1.setBackgroundColor(getResources().getColor(
-				R.color.mycollect_unselect));
-		r2.setBackgroundColor(getResources().getColor(
-				R.color.mycollect_unselect));
-		lv0.setVisibility(View.VISIBLE);
-		lv1.setVisibility(View.GONE);
-		lv2.setVisibility(View.GONE);
-		flag0 = false;
-		flag1 = true;
-		flag2 = true;
-		DebugUtil.w("000000", "ok");
+//	设置默认显示第一个	
+//		r0.setBackgroundColor(getResources().getColor(
+//				R.color.tab_unselect));
+//		r1.setBackgroundColor(getResources().getColor(
+//				R.color.mycollect_unselect));
+//		r2.setBackgroundColor(getResources().getColor(
+//				R.color.mycollect_unselect));
+//		lv0.setVisibility(View.VISIBLE);
+//		lv1.setVisibility(View.GONE);
+//		lv2.setVisibility(View.GONE);
+//		flag0 = false;
+//		flag1 = true;
+//		flag2 = true;
+//		DebugUtil.w("000000", "ok");
 
 	}
 	

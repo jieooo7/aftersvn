@@ -73,6 +73,9 @@
     <string name="question">"问题:  "</string>
     <string name="answer">"答案:  "</string>
     <string name="submit">确认</string>
+    <string name="set_second_psswd">设置支付密码</string>
+    <string name="submit_passwd">确认密码:</string>
+    
     
     
     

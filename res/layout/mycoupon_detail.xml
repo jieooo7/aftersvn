@@ -10,7 +10,7 @@
         android:layout_width="match_parent"
         android:textSize="14sp"
         android:gravity="center"
-        android:text="您有一张优惠券即将过期"
+        android:text="您有1张优惠券即将过期"
         android:background="@color/mycoupon_textback"/>
     <ListView 
         android:id="@+id/mycoupon_lv"

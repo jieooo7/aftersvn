@@ -43,7 +43,7 @@ public class HttpSendRecv extends AsyncTask<Void, Void, String>{
 	public static boolean netStat=false;
 	private String path;
 	private String st;
-//	�������������ݲ���
+//	构建方法 ,init 路径 内容
 	public HttpSendRecv(String path,String st){
 		this.path=path;
 		this.st=st;
@@ -51,7 +51,7 @@ public class HttpSendRecv extends AsyncTask<Void, Void, String>{
 	
 
     /** 
-     *���� Post���� 
+     *发送方法
      * @throws IOException 
      * @throws ClientProtocolException 
      */  
@@ -66,14 +66,11 @@ public class HttpSendRecv extends AsyncTask<Void, Void, String>{
 		      StringEntity se = new StringEntity(st,"UTF-8");
 //		      DebugUtil.i("发送信息编码后", se.getContent().toString());
 //		      UrlEncodedFormEntity entityIn = new UrlEncodedFormEntity(se,"utf-8");
-	          /* �������������������*/  
 	          httpRequest.setEntity(se); ;  
-	          /*�������󲢵ȴ���Ӧ*/  
 	          HttpResponse httpResponse = new DefaultHttpClient().execute(httpRequest);  
-	          /*��״̬��Ϊ200 ok*/  
 	          if(httpResponse.getStatusLine().getStatusCode() == 200)   
 	          {  
-	            /*����������*/  
+	            /*返回值*/  
 	             strResult = EntityUtils.toString(httpResponse.getEntity());  
 	             
 	          }  
@@ -101,7 +98,7 @@ public class HttpSendRecv extends AsyncTask<Void, Void, String>{
 	}
 	
 	/* 
-	 * ��̨�߳�ִ�еķ���
+	 * 后台执行
 	 * (non-Javadoc)
 	 * @see android.os.AsyncTask#doInBackground(java.lang.Object[])
 	 */

@@ -21,6 +21,16 @@
             android:text="@string/account_sec"
             android:textColor="@color/mycoupon_item"
             android:textSize="14sp" />
+         <TextView
+            android:id="@+id/myseting_tv3"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:background="@color/mycoupon_textback"
+            android:gravity="center"
+            android:text="@string/set_second_psswd"
+            android:textColor="@color/mycoupon_item"
+            android:textSize="14sp" />
 
         <TextView
             android:id="@+id/myseting_tv2"
@@ -118,7 +128,86 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:src="@drawable/help"
-            android:visibility="invisible" />
+            android:visibility="gone" />
+        
+        
+                <LinearLayout
+            android:id="@+id/myseting_lv1"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center_horizontal"
+            android:visibility="gone"
+            android:orientation="vertical" >
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="40dp"
+                android:orientation="horizontal" >
+
+                <TextView
+                    android:layout_width="65dp"
+                    android:layout_height="wrap_content"
+                    android:gravity="right"
+                    android:text="@string/alipay_password"
+                    android:textColor="@color/myaccount_text_dark"
+                    android:textSize="15sp" />
+
+                <EditText
+                    android:id="@+id/myset_question1"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/myaccount_text_shap"
+                    android:hint="请输入密码"
+                    android:maxLines="1"
+                    android:minEms="11"
+                    android:focusable="true"  
+                    android:password="true"
+  				    android:focusableInTouchMode="true"
+                    android:textColor="@color/myaccount_text_dark"
+                    android:textSize="15sp" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:orientation="horizontal" >
+
+                <TextView
+                    android:layout_width="65dp"
+                    android:layout_height="wrap_content"
+                    android:gravity="right"
+                    android:text="@string/submit_passwd"
+                    android:textColor="@color/myaccount_text_dark"
+                    android:textSize="15sp" />
+
+                <EditText
+                    android:id="@+id/myset_answer1"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/myaccount_text_shap"
+                    android:hint="请再次输入密码"
+                    android:maxLines="1"
+                    android:minEms="11"
+                    android:focusable="true"  
+                    android:password="true"
+   					android:focusableInTouchMode="true"
+                    android:textColor="@color/myaccount_text_dark"
+                    android:textSize="15sp" />
+            </LinearLayout>
+
+            <Button
+                android:id="@+id/myset_button1"
+                android:layout_width="90dp"
+                android:layout_height="26dp"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginTop="13dp"
+                android:background="@color/mycoupon_textback"
+                android:text="@string/submit"
+                android:textColor="@color/mycoupon_item"
+                android:textSize="13sp" />
+        </LinearLayout>
     </FrameLayout>
 
 </LinearLayout>

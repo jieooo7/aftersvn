@@ -18,12 +18,14 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:src="@drawable/logo"/>
-        <TextView 
+        <Button
             android:id="@+id/user_info_change_portrait"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_height="18dp"
             android:layout_marginTop="16dp"
             android:text="@string/change_head_portrait"
+            android:gravity="top"
+            android:background="@null"
             android:textSize="15sp"
             android:textColor="@color/mycredit_list_text"/>
         <LinearLayout

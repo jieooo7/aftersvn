@@ -54,7 +54,7 @@ public class UserinfoActivity extends Activity implements OnClickListener {
 	private EditText ev;
 	private Button bt;
 	private String petName;// 昵称
-	private TextView tv0;// 修改头像
+	private Button tv0;// 修改头像
 	private TextView tv1;// 相机
 	private TextView tv2;// 从相册选取
 	private TextView tv3;// 取消
@@ -97,7 +97,7 @@ public class UserinfoActivity extends Activity implements OnClickListener {
 		
 		}
 
-		tv0 = (TextView) findViewById(R.id.user_info_change_portrait);
+		tv0 = (Button) findViewById(R.id.user_info_change_portrait);
 		tv1 = (TextView) findViewById(R.id.user_info_camera);
 		tv2 = (TextView) findViewById(R.id.user_info_from_phone);
 		tv3 = (TextView) findViewById(R.id.user_info_cancel);
@@ -172,6 +172,7 @@ public class UserinfoActivity extends Activity implements OnClickListener {
 							Toast.makeText(UserinfoActivity.this, "头像上传成功!", 0)
 									.show();
 							PreferencesUtils.putValueToSPMap(getApplicationContext(), PreferencesUtils.Keys.USER_PORTRAIT, good_body);
+							tv0.setEnabled(false);
 							
 						} else {
 							Toast.makeText(UserinfoActivity.this,
@@ -213,7 +214,7 @@ public class UserinfoActivity extends Activity implements OnClickListener {
 	 */
 	public void camera() {
 		Intent intent = new Intent("android.media.action.IMAGE_CAPTURE");
-		// 判断存储卡是否可以用，可用进行存储
+		// 判断存储卡是否可以用，可用进行存储,将拍照后的照片存入文件
 		if (hasSdcard()) {
 			intent.putExtra(MediaStore.EXTRA_OUTPUT,
 					Uri.fromFile(new File(Environment
@@ -226,7 +227,7 @@ public class UserinfoActivity extends Activity implements OnClickListener {
 	protected void onActivityResult(int requestCode, int resultCode, Intent data) {
 		if (requestCode == PHOTO_REQUEST_GALLERY) {
 			if (data != null) {
-				// 得到图片的全路径
+				// intent pick返回选中的图片,uri得到图片的全路径
 				Uri uri = data.getData();
 				crop(uri);
 			}
