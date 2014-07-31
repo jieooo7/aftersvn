@@ -23,6 +23,7 @@ import cn.icnt.dinners.beans.UserLoginBean;
 import cn.icnt.dinners.debug.DebugUtil;
 import cn.icnt.dinners.utils.MD5;
 import cn.icnt.dinners.utils.PreferencesUtils;
+import cn.icnt.dinners.utils.ToastUtil;
 
 import com.google.gson.Gson;
 
@@ -50,7 +51,7 @@ public class MapPackage {
 	private String path = "";
 	private String uid="-1";
 	
-	
+	private Context contexts;
 	
 	public Map<String, Object> getResult(){
 		return this.backResult;
@@ -91,6 +92,7 @@ public class MapPackage {
 	 *@param context 头信息拼装
 	 */
 	public void setHead(Context context) {
+		contexts=context;
 //		手机唯一标示信息
 		TelephonyManager telephonyManager=(TelephonyManager) context.getSystemService(Context.TELEPHONY_SERVICE);
 //		用户id
@@ -159,6 +161,7 @@ public class MapPackage {
 	 * @throws InterruptedException 
 	 */
 	public void send() throws InterruptedException, ExecutionException {
+		ToastUtil.showProgressDialog(contexts);
 		Map<String, Object> map = new HashMap<String, Object>();
 //		加入初始化设置
 //		this.headmap.put("", "");
@@ -176,7 +179,7 @@ public class MapPackage {
 		String backResult =task.execute().get();
 		DebugUtil.i("返回信息", backResult);
 		this.backResult=GsonTools.getMaps(backResult.substring(backResult.indexOf("{")));
-
+		ToastUtil.closeProgressDialog();
 	}
 	
 	public UserLoginBean send(Class clz) throws InterruptedException, ExecutionException {

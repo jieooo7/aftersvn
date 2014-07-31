@@ -65,5 +65,7 @@
     <color name="transparent">#00000000</color>
     <color name="white">#FFFFFFFF</color>
     <color name="transparent">#00000000</color>
-
+    <!-- 我的订单未选中颜色 -->
+     <color name="myorder_title_unclick">#e7ebec</color>
+     <color name="myorder_title_text_unclick">#9c9e9d</color>
 </resources>

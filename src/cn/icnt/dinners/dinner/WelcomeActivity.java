@@ -18,6 +18,7 @@ import android.os.Handler;
 import android.os.Message;
 import android.telephony.TelephonyManager;
 import android.view.Window;
+import android.view.WindowManager;
 import cn.icnt.dinners.utils.PreferencesUtils;
 
 /**
@@ -32,7 +33,8 @@ public class WelcomeActivity extends Activity {
 	protected void onCreate(Bundle savedInstanceState) {
 		// TODO Auto-generated method stub
 		super.onCreate(savedInstanceState);
-		requestWindowFeature(Window.FEATURE_NO_TITLE);
+//		requestWindowFeature(Window.FEATURE_NO_TITLE);//去掉标题栏 
+		this.getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);//去掉信息栏 
 		setContentView(R.layout.welcome);
 		init();
 		Thread mt = new Thread(mThread);

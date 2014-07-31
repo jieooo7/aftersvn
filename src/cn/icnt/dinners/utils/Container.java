@@ -11,7 +11,6 @@ public class Container {
 	 * 登陆地址
 	 */
 	public static final String LOGIN_URL= URL+"login.do?t=";
-	
 	/**
 	 * 忘记密码地址
 	 */
@@ -44,5 +43,9 @@ public class Container {
 	 * 订单评论接口
 	 */
 	public static final String ORDERCOMMENT= URL+"order_comment.do";
-
+	/**
+	 * 订单评论接口
+	 */
+	public static final String UPLOADPHOTO= URL+"upload_photo.do";
+	
 }

@@ -29,6 +29,8 @@ import org.apache.http.impl.client.DefaultHttpClient;
 import org.apache.http.util.EntityUtils;
 
 import cn.icnt.dinners.debug.DebugUtil;
+import cn.icnt.dinners.dinner.MyOrderActivity;
+import cn.icnt.dinners.utils.ToastUtil;
 import android.os.AsyncTask;
 
 
@@ -107,6 +109,18 @@ public class HttpSendRecv extends AsyncTask<Void, Void, String>{
 		String s;
 		s=HttpSendRecve(path,st);
 		return s;
+	}
+
+
+	@Override
+	protected void onPreExecute() {
+		super.onPreExecute();
+	}
+
+
+	@Override
+	protected void onProgressUpdate(Void... values) {
+		super.onProgressUpdate(values);
 	}
 	
 

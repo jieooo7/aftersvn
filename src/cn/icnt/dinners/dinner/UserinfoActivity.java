@@ -21,6 +21,7 @@ import cn.icnt.dinners.http.MapPackage;
 import cn.icnt.dinners.uploadimg.AsyncHttpClient;
 import cn.icnt.dinners.uploadimg.AsyncHttpResponseHandler;
 import cn.icnt.dinners.uploadimg.RequestParams;
+import cn.icnt.dinners.utils.Container;
 import cn.icnt.dinners.utils.DensityUtil;
 import cn.icnt.dinners.utils.PreferencesUtils;
 import android.annotation.SuppressLint;
@@ -64,7 +65,7 @@ public class UserinfoActivity extends Activity implements OnClickListener {
 	private static final int PHOTO_REQUEST_CUT = 3;// 结果
 
 	private ImageView mFace;
-	private Bitmap bitmap;
+	private Bitmap bitmap=null;
 
 	/* 头像名称 */
 	private static final String PHOTO_FILE_NAME = "temp_photo.jpg";
@@ -154,10 +155,10 @@ public class UserinfoActivity extends Activity implements OnClickListener {
 							PreferencesUtils.Keys.UID, "-1"));
 			DebugUtil.i("用户uid", PreferencesUtils.getValueFromSPMap(
 					getApplicationContext(), PreferencesUtils.Keys.UID, "-1"));
-			String url = "http://115.29.13.164/upload_photo.do";
+//			String url = "http://115.29.13.164/upload_photo.do";
 
 			AsyncHttpClient client = new AsyncHttpClient();
-			client.post(url, params, new AsyncHttpResponseHandler() {
+			client.post(Container.UPLOADPHOTO, params, new AsyncHttpResponseHandler() {
 				@Override
 				public void onSuccess(int statusCode, Header[] headers,
 						byte[] responseBody) {
@@ -337,8 +338,10 @@ public class UserinfoActivity extends Activity implements OnClickListener {
 			finish();
 			break;
 		case R.id.user_info_change_portrait:
+			if(bitmap!=null){
 			upload();
 			DebugUtil.i("上传头像", "头像");
+			}
 			break;
 		}
 	}

@@ -1,30 +1,33 @@
 package cn.icnt.dinners.dinner;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import org.apache.commons.lang.StringUtils;
+
 import android.app.Activity;
-import android.app.Dialog;
 import android.content.Context;
 import android.content.Intent;
+import android.content.res.Resources;
 import android.graphics.Bitmap;
 import android.os.Bundle;
+import android.os.Parcelable;
+import android.support.v4.view.PagerAdapter;
+import android.support.v4.view.ViewPager;
+import android.support.v4.view.ViewPager.OnPageChangeListener;
 import android.util.Log;
 import android.view.LayoutInflater;
-import android.view.MotionEvent;
 import android.view.View;
 import android.view.View.OnClickListener;
-import android.view.ViewConfiguration;
 import android.view.ViewGroup;
-import android.view.WindowManager;
 import android.widget.BaseAdapter;
-import android.widget.Button;
-import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.RelativeLayout;
+import android.widget.SimpleAdapter;
 import android.widget.TextView;
 import cn.icnt.dinners.beans.OrderListBean;
 import cn.icnt.dinners.beans.OrderListBean.OrderList;
@@ -60,79 +63,203 @@ public class MyOrderActivity extends Activity {
 
 	@ViewInject(R.id.title_center_text)
 	private TextView title_center_text;
+	ViewPager mViewPager;
+	private LinearLayout linearLayout1;
+	private TextView textView1, textView2;
+	private int currIndex = 0;// 当前页卡编号
+	private int textViewW = 0;// 页卡标题的宽度
+	private List<View> listViews;
+	private Resources resources;
+	private View view1, view2;
+	private LinearLayout layout1, layout2;
+	private ListView listview1, listview2;
+	private SimpleAdapter list1, list2;
 
-	@ViewInject(R.id.order_list)
-	private ListView order_list;
-	// @ViewInject(R.id.order_list_nosend)
-	// private ListView order_list_nosend;
-	// @ViewInject(R.id.order_list_nopay)
-	// private ListView order_list_nopay;
+	private List<OrderList> listInfo;
+	private List<OrderList> unpayList;
+	/* mList是用来存放要显示的数据 */
+	private List<HashMap<String, Object>> mList = new ArrayList<HashMap<String, Object>>();
 
-	@ViewInject(R.id.order_all)
-	private LinearLayout order_all;
-	@ViewInject(R.id.order_all_text)
-	private TextView order_all_text;
-	@ViewInject(R.id.order_all_line)
-	private ImageView order_all_line;
+	private OrderAdapter allAdapter;
 
-	@ViewInject(R.id.order_obligation)
-	private LinearLayout order_obligation;
-	@ViewInject(R.id.order_obligation_text)
-	private TextView order_obligation_text;
-	@ViewInject(R.id.order_obligation_line)
-	private ImageView order_obligation_line;
+	private OrderAdapter unpayAdapter;
 
-//	@ViewInject(R.id.order_evaluate)
-//	private LinearLayout order_evaluate;
-//	@ViewInject(R.id.order_evaluate_text)
-//	private TextView order_evaluate_text;
-//	@ViewInject(R.id.order_evaluate_line)
-//	private ImageView order_evaluate_line;
+	private List<OrderList> clickList;
 
-	private int curCheckId = R.id.order_all;
-
-	private OrderAdapter adapter;
-	private OrderAdapter adapter1;
-	private OrderAdapter adapter2;
-	private BitmapUtils butils;
-
-	// private int orderState = 0;
-	private OrderListBean json;
-
-	private List<OrderList> resultList; // 原始
-	private List<OrderList> newlist;// 条件
-//	private List<OrderList> newlist1;// 条件1
-//	private List<OrderList> newlist2;// 条件2
-
-	private static EditText order_msg_edit;
-
-	private static RelativeLayout order_msg_send;
-
-	private static boolean isNeedSetAda = true;
-	public static int num = 0;
-
-	private Dialog mDeleteDialog;
+	private int num;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.myorder);
+		resources = this.getResources();
 		ViewUtils.inject(this);
 		title_center_text.setText("我的订单");
-		initView();
 		initData();
-		// order_list.setOnItemClickListener(new OnItemClickListener() {
-		// @Override
-		// public void onItemClick(AdapterView<?> parent, View view,
-		// int position, long id) {
-		// ToastUtil.show(MyOrderActivity.this, position+"####");
-		// }
-		// });
+
 	}
 
-	private void initView() {
+	private void initControl() {
+		linearLayout1 = (LinearLayout) findViewById(R.id.linearLayout1);
+		mViewPager = (ViewPager) findViewById(R.id.pvr_user_pager);
+		mViewPager.setOffscreenPageLimit(2);/* 预加载页面 */
+	}
 
-		checkedState(curCheckId);
+	/* 初始化ViewPager */
+	private void initViewPager() {
+		listViews = new ArrayList<View>();
+		LayoutInflater mInflater = getLayoutInflater();
+		view1 = mInflater.inflate(R.layout.my_order_viewpager, null);
+		view2 = mInflater.inflate(R.layout.my_order_viewpager, null);
+		listViews.add(view1);
+		listViews.add(view2);
+		mViewPager.setAdapter(new MyPagerAdapter(listViews));
+		mViewPager.setCurrentItem(0);
+		mViewPager.setOnPageChangeListener(new MyOnPageChangeListener());
+		initList();
+	}
+
+	/* 初始化各个页卡列表 */
+	private void initList() {
+		if (listInfo != null) {
+			unpayList = getUnpayList(listInfo);
+			allAdapter = new OrderAdapter(MyOrderActivity.this, listInfo);
+			// /* 页卡数据 */
+			unpayAdapter = new OrderAdapter(MyOrderActivity.this, unpayList);
+		}
+		listview1 = (ListView) view1.findViewById(R.id.mylistview);
+		listview2 = (ListView) view2.findViewById(R.id.mylistview);
+		//
+		listview1.setAdapter(allAdapter);
+		listview2.setAdapter(unpayAdapter);
+
+	}
+
+	private List<HashMap<String, Object>> getData() {
+		HashMap<String, Object> hashMap;
+		for (int i = 0; i < 15; i++) {
+			hashMap = new HashMap<String, Object>();
+			hashMap.put("logo", R.drawable.ic_launcher);
+			hashMap.put("title", resources.getString(R.string.app_name));
+			mList.add(hashMap);
+		}
+		return mList;
+	}
+
+	/* 返回列表数据 */
+	private List<OrderList> getUnpayList(List<OrderList> listInfo2) {
+		List<OrderList> list = new ArrayList<OrderList>();
+		for (OrderList orderInfo : listInfo2) {
+			if (orderInfo.order_state == 1) {
+				list.add(orderInfo);
+			}
+		}
+		return list;
+	}
+
+	/* 初始化页卡标题 */
+	private void InitTextView() {
+		textView1 = (TextView) findViewById(R.id.text1);
+		textView2 = (TextView) findViewById(R.id.text2);
+
+		textView1.setOnClickListener(new MyOnClickListener(0));
+		textView2.setOnClickListener(new MyOnClickListener(1));
+	}
+
+	/**
+	 * ViewPager适配器
+	 */
+	public class MyPagerAdapter extends PagerAdapter {
+		public List<View> mListViews;
+
+		public MyPagerAdapter(List<View> mListViews) {
+			this.mListViews = mListViews;
+		}
+
+		@Override
+		public void destroyItem(View arg0, int arg1, Object arg2) {
+			((ViewPager) arg0).removeView(mListViews.get(arg1));
+		}
+
+		@Override
+		public void finishUpdate(View arg0) {
+		}
+
+		@Override
+		public int getCount() {
+			return mListViews.size();
+		}
+
+		@Override
+		public Object instantiateItem(View arg0, int arg1) {
+			((ViewPager) arg0).addView(mListViews.get(arg1), 0);
+			return mListViews.get(arg1);
+		}
+
+		@Override
+		public boolean isViewFromObject(View arg0, Object arg1) {
+			return arg0 == (arg1);
+		}
+
+		@Override
+		public void restoreState(Parcelable arg0, ClassLoader arg1) {
+		}
+
+		@Override
+		public Parcelable saveState() {
+			return null;
+		}
+
+		@Override
+		public void startUpdate(View arg0) {
+		}
+	}
+
+	/* 页卡切换监听 */
+	public class MyOnPageChangeListener implements OnPageChangeListener {
+
+		@Override
+		public void onPageSelected(int arg0) {
+			setTextTitleSelectedColor(arg0);
+		}
+
+		@Override
+		public void onPageScrolled(int arg0, float arg1, int arg2) {
+		}
+
+		@Override
+		public void onPageScrollStateChanged(int arg0) {
+		}
+	}
+
+	/* 设置标题文本的颜色 */
+	private void setTextTitleSelectedColor(int arg0) {
+		int count = mViewPager.getChildCount();
+		for (int i = 0; i < count; i++) {
+			TextView mTextView = (TextView) linearLayout1.getChildAt(i);
+			if (arg0 == i) {
+				mTextView.setTextColor(resources.getColor(R.color.tab_font));
+				mTextView.setBackgroundResource(R.color.mycredit_back_select);
+			} else {
+				mTextView.setTextColor(resources
+						.getColor(R.color.myorder_title_text_unclick));
+				mTextView.setBackgroundResource(R.color.myorder_title_unclick);
+
+			}
+		}
+	}
+
+	/* 标题点击监听 */
+	private class MyOnClickListener implements OnClickListener {
+		private int index = 0;
+
+		public MyOnClickListener(int i) {
+			index = i;
+		}
+
+		public void onClick(View v) {
+			mViewPager.setCurrentItem(index);
+		}
 	}
 
 	private void initData() {
@@ -162,30 +289,14 @@ public class MyOrderActivity extends Activity {
 						ToastUtil.closeProgressDialog();
 						Log.i("order", responseInfo.result);
 						Gson gson = new Gson();
-						json = gson.fromJson(responseInfo.result,
-								OrderListBean.class);
-						if (json == null) {
-						} else if (!("10000".equals(json.head.code))) {
-							ToastUtil.show(getApplication(), json.head.msg);
-						} else {
-							if (json.result == null) {
-							} else {
-								resultList = json.result;
-								newlist = json.result;
-									adapter = new OrderAdapter(
-											MyOrderActivity.this, newlist);
-									order_list.setAdapter(adapter);
-									isNeedSetAda = false;
-								// newlist = resultList;
-								// order_list.setVerticalScrollBarEnabled(true);
-								// order_list.setOnItemClickListener(new
-								// OnItemClickListener() {
-								// @Override
-								// public void onItemClick(
-								// AdapterView<?> arg0, View arg1,
-								// int arg2, long arg3) {
-								// }
-								// });
+						OrderListBean jsonBean = gson.fromJson(
+								responseInfo.result, OrderListBean.class);
+						if (jsonBean != null) {
+							if (StringUtils.equals("10000", jsonBean.head.code)) {
+								listInfo = jsonBean.result;
+								initControl();
+								initViewPager();
+								InitTextView();
 							}
 						}
 					}
@@ -197,168 +308,15 @@ public class MyOrderActivity extends Activity {
 
 	}
 
-	// @ViewInject(R.id.order_list)
-	// private ListView order_list;
-	// @ViewInject(R.id.order_list_nosend)
-	// private ListView order_list_nosend;
-	// @ViewInject(R.id.order_list_nopay)
-	// private ListView order_list_nopay;
-	/**
-	 * 根据不同的button 事件为listview。setadapter 传入不同数据的list 而后notify
-	 * 
-	 * @param v
-//	R.id.order_evaluate 
-	 */
-	@OnClick({ R.id.title_left_btn, R.id.order_all, R.id.order_obligation})
-	public void clickMethod(View v) {
-		switch (v.getId()) {
-		case R.id.title_left_btn:
-			finish();
-			break;
-		case R.id.order_all:
-			if (curCheckId == R.id.order_all) {
-			} else {
-				checkedState(R.id.order_all);
-				curCheckId = R.id.order_all;
-				initData();
-				// // adapter= new OrderAdapter(
-				// // MyOrderActivity.this, newlist);
-				// // order_list.setAdapter(adapter);
-				// // order_list.setVisibility(View.VISIBLE);
-				// // order_list_nosend.setVisibility(View.GONE);
-				// // order_list_nopay.setVisibility(View.GONE);
-				// // orderState = 0;
-				// newlist = resultList;
-				// // adapter = new OrderAdapter(MyOrderActivity.this, result);
-				// // order_list.setAdapter(adapter);
-				// adapter.notifyDataSetChanged();
-			}
-			break;
-		case R.id.order_obligation:
-			if (curCheckId == R.id.order_obligation) {
-			} else {
-				checkedState(R.id.order_obligation);
-				curCheckId = R.id.order_obligation;
-				 newlist.clear();
-				 for (OrderList ol : resultList) {
-					 if (ol.order_state == 1) {
-						 newlist.add(ol);
-					}
-				 }
-				 adapter.notifyDataSetChanged();
-				// orderState = 1;
-				// newlist.clear();
-				// for (OrderList ol : resultList) {
-				// if (ol.order_state == 2) {
-				// newlist.add(ol);
-				// }
-				// }
-				// adapter.notifyDataSetChanged();
-				// adapter1 = new OrderAdapter(MyOrderActivity.this, newlist1);
-				// order_list.setAdapter(adapter1);
-				// adapter.notifyDataSetChanged();
-				// unpay.clear();
-				// for (OrderList orderli : json.result) {
-				// if (orderli.order_state == 1) {
-				// unpay.add(orderli);
-				// }
-				// }
-				// adapter = new OrderAdapter(MyOrderActivity.this, unpay);
-				// adapter.notifyDataSetChanged();
-				// order_list.setAdapter(adapter);
-				// adapter.notifyDataSetChanged();
-			}
-			break;
-//		case R.id.order_evaluate: // 待支付
-//			if (curCheckId == R.id.order_evaluate) {
-//			} else {
-//				checkedState(R.id.order_evaluate);
-//				curCheckId = R.id.order_evaluate;
-//				// // orderState = 2;
-//				 newlist.clear();
-//				 for (OrderList ol : resultList) {
-//					 if (ol.order_state == 2) {
-//						 newlist.add(ol);
-//					}
-//				 }
-//				 adapter.notifyDataSetChanged();
-				// adapter2 = new OrderAdapter(MyOrderActivity.this, newlist2);
-				// order_list.setAdapter(adapter2);
-				// OrderAdapter orderAdapter2 = new OrderAdapter(
-				// MyOrderActivity.this, newlist);
-				//
-				// order_list_nopay.setAdapter(orderAdapter2);
-
-				// unpay.clear();
-				// for (OrderList orderli : json.result) {
-				// if (orderli.order_state == 3) {
-				//
-				// unpay.add(orderli);
-				// }
-				// }
-				// adapter = new OrderAdapter(MyOrderActivity.this, unpay);
-				// // adapter.notifyDataSetChanged();
-				// order_list.setAdapter(adapter);
-				// // order_list.notify();
-				// order_list.notify();
-				// adapter.notifyDataSetChanged();
-//			}
-//			break;
-		}
-	}
-
-	private void checkedState(int curCheckId2) {
-		initChecked();
-		switch (curCheckId2) {
-		case R.id.order_all:
-			order_all_text.setTextColor(getResources().getColor(
-					R.color.tab_font));
-			order_all_line.setVisibility(View.VISIBLE);
-			order_list.setVisibility(View.VISIBLE);
-			break;
-		case R.id.order_obligation:
-			order_obligation_text.setTextColor(getResources().getColor(
-					R.color.tab_font));
-			order_obligation_line.setVisibility(View.VISIBLE);
-			// order_list_nosend.setVisibility(View.VISIBLE);
-			break;
-//		case R.id.order_evaluate:
-//			order_evaluate_text.setTextColor(getResources().getColor(
-//					R.color.tab_font));
-//			order_evaluate_line.setVisibility(View.VISIBLE);
-//			// order_list_nopay.setVisibility(View.VISIBLE);
-//			break;
-		}
-	}
-
-	private void initChecked() {
-		order_all_text.setTextColor(getResources().getColor(
-				R.color.order_tab_text));
-		order_obligation_text.setTextColor(getResources().getColor(
-				R.color.order_tab_text));
-//		order_evaluate_text.setTextColor(getResources().getColor(
-//				R.color.order_tab_text));
-
-		order_all_line.setVisibility(View.GONE);
-		order_obligation_line.setVisibility(View.GONE);
-//		order_evaluate_line.setVisibility(View.GONE);
-
-		// order_list.setVisibility(View.GONE);
-		// order_list_nosend.setVisibility(View.GONE);
-		// order_list_nopay.setVisibility(View.GONE);
-	}
-
 	public class OrderAdapter extends BaseAdapter {
-		public List<OrderList> lists = new ArrayList<OrderListBean.OrderList>();
+		public List<OrderList> lists;
 		private LayoutInflater mInflater;
 		private BitmapUtils utils;
 		private BitmapDisplayConfig img_config;
-		private Context mContext;
 
 		public OrderAdapter(Context context, List<OrderList> list) {
 			this.mInflater = LayoutInflater.from(context);
 			this.lists = list;
-			mContext = context;
 			utils = new BitmapUtils(context);
 			img_config = new BitmapDisplayConfig();
 			img_config.setLoadingDrawable(getResources().getDrawable(
@@ -366,7 +324,6 @@ public class MyOrderActivity extends Activity {
 			img_config.setLoadFailedDrawable(getResources().getDrawable(
 					R.drawable.replace));
 			img_config.setBitmapConfig(Bitmap.Config.RGB_565);
-
 		}
 
 		@Override
@@ -387,7 +344,7 @@ public class MyOrderActivity extends Activity {
 		public View getView(int position, View convertView, ViewGroup parent) {
 			ViewHolder holder = null;
 			MyListener myListener = null;
-			myListener = new MyListener(position);
+			myListener = new MyListener(lists, position);
 			if (convertView == null) {
 				holder = new ViewHolder();
 				// 可以理解为从vlist获取view 之后把view返回给ListView
@@ -411,41 +368,25 @@ public class MyOrderActivity extends Activity {
 						.findViewById(R.id.order_pay_online);
 				holder.order_img = (ImageView) convertView
 						.findViewById(R.id.order_img);
-				holder.order_title_line_one = (ImageView) convertView
-						.findViewById(R.id.order_title_line_one);
-//				holder.order_evaluate = (Button) convertView
-//						.findViewById(R.id.order_evaluate);
 				holder.control_order = (RelativeLayout) convertView
 						.findViewById(R.id.control_order);
-//				holder.orders_evaluates = (RelativeLayout) convertView
-//						.findViewById(R.id.orders_evaluates);
 				holder.order_desc = (RelativeLayout) convertView
 						.findViewById(R.id.order_desc);
 				convertView.setTag(holder);
 			} else {
 				holder = (ViewHolder) convertView.getTag();
 			}
-			// butils.display(holder.order_img,
-			// lists.get(position).goods_list.get(0).img_url);
 			if (lists.get(position).order_state == 1) {
 				holder.order_state.setText("订单未支付");
 				holder.control_order.setVisibility(View.VISIBLE);
-//				holder.orders_evaluates.setVisibility(View.GONE);
 			} else if (lists.get(position).order_state == 2) {
 				holder.order_state.setText("支付完成");
-//				holder.orders_evaluates.setVisibility(View.VISIBLE);
 				holder.control_order.setVisibility(View.GONE);
 			} else {
 				holder.order_state.setText("交易进行中");
 				holder.order_state.setTextColor(getResources().getColor(
 						R.color.tab_font));
-//				holder.orders_evaluates.setVisibility(View.GONE);
 				holder.control_order.setVisibility(View.VISIBLE);
-			}
-			if (position == 0) {
-				holder.order_title_line_one.setVisibility(View.GONE);
-			} else {
-				holder.order_title_line_one.setVisibility(View.VISIBLE);
 			}
 			holder.order_info.setText(lists.get(position).order_info);
 			holder.order_store.setText(lists.get(position).order_store);
@@ -458,49 +399,39 @@ public class MyOrderActivity extends Activity {
 			// 给Button添加单击事件 添加Button之后ListView将失去焦点 需要的直接把Button的焦点去掉
 			holder.del_bucket_img.setTag(position);
 			holder.order_pay_online.setTag(position);
-//			holder.order_evaluate.setTag(position);
 			holder.order_desc.setTag(position);
 
 			holder.del_bucket_img.setOnClickListener(myListener);
 			holder.order_pay_online.setOnClickListener(myListener);
-//			holder.order_evaluate.setOnClickListener(myListener);
 			holder.order_desc.setOnClickListener(myListener);
-			// holder.viewBtn.setOnClickListener(MyListener(position));
-
 			return convertView;
 		}
 
 		private class MyListener implements OnClickListener {
 			int mPosition;
+			List<OrderList> list;
 
-			public MyListener(int inPosition) {
+			public MyListener(List<OrderList> lists, int inPosition) {
 				mPosition = inPosition;
+				list = lists;
 			}
 
 			@Override
 			public void onClick(View v) {
-				// TODO Auto-generated method stub
-				// Toast.makeText(ListViewActivity.this, title[mPosition],
-				// Toast.LENGTH_SHORT).show();
 				int position = Integer.parseInt(v.getTag().toString());
 				switch (v.getId()) {
 				case R.id.order_pay_online: // 在线支付
 					ToastUtil.show(MyOrderActivity.this, "即将上线，敬请期待！");
 					break;
 				case R.id.del_bucket_img: // 订单删除
-					deleteOrder(mPosition);
+					deleteOrder(list, mPosition);
 					break;
-//				case R.id.order_evaluate: // 订单评价
-//					ToastUtil.show(MyOrderActivity.this, "R.id.order_evaluate"
-//							+ position);
-//					
-//					showProgressDialog(mContext, lists.get(mPosition).order_info_id);
-//					break;
 				case R.id.order_desc: // item onclick
 					ToastUtil.show(MyOrderActivity.this, "R.id.order_desc"
 							+ position);
 					Intent i = new Intent();
-					i.setClass(MyOrderActivity.this, ShowOrderDetailActivity.class);
+					i.setClass(MyOrderActivity.this,
+							ShowOrderDetailActivity.class);
 					startActivity(i);
 					break;
 				}
@@ -519,20 +450,18 @@ public class MyOrderActivity extends Activity {
 			public RelativeLayout del_bucket_img;
 			public TextView order_pay_online;
 			public ImageView order_img;
-			public ImageView order_title_line_one;
-//			public Button order_evaluate;
 			public RelativeLayout control_order;
-//			public RelativeLayout orders_evaluates;
 			public RelativeLayout order_desc;
 		}
 
 	}
 
-	private void deleteOrder(int mPosition2) {
+	private void deleteOrder(List<OrderList> list, int mPosition2) {
+		clickList = list;
 		num = mPosition2;
 		MapPackage mp = new MapPackage();
 		mp.setHead(this);
-		mp.setPara("order_info_id", newlist.get(mPosition2).order_info_id);
+		mp.setPara("order_info_id", listInfo.get(mPosition2).order_info_id);
 		Map<String, Object> maps = mp.getMap();
 		RequestParams params = GsonTools.GetParams(maps);
 
@@ -545,7 +474,7 @@ public class MyOrderActivity extends Activity {
 
 					@Override
 					public void onSuccess(ResponseInfo<String> arg0) {
-						Log.e("order11", arg0.result);
+						// Log.e("order11", arg0.result);
 
 						Gson gson = new Gson();
 						OrderListBean fromJson = gson.fromJson(arg0.result,
@@ -554,111 +483,23 @@ public class MyOrderActivity extends Activity {
 						} else if ("10000".equals(fromJson.head.code)) {
 							ToastUtil.show(MyOrderActivity.this,
 									fromJson.head.msg);
-							newlist.remove(num);
-							adapter.notifyDataSetChanged();
-							// Intent ii = new Intent();
-							// ii.setClass(MyOrderActivity.this,
-							// MyOrderActivity.class);
-							// startActivity(ii);
-							// MyOrderActivity.this.finish();
+							clickList.remove(num);
+							allAdapter.notifyDataSetChanged();
+							unpayAdapter.notifyDataSetChanged();
 						} else {
 						}
 					}
 
 				});
-
 	}
-	/**
-	 * dialog 订单评价窗口，确定后发生http请求
-	 */
-//	public void showProgressDialog(Context mContext, String order_inf_id) {
-//		final String order_info_ids = order_inf_id;
-//		mDeleteDialog = new Dialog(mContext, R.style.order_dialog_msg);
-//		mDeleteDialog.setCanceledOnTouchOutside(false);
-//		WindowManager.LayoutParams params = mDeleteDialog.getWindow()
-//				.getAttributes();
-//		params.width = 200;
-//		params.height = 200;
-//		mDeleteDialog.getWindow().setAttributes(params);
-//		LayoutInflater inflater = (LayoutInflater) mContext
-//				.getSystemService(LAYOUT_INFLATER_SERVICE);
-//		View layout = inflater.inflate(R.layout.order_evaluate_dialog, null);
-//		mDeleteDialog.setContentView(layout);
-//		order_msg_edit = (EditText) layout.findViewById(R.id.order_msg_edit);
-//		order_msg_send = (RelativeLayout) layout
-//				.findViewById(R.id.order_msg_send);
-//		order_msg_send.setOnClickListener(new OnClickListener() {
-//			@Override
-//			public void onClick(View v) {
-//			
-//				String msg = order_msg_edit.getText().toString();
-//				Log.i("order", "“"+ msg +"”评价成功");
-//				orderListSendMsg(order_info_ids ,msg);
-//				mDeleteDialog.dismiss();
-//				}
-//		});
-//		mDeleteDialog.show();
-		// mDeleteDialog.getWindow().setGravity(Gravity.CENTER);
-		// AlertDialog.Builder builder;
-		// AlertDialog alertDialog;
-		// LayoutInflater inflater = (LayoutInflater)
-		// mContext.getSystemService(LAYOUT_INFLATER_SERVICE);
-		// View layout = inflater.inflate(R.layout.order_evaluate_dialog,
-		// null);
-		// EditText order_msg_edit = (EditText)
-		// layout.findViewById(R.id.order_msg_edit);
-		// TextView order_msg_send = (TextView)
-		// layout.findViewById(R.id.order_msg_send);
-		// new AlertDialog.Builder(mContext,R.style.order_dialog_msg);
-		// builder = new AlertDialog.Builder(mContext,R.style.order_dialog_msg);
-		// order_msg_send.setOnClickListener(new OnClickListener() {
-		//
-		// @Override
-		// public void onClick(View v) {
-		// Log.i("order", "msg sendddddddddddd");
-		// }
-		// });
-		// builder.setView(layout);
-		// // alertDialog = builder.create();
-		// builder.create().show();
-		// alertDialog.show();
-		// dialog.setIcon(R.drawable.ic_launcher);
-		// dialog.setTitle(R.string.app_name);
-		// dialog.setMessage("请等候，数据加载中……");
-		// dialog.show();
-//	}
-/**
- * 订单评价·
- * @param order_info_ids 订单号
- * @param msg  评论内容
- */
-//	protected void orderListSendMsg(String order_info_ids, String msg) {
-//		MapPackage mp = new MapPackage();
-//		mp.setHead(this);
-//		mp.setPara("order_info_id", order_info_ids);
-//		mp.setPara("msg", msg);
-//		Map<String, Object> maps = mp.getMap();
-//		RequestParams params = GsonTools.GetParams(maps);
-//
-//		HttpUtils http = new HttpUtils();
-//		http.send(HttpRequest.HttpMethod.POST, Container.ORDERCOMMENT, params,
-//				new RequestCallBack<String>() {
-//					@Override
-//					public void onFailure(HttpException arg0, String arg1) {
-//					}
-//
-//					@Override
-//					public void onSuccess(ResponseInfo<String> arg0) {
-//						Log.e("order11", "############\r\n"+ arg0.result);
-//						
-//					
-//							// Intent ii = new Intent();
-//							// ii.setClass(MyOrderActivity.this,
-//							// MyOrderActivity.class);
-//							// startActivity(ii);
-//							// MyOrderActivity.this.finish();
-//					}
-//				});
-//	}
+
+	@OnClick({ R.id.title_left_btn })
+	public void clickMethod(View v) {
+		switch (v.getId()) {
+		case R.id.title_left_btn:
+			finish();
+			break;
+		}
+	}
 
 }

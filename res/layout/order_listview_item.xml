@@ -3,12 +3,12 @@
     android:layout_height="fill_parent"
     android:orientation="vertical" >
 
-    <ImageView
+ <!--    <ImageView
         android:id="@+id/order_title_line_one"
         android:layout_width="fill_parent"
         android:layout_height="7dp"
         android:layout_marginTop="4dp"
-        android:background="@color/order_tab_bg" />
+        android:background="@color/order_tab_bg" /> -->
 
     <RelativeLayout
         android:layout_width="fill_parent"
