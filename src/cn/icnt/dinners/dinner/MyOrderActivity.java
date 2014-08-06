@@ -244,7 +244,6 @@ public class MyOrderActivity extends Activity {
 				mTextView.setTextColor(resources
 						.getColor(R.color.myorder_title_text_unclick));
 				mTextView.setBackgroundResource(R.color.myorder_title_unclick);
-
 			}
 		}
 	}
@@ -430,6 +429,7 @@ public class MyOrderActivity extends Activity {
 					ToastUtil.show(MyOrderActivity.this, "R.id.order_desc"
 							+ position);
 					Intent i = new Intent();
+					i.putExtra("OrderInfo", list.get(position).order_id);
 					i.setClass(MyOrderActivity.this,
 							ShowOrderDetailActivity.class);
 					startActivity(i);

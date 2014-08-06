@@ -75,13 +75,6 @@
     <string name="submit">确认</string>
     <string name="set_second_psswd">设置支付密码</string>
     <string name="submit_passwd">确认密码:</string>
-    
-    
-    
-    
-
-
-    
 
     <!-- coupon list item布局 -->
     <string name="time">活动期间:</string>
@@ -92,8 +85,6 @@
     <string name="summary">简介:</string>
     <string name="special_dish">特色菜:</string>
 
-
-    
     <!-- user info页面 -->
     <string name="person_info">个人信息</string>
     <string name="change_head_portrait">修改头像</string>
@@ -101,9 +92,6 @@
     <string name="save">保存</string>
     <string name="camera">相机</string>
     <string name="from_phone">从手机相册选择</string>
-    
-    
-
     
     <string name="coupon_name">优惠券</string>
     <string name="first">第一个</string>
@@ -119,5 +107,6 @@
     <string name="login_user_name">手机号</string>
     <string name="login_user_password">密码</string>
     
+    <string name="my_near">周边</string>
 
 </resources>

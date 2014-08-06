@@ -11,6 +11,7 @@ import cn.icnt.dinners.entity.Present;
 import cn.icnt.dinners.entity.Result;
 
 import cn.icnt.dinners.entity.Present.ResultList;
+import cn.icnt.dinners.fragment.FragmentDish;
 import cn.icnt.dinners.http.GsonTools;
 import cn.icnt.dinners.http.HttpSendRecv;
 import cn.icnt.dinners.http.MapPackage;
@@ -41,6 +42,7 @@ import android.view.View.OnClickListener;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.ListView;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.TextView.BufferType;
 import android.widget.Toast;
@@ -105,8 +107,9 @@ public class DetailcActivity extends Activity implements OnClickListener {
 				false);
 		System.out.println(dishes);
 		((TextView) findViewById(R.id.title_center_text))
+	
 		.setText(getResources().getString(R.string.my_accounts));
-
+		((RelativeLayout)findViewById(R.id.title_left_btn)).setOnClickListener(this);
 	}
 
 	
@@ -125,6 +128,11 @@ public class DetailcActivity extends Activity implements OnClickListener {
 			break;
 		case R.id.iv_order:
 			Toast.makeText(this, "点餐成功", 0).show();
+			break;
+		case R.id.title_left_btn:
+//			Intent intent=new Intent(DetailcActivity.this,MainActivity.class);
+//			startActivity(intent);
+			finish();
 			break;
 
 		}

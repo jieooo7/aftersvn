@@ -221,6 +221,7 @@
         android:layout_width="match_parent"
         android:layout_height="50dp"
         android:background="@drawable/left_menu_color"
+        android:visibility="gone"
         android:orientation="vertical" >
 
         <RelativeLayout
@@ -275,6 +276,7 @@
         android:layout_width="match_parent"
         android:layout_height="50dp"
         android:background="@drawable/left_menu_color"
+        android:visibility="gone"
         android:orientation="vertical" >
 
         <RelativeLayout

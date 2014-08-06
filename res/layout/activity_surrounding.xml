@@ -1,0 +1,26 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical" >
+<LinearLayout
+        
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+      >
+
+        <include
+            android:id="@+id/la_yout"
+            layout="@layout/login_title" />
+    </LinearLayout>
+    
+    <ListView
+        android:id="@+id/surrounding_list"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+       
+        
+        android:divider="@drawable/icon_baitiaos"
+         >
+        
+    </ListView>
+</LinearLayout>

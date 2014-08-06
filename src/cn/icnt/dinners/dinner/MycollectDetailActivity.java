@@ -18,24 +18,19 @@ import android.os.Bundle;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.AdapterView;
-import android.widget.BaseAdapter;
+import android.widget.AdapterView.OnItemClickListener;
 import android.widget.ListView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
-import android.widget.AdapterView.OnItemClickListener;
-import cn.icnt.dinners.adapter.AdapterSet;
-import cn.icnt.dinners.adapter.LoaderAdapter;
 import cn.icnt.dinners.adapter.MycollectAdapter;
 import cn.icnt.dinners.adapter.MycollectDishAdapter;
 import cn.icnt.dinners.adapter.MycollectResAdapter;
-//import cn.icnt.dinners.adapter.MycollectAdapter;
 import cn.icnt.dinners.debug.DebugUtil;
 import cn.icnt.dinners.entity.Dishes;
 import cn.icnt.dinners.entity.Result;
 import cn.icnt.dinners.http.HttpSendRecv;
 import cn.icnt.dinners.http.MapPackage;
-import cn.icnt.dinners.utils.EasyFile;
 
 /**
  * cn.icnt.dinners.dinner.MycollectDetailActivity
@@ -109,19 +104,19 @@ public class MycollectDetailActivity extends Activity implements
 		mp.setHead(this);
 		mp.setPara("favorite_type", "1");
 		mp.setRes("start", "0");
-		mp.setRes("count", "0");
+		mp.setRes("count", "");
 		MapPackage mp1 = new MapPackage();
 		mp1.setPath("favorite_goods");
 		mp1.setHead(this);
 		mp1.setPara("favorite_type", "2");
 		mp1.setRes("start", "0");
-		mp1.setRes("count", "0");
+		mp1.setRes("count", "");
 		MapPackage mp2 = new MapPackage();
 		mp2.setPath("favorite_company");
 		mp2.setHead(this);
 		mp2.setPara("favorite_type", "3");
 		mp2.setRes("start", "0");
-		mp2.setRes("count", "0");
+		mp2.setRes("count", "");
 		try {
 			mp.send();
 			mp1.send();
@@ -277,10 +272,7 @@ public class MycollectDetailActivity extends Activity implements
 			}
 		});
 		}
-//		AdapterSet.setAdapter( mp, list, adapter, lv0, "test0");
-//		AdapterSet.setAdapter( mp, list, adapter, lv1, "test1");
-//		AdapterSet.setAdapter( mp, list, adapter, lv2, "test2");
-//		初始化操作
+
 		
 		
 //	设置默认显示第一个	

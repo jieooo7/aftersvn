@@ -93,7 +93,7 @@ public class UserinfoActivity extends Activity implements OnClickListener {
 		if(!StringUtils.isEmpty(st)){
 			ImageLoader mImageLoader = new ImageLoader(this);
 			mImageLoader.DisplayImage(
-					MapPackage.PATH + st,
+					 st,
 					mFace, false);
 		
 		}
@@ -172,7 +172,7 @@ public class UserinfoActivity extends Activity implements OnClickListener {
 
 							Toast.makeText(UserinfoActivity.this, "头像上传成功!", 0)
 									.show();
-							PreferencesUtils.putValueToSPMap(getApplicationContext(), PreferencesUtils.Keys.USER_PORTRAIT, good_body);
+							PreferencesUtils.putValueToSPMap(getApplicationContext(), PreferencesUtils.Keys.USER_PORTRAIT, MapPackage.PATH +good_body);
 							tv0.setEnabled(false);
 							
 						} else {

@@ -12,6 +12,10 @@ public class PreferencesUtils
 	 *
 	 */
 	
+	private static SharedPreferences preferences;
+
+
+
 	/**
 	 * cn.icnt.dinners.utils.Keys
 	 * @author Andrew Lee <br/>
@@ -98,7 +102,7 @@ public class PreferencesUtils
  */
 	public static void putBooleanToSPMap(Context mContext, String key, boolean value)
 	{
-		SharedPreferences preferences = mContext.getSharedPreferences(Keys.USERINFO, Context.MODE_PRIVATE);
+		preferences = mContext.getSharedPreferences(Keys.USERINFO, Context.MODE_PRIVATE);
 		Editor edit = preferences.edit();
 		edit.putBoolean(key, value);
 		edit.commit();
@@ -112,8 +116,8 @@ public class PreferencesUtils
  */
 	public static Boolean getBooleanFromSPMap(Context mContext, String key)
 	{
-		SharedPreferences ferences = mContext.getSharedPreferences(Keys.USERINFO,  Context.MODE_PRIVATE);
-		boolean value = ferences.getBoolean(key, false);
+		preferences = mContext.getSharedPreferences(Keys.USERINFO,  Context.MODE_PRIVATE);
+		boolean value = preferences.getBoolean(key, false);
 		return value;
 	}
 
@@ -125,7 +129,7 @@ public class PreferencesUtils
  */
 	public static void putValueToSPMap(Context mContext, String key, String value)
 	{
-		SharedPreferences preferences = mContext.getSharedPreferences(Keys.USERINFO, Context.MODE_PRIVATE);
+		preferences = mContext.getSharedPreferences(Keys.USERINFO, Context.MODE_PRIVATE);
 		Editor edit = preferences.edit();
 		edit.putString(key, value);
 		edit.commit();
@@ -141,8 +145,8 @@ public class PreferencesUtils
 	{
 		if (null != mContext)
 		{
-			SharedPreferences ferences = mContext.getSharedPreferences(Keys.USERINFO,  Context.MODE_PRIVATE);
-			String value = ferences.getString(key, "");
+			preferences = mContext.getSharedPreferences(Keys.USERINFO,  Context.MODE_PRIVATE);
+			String value = preferences.getString(key, "");
 			return value;
 		} else
 		{
@@ -162,8 +166,8 @@ public class PreferencesUtils
 	{
 		if (null != mContext)
 		{
-			SharedPreferences ferences = mContext.getSharedPreferences(Keys.USERINFO,  Context.MODE_PRIVATE);
-			String value = ferences.getString(key, defaults);
+			preferences = mContext.getSharedPreferences(Keys.USERINFO,  Context.MODE_PRIVATE);
+			String value = preferences.getString(key, defaults);
 			return value;
 		} else
 		{
@@ -176,7 +180,7 @@ public class PreferencesUtils
 	 */
 	public static void clearSPMap(Context mContext)
 	{
-		SharedPreferences preferences = mContext.getSharedPreferences(Keys.USERINFO, Context.MODE_PRIVATE);
+		preferences = mContext.getSharedPreferences(Keys.USERINFO, Context.MODE_PRIVATE);
 		Editor edit = preferences.edit();
 		edit.clear();
 		edit.commit();

@@ -2,17 +2,17 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-   android:background="@color/list_white"
+    android:background="@color/list_white"
     android:orientation="vertical" >
+
+    <include
+        android:id="@+id/login_titles"
+        layout="@layout/login_title" />
 
     <RelativeLayout
         android:id="@+id/rl_layout"
         android:layout_width="match_parent"
-        android:layout_height="match_parent" >
-
-        <include
-            android:id="@+id/login_titles"
-            layout="@layout/login_title" />
+        android:layout_height="wrap_content" >
 
         <ImageView
             android:id="@+id/iv_images"
@@ -47,7 +47,7 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="收藏" />
+                    android:text="收藏a" />
             </LinearLayout>
 
             <LinearLayout
@@ -119,6 +119,18 @@
         </LinearLayout>
 
         <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal" >
+
+            <TextView
+                android:id="@+id/tv_introduce"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="仅售159元，价值304元仅售159元，仅售159元，价值304元仅售159元，仅售159元，价值304元仅售159元，" />
+        </LinearLayout>
+
+        <LinearLayout
             android:id="@+id/layout_ll"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
@@ -131,18 +143,18 @@
                 android:orientation="horizontal" >
 
                 <TextView
-                    android:id="@+id/tv_details_activity"
+                
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="15dp"
-                    android:text="活动期间：" />
+                    android:text="地址：" />
 
                 <TextView
                     android:id="@+id/tv_data"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_toRightOf="@+id/tv_details_activity"
-                    android:text="国庆期间" />
+                    android:text="厦门鹿岭路230号！！" />
             </LinearLayout>
 
             <LinearLayout
@@ -154,13 +166,31 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="15dp"
-                    android:text="活动店面：" />
+                    android:text="电话：" />
 
                 <TextView
                     android:id="@+id/tv_details_activity"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="文赵店" />
+                    android:text="0592-888888" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal" >
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="15dp"
+                    android:text="营业时间：" />
+
+                <TextView
+                    android:id="@+id/tv_youhuixinxi"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="8:00-20:00" />
             </LinearLayout>
             <LinearLayout
                 android:layout_width="match_parent"
@@ -171,33 +201,15 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="15dp"
-                    android:text="优惠信息：" />
+                    android:text="注意：" />
 
                 <TextView
-                    android:id="@+id/tv_youhuixinxi"
+                    android:id="@+id/tv_zdai"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="文赵店" />
+                    android:text="不可以带酒水" />
             </LinearLayout>
 
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal" >
-
-                <TextView
-                    android:id="@+id/tv_introduce"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                
-                    android:text="仅售159元，价值304元仅售159元，仅售159元，价值304元仅售159元，仅售159元，价值304元仅售159元，" />
-            </LinearLayout>
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="20dp"
-                android:text="注意：不可与其他优惠劵使用。" />
 
             <RelativeLayout
                 android:layout_width="wrap_content"
@@ -205,11 +217,10 @@
 
                 <TextView
                     android:id="@+id/tv_remaind"
-                      android:layout_marginLeft="140dp"
-                   android:layout_marginTop="100dp"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                  
+                    android:layout_marginLeft="140dp"
+                    android:layout_marginTop="100dp"
                     android:text="活动解释权归湘菜馆所有" />
             </RelativeLayout>
         </LinearLayout>

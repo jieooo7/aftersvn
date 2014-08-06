@@ -6,23 +6,25 @@
 
     <include layout="@layout/login_title" />
 
-            <GridView
-            android:id="@+id/gridview"
-            android:layout_width="wrap_content"
-            android:layout_height="0dp"
-            android:layout_weight="1"
-            android:gravity="center"
-            android:horizontalSpacing="1dp"
-            android:numColumns="3"
-            android:stretchMode="columnWidth"
-            android:verticalSpacing="1dp" >
-        </GridView>
+    <GridView
+        android:id="@+id/gridview"
+        android:layout_width="wrap_content"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:gravity="center"
+        android:horizontalSpacing="1dp"
+        android:numColumns="3"
+        android:stretchMode="columnWidth"
+        android:verticalSpacing="1dp" >
+    </GridView>
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_weight="1"
         android:layout_margin="10dp"
+        android:layout_weight="1"
         android:orientation="vertical" >
+
         <TextView
             android:id="@+id/order_detail_info"
             style="@style/order_taxtview"
@@ -88,7 +90,7 @@
             <RelativeLayout
                 android:id="@+id/del_bucket_img"
                 android:layout_width="45dp"
-                android:layout_height="fill_parent" >
+                android:layout_height="wrap_content" >
 
                 <ImageView
                     android:layout_width="wrap_content"
@@ -113,9 +115,8 @@
             </RelativeLayout>
         </RelativeLayout>
 
-        <ImageView style="@style/order_bottom_line" />
-
-    <!--     <RelativeLayout
+        <!--
+             <RelativeLayout
             android:id="@+id/orders_evaluates"
             android:layout_width="fill_parent"
              android:visibility="visible"
@@ -130,9 +131,7 @@
                 android:background="@drawable/order_button"
                 android:text="订单评价" />
         </RelativeLayout>
- -->
-        <ImageView style="@style/order_bottom_line" 
-            android:layout_marginBottom="60dp"/>
+        -->
     </LinearLayout>
 
 </LinearLayout>

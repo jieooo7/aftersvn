@@ -8,9 +8,8 @@ import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
-import android.text.Html;
-import android.text.Spanned;
 import android.util.Log;
+import android.view.KeyEvent;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.View.OnFocusChangeListener;
@@ -104,7 +103,6 @@ public class RegisterActivity extends Activity {
 
 	@Override
 	public boolean onTouchEvent(MotionEvent event) {
-		// TODO Auto-generated method stub
 		if (event.getAction() == MotionEvent.ACTION_DOWN) {
 			if (getCurrentFocus() != null
 					&& getCurrentFocus().getWindowToken() != null) {
@@ -135,8 +133,8 @@ public class RegisterActivity extends Activity {
 		String username = edit_username.getText().toString();
 		String password = edit_password.getText().toString();
 		String password2 = edit_password2.getText().toString();
-		String email = "";
-		String phone = "";
+		// String email = "";
+		// String phone = "";
 		if (StringUtils.isEmpty(nickname)) {
 			Toast.makeText(this, "请输入昵称", 0).show();
 		} else {
@@ -153,8 +151,8 @@ public class RegisterActivity extends Activity {
 							Toast.makeText(this, "两次密码输入不一致，请重新输入", 0).show();
 						} else {
 							if (DensityUtil.isMobileNO(username)) {
-								phone = username;
-								regiestSend(nickname, phone, password);
+								// phone = username;
+								regiestSend(nickname, username, password);
 							} else {
 								Toast.makeText(this, "请正确输入手机号", 0).show();
 							}
@@ -166,43 +164,13 @@ public class RegisterActivity extends Activity {
 
 	}
 
-	// private void regiestSend(String nickname, String username, String
-	// password) {
-	// HttpUtils httpUtils = new HttpUtils();
-	// RequestParams params = new RequestParams();
-	// long currentTimeMillis = System.currentTimeMillis();
-	// params.addQueryStringParameter("head",
-	// HttpApi.getLoginAPI().getHead(this));
-	// params.addQueryStringParameter("para", HttpApi.getLoginAPI()
-	// .getRegiestParas(nickname, username, password));
-	// params.addQueryStringParameter("result", HttpApi.getLoginAPI()
-	// .getRegiestResult());
-	// Log.i("RegisterActivity", params.toString());
-	// HttpUtils http = new HttpUtils();
-	// http.send(HttpRequest.HttpMethod.POST, "http://115.29.13.164/reg.do?t="
-	// + currentTimeMillis, params, new RequestCallBack<String>() {
-	//
-	// @Override
-	// public void onFailure(HttpException arg0, String arg1) {
-	//
-	// }
-	//
-	// @Override
-	// public void onSuccess(ResponseInfo<String> arg0) {
-	//
-	// Log.i("RegisterActivity", arg0.result);
-	// }
-	//
-	// });
-	//
-	// }
-
 	private void regiestSend(String nickname, String phone, String password) {
 		MapPackage mp = new MapPackage();
 		mp.setHead(this);
 		mp.setPara("nickname", nickname);
 		mp.setPara("phone", phone);
 		mp.setPara("pwd", password);
+		mp.setPara("type", "0");
 		Map<String, Object> maps = mp.getssMap();
 		RequestParams params = GsonTools.GetParams(maps);
 		HttpUtils http = new HttpUtils();
@@ -265,7 +233,7 @@ public class RegisterActivity extends Activity {
 							PreferencesUtils.putValueToSPMap(
 									RegisterActivity.this,
 									PreferencesUtils.Keys.USER_PORTRAIT,
-									userInfo.para.picture_url);
+									Container.URL + userInfo.para.picture_url);
 							// 账户余额************************************************
 							PreferencesUtils.putValueToSPMap(
 									RegisterActivity.this,
@@ -359,5 +327,17 @@ public class RegisterActivity extends Activity {
 						R.string.regiest_passwords);
 			}
 		});
+	}
+
+	@Override
+	public boolean onKeyDown(int keyCode, KeyEvent event) {
+		if ((keyCode == KeyEvent.KEYCODE_BACK)) {
+			finish();
+			Intent i = new Intent();
+			i.setClass(this, LoginActivity.class);
+			startActivity(i);
+			return false;
+		}
+		return true;
 	}
 }

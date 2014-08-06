@@ -27,6 +27,7 @@ import cn.icnt.dinners.dinner.DetailsActivity;
 import cn.icnt.dinners.dinner.R;
 import cn.icnt.dinners.entity.Dishes;
 import cn.icnt.dinners.entity.Present;
+import cn.icnt.dinners.entity.Store;
 import cn.icnt.dinners.http.MapPackage;
 
 public class FragmentResAdapter extends BaseAdapter {
@@ -113,7 +114,7 @@ public class FragmentResAdapter extends BaseAdapter {
 				+ ":");
 		viewHolder.mTextView1.setText(list.get(position).get("store_str"));
 
-		viewHolder.mTextView3.setText(list.get(position).get("information_str")
+		viewHolder.mTextView3.setText(list.get(position).get("contact_tel")
 				+ ":");
 		viewHolder.mTextView4.setText(list.get(position).get("description"));
 		viewHolder.mTextView5.setText(list.get(position).get("food_name"));
@@ -146,26 +147,36 @@ public class FragmentResAdapter extends BaseAdapter {
 		public void onClick(View v) {
 			switch (v.getId()) {
 			case R.id.list_ll_layouta:
-				Intent intent = new Intent(mContext, DetailcActivity.class);
+				Intent intent = new Intent(mContext, DetailaActivity.class);
 				Bundle bundle = new Bundle();
 				bundle.putSerializable(
 						"result",
-						new Dishes(list.get(position).get("address_str"),
-								position, position, list.get(position).get(
+						new Store(position, position, list.get(position).get("contact_tel"), list.get(position).get(
 										"description"), list.get(position).get(
-										"end_time"), position, list.get(
-										position).get("food_str"), list.get(
-										position).get("giving_str"), list.get(
-										position).get("information_str"), list.get(
-										position).get("name_store"), list.get(
-										position).get("name_url"), list.get(
-										position).get("phone_str"), list.get(
-										position).get("remark"), list.get(
-										position).get("remind"), position,
-								list.get(position).get("start_time"), list.get(
-										position).get("store_str"), position,
-								position,list.get(
-										position).get("store_str")));
+												"end_time"), position, list.get(
+																position).get("food_name"), list.get(
+																		position).get("lager_picture"),  list.get(
+																				position).get("name_store"), list.get(
+																						position).get("name_url"), list.get(
+																								position).get("remark"),  list.get(
+																										position).get("remind"), position, list.get(
+																														position).get("start_time"), list.get(position).get("store_str"), position));
+//						new Store(list.get(position).get("comment_num"),
+//								position, list.get(position).get(
+//						"contact_tel"), list.get(position).get(
+//										"description"), list.get(position).get(
+//										"end_time"),  list.get(position).get(
+//						"favorite"), list.get(
+//										position).get("food_name"), list.get(
+//										position).get("lager_picture"), list.get(
+//										position).get("name_store"), list.get(
+//										position).get("name_url"), list.get(
+//										position).get("remark"), list.get(
+//										position).get("remind"), list.get(
+//										position).get("share_count"), list.get(
+//										position).get("start_time"), position,
+//								list.get(position).get("store_str"), position,
+//								position));
 				
 				intent.putExtras(bundle);
 				mContext.startActivity(intent);

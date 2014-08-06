@@ -24,6 +24,7 @@ import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.WindowManager;
 import android.view.inputmethod.InputMethodManager;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -34,6 +35,7 @@ import cn.icnt.dinners.fragment.FragmentCoupon;
 import cn.icnt.dinners.fragment.FragmentDish;
 import cn.icnt.dinners.fragment.FragmentRes;
 import cn.icnt.dinners.http.MapPackage;
+import cn.icnt.dinners.server.LocationServer;
 import cn.icnt.dinners.utils.ActivityList;
 import cn.icnt.dinners.utils.CustomProgressDialog;
 import cn.icnt.dinners.utils.PreferencesUtils;
@@ -70,7 +72,7 @@ public class MainActivity extends FragmentActivity implements OnClickListener {
 	private LinearLayout line5;
 	private LinearLayout ivSet;
 	private LinearLayout left_menu_l0;
-
+	private Button mSurrounding;
 	private InputMethodManager manager;
 	protected ImageLoader imageLoader = ImageLoader.getInstance();
 	private CustomProgressDialog progressDialog;
@@ -80,12 +82,12 @@ public class MainActivity extends FragmentActivity implements OnClickListener {
 
 	private SharedPreferences mainShared = null;
 
-	protected DisplayImageOptions options;  
+	protected DisplayImageOptions options;
 
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-        // 使用DisplayImageOptions.Builder()创建DisplayImageOptions  
-                               // 创建配置过得DisplayImageOption对象  
+		// 使用DisplayImageOptions.Builder()创建DisplayImageOptions
+		// 创建配置过得DisplayImageOption对象
 		getWindow().setSoftInputMode(
 				WindowManager.LayoutParams.SOFT_INPUT_ADJUST_PAN);
 		manage = getSupportFragmentManager();
@@ -122,6 +124,9 @@ public class MainActivity extends FragmentActivity implements OnClickListener {
 		ivSearch.setOnClickListener(this);
 		editSearch = (EditText) findViewById(R.id.right_search_edit);
 
+		mSurrounding = (Button) this.findViewById(R.id.button_bt);
+
+		mSurrounding.setOnClickListener(this);
 		initSlidingMenu();
 		initLeftMenu();
 
@@ -193,15 +198,16 @@ public class MainActivity extends FragmentActivity implements OnClickListener {
 	}
 
 	public void initSlidingMenu() {
-		imageLoader.init(ImageLoaderConfiguration.createDefault(MainActivity.this));
-		options= new DisplayImageOptions.Builder()  
-            .showStubImage(R.drawable.ic_launcher)          // 设置图片下载期间显示的图片  
-            .showImageForEmptyUri(R.drawable.ic_launcher)  // 设置图片Uri为空或是错误的时候显示的图片  
-            .showImageOnFail(R.drawable.ic_launcher)       // 设置图片加载或解码过程中发生错误显示的图片      
-            .cacheInMemory(false)                        // 设置下载的图片是否缓存在内存中  
-            .cacheOnDisc(false)                          // 设置下载的图片是否缓存在SD卡中  
-            .displayer(new RoundedBitmapDisplayer(90))  // 设置成圆角图片  
-            .build();    
+		imageLoader.init(ImageLoaderConfiguration
+				.createDefault(MainActivity.this));
+		options = new DisplayImageOptions.Builder()
+				.showStubImage(R.drawable.ic_launcher) // 设置图片下载期间显示的图片
+				.showImageForEmptyUri(R.drawable.ic_launcher) // 设置图片Uri为空或是错误的时候显示的图片
+				.showImageOnFail(R.drawable.ic_launcher) // 设置图片加载或解码过程中发生错误显示的图片
+				.cacheInMemory(false) // 设置下载的图片是否缓存在内存中
+				.cacheOnDisc(false) // 设置下载的图片是否缓存在SD卡中
+				.displayer(new RoundedBitmapDisplayer(90)) // 设置成圆角图片
+				.build();
 		menu = new SlidingMenu(this);
 		menu.setMode(SlidingMenu.LEFT);
 		// menu.setShadowDrawable(R.drawable.bt_download);// 设置 SlidingMenu
@@ -261,24 +267,25 @@ public class MainActivity extends FragmentActivity implements OnClickListener {
 		((TextView) findViewById(R.id.creditsTv3)).setText(mainShared
 				.getString(PreferencesUtils.Keys.CREDITS_NO, "0"));
 		((TextView) findViewById(R.id.accountTv4)).setText(mainShared
-				.getString(PreferencesUtils.Keys.ACCOUNT_NO, "0"));
+				.getString(PreferencesUtils.Keys.ACCOUNT_NO, "0.00"));
 		((TextView) findViewById(R.id.login)).setText(this.nickName());
-		ImageView userImg=(ImageView) findViewById(R.id.left_menu_user);
-		
-		String st=PreferencesUtils
-				.getValueFromSPMap(getApplicationContext(),
-						PreferencesUtils.Keys.USER_PORTRAIT, "");
-		if(!StringUtils.isEmpty(st)){
-			imageLoader.displayImage(MapPackage.PATH + st, userImg, options);
-//			ImageLoader mImageLoader = new ImageLoader(this);
-//			mImageLoader.DisplayImage(
-//					MapPackage.PATH + st,
-//					userImg, false);
-		
+		ImageView userImg = (ImageView) findViewById(R.id.left_menu_user);
+
+		String st = PreferencesUtils.getValueFromSPMap(getApplicationContext(),
+				PreferencesUtils.Keys.USER_PORTRAIT, "");
+		if (!StringUtils.isEmpty(st)) {
+
+
+//			imageLoader.displayImage(MapPackage.PATH + st, userImg, options);
+			imageLoader.displayImage(PreferencesUtils.getValueFromSPMap(this, PreferencesUtils.Keys.USER_PORTRAIT), userImg, options);
+
+			// ImageLoader mImageLoader = new ImageLoader(this);
+			// mImageLoader.DisplayImage(
+			// MapPackage.PATH + st,
+			// userImg, false);
+
 		}
 
-		
-		
 		// this.orderTv0.setText(orderStv0);
 		// this.collectTv1.setText(collectStv1);
 		// this.couponTv2.setText(couponStv2);
@@ -440,8 +447,10 @@ public class MainActivity extends FragmentActivity implements OnClickListener {
 				Toast.makeText(getApplicationContext(), "你还没有登陆,请登陆",
 						Toast.LENGTH_SHORT).show();
 			}
-
-		default:
+			break;
+		case R.id.button_bt:
+			Toast.makeText(this, "亲正在定位,请稍等。。。", 1).show();
+			this.startService(new Intent(this, LocationServer.class));
 			break;
 		}
 	}

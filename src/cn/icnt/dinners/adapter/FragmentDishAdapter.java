@@ -21,6 +21,7 @@ import cn.icnt.dinners.adapter.FragmentCouponAdapter.MyListenerr;
 import cn.icnt.dinners.adapter.FragmentCouponAdapter.ViewHolder;
 import cn.icnt.dinners.cache.ImageLoader;
 import cn.icnt.dinners.debug.DebugUtil;
+import cn.icnt.dinners.dinner.DetailaActivity;
 import cn.icnt.dinners.dinner.DetailcActivity;
 import cn.icnt.dinners.dinner.DetailsActivity;
 import cn.icnt.dinners.dinner.R;

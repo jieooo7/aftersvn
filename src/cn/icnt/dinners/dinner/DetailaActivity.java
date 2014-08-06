@@ -1,50 +1,18 @@
 package cn.icnt.dinners.dinner;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Map;
-
-import cn.icnt.dinners.adapter.FragmentCouponAdapter;
-import cn.icnt.dinners.cache.ImageLoader;
-import cn.icnt.dinners.entity.Dishes;
-import cn.icnt.dinners.entity.Present;
-import cn.icnt.dinners.entity.Result;
-import cn.icnt.dinners.entity.Store;
-
-import cn.icnt.dinners.entity.Present.ResultList;
-import cn.icnt.dinners.http.GsonTools;
-import cn.icnt.dinners.http.HttpSendRecv;
-import cn.icnt.dinners.http.MapPackage;
-import cn.icnt.dinners.utils.ActivityList;
-import cn.icnt.dinners.utils.Constants;
-
-import com.google.gson.Gson;
-import com.lidroid.xutils.HttpUtils;
-import com.lidroid.xutils.exception.HttpException;
-import com.lidroid.xutils.http.ResponseInfo;
-import com.lidroid.xutils.http.callback.RequestCallBack;
-import com.lidroid.xutils.util.LogUtils;
-import com.lidroid.xutils.http.client.HttpRequest;
 import android.app.Activity;
-import android.app.AlertDialog;
-import android.os.Bundle;
-import android.widget.TextView;
-
-import android.app.Activity;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
-import android.os.Handler;
-import android.os.Message;
-import android.view.KeyEvent;
 import android.view.View;
 import android.view.View.OnClickListener;
-import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.ListView;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
-import android.widget.TextView.BufferType;
 import android.widget.Toast;
+import cn.icnt.dinners.cache.ImageLoader;
+import cn.icnt.dinners.entity.Store;
+import cn.icnt.dinners.http.MapPackage;
 
 public class DetailaActivity extends Activity implements OnClickListener {
 	// private TextView locationInfoTextView = null;
@@ -63,13 +31,14 @@ public class DetailaActivity extends Activity implements OnClickListener {
 	private TextView mtv4;
 	private TextView mtv5;
 	private TextView mtv6;
+	private TextView mtv7;
 	private ImageLoader mImageLoader;
 	private TextView mtv_it;
 
 	// MyBaiduLotion myLotion;
 	// MyLocation myLocation;
 	// String strlocation = "";
-
+//餐厅推选
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -88,27 +57,29 @@ public class DetailaActivity extends Activity implements OnClickListener {
 		mtv4 = (TextView) this.findViewById(R.id.tv_details_activity);
 		mtv5 = (TextView) this.findViewById(R.id.tv_youhuixinxi);
 		mtv6 = (TextView) this.findViewById(R.id.tv_introduce);
-		mtv_it = (TextView) this.findViewById(R.id.login_titles);
+		mtv7 = (TextView) this.findViewById(R.id.tv_zdai);
+		
 		mCollection.setOnClickListener(this);
 		mComments.setOnClickListener(this);
 		mShare.setOnClickListener(this);
 		mOrder.setOnClickListener(this);
 		Bundle bundle = getIntent().getExtras();
 		Store store = (Store) bundle.getSerializable("result");
-		
+		mtv7.setText(store.getRemark());
 		mtv6.setText(store.getDescription());
-		mtv5.setText(store.getInformation_str());
-		mtv4.setText(store.getStore_str());
-		mtv3.setText(store.getName_store());
+		mtv5.setText(store.getStart_time()+"-"+store.getEnd_time());
+		mtv4.setText(store.getContact_tel());
+		mtv3.setText(store.getStore_str());
 		mtv2.setText(store.getRemind());
-		mtv1.setText(store.getStore_str());
-		mtv_it.setText("详情页");
+		mtv1.setText(store.getName_store());
+		
 		mImageLoader = new ImageLoader(this);
 		mImageLoader.DisplayImage(MapPackage.PATH + store.getLager_picture(), mtv,
 				false);
 		System.out.println(store);
 		((TextView) findViewById(R.id.title_center_text))
 		.setText(getResources().getString(R.string.my_accounts));
+		((RelativeLayout)findViewById(R.id.title_left_btn)).setOnClickListener(this);
 
 	}
 
@@ -233,6 +204,11 @@ public class DetailaActivity extends Activity implements OnClickListener {
 			break;
 		case R.id.iv_order:
 			Toast.makeText(this, "点餐成功", 0).show();
+			break;
+		case R.id.title_left_btn:
+//			Intent intent=new Intent(DetailaActivity.this,MainActivity.class);
+//			startActivity(intent);
+			finish();
 			break;
 
 		}

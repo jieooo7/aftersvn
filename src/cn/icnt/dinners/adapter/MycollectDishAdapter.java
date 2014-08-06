@@ -18,7 +18,6 @@ import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
-import cn.icnt.dinners.adapter.MycollectAdapter.ViewHolder;
 import cn.icnt.dinners.cache.ImageLoader;
 import cn.icnt.dinners.debug.DebugUtil;
 import cn.icnt.dinners.dinner.R;
