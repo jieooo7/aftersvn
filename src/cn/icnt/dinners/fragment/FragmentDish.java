@@ -86,7 +86,7 @@ public class FragmentDish extends Fragment{
 
 	private void getAdInfo() {
 		if (!NetChecker.checkNet(getActivity())) {
-			showLoadingDialog();
+//			showLoadingDialog();
 			return;
 		}
 

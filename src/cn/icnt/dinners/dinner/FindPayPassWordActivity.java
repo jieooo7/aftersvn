@@ -13,6 +13,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
+import android.telephony.TelephonyManager;
 import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
@@ -22,7 +23,9 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 import cn.icnt.dinners.beans.FindPwdBean;
 import cn.icnt.dinners.http.GsonTools;
+import cn.icnt.dinners.http.MapPackage;
 import cn.icnt.dinners.utils.Container;
+import cn.icnt.dinners.utils.MD5;
 import cn.icnt.dinners.utils.ToastUtil;
 
 import com.google.gson.Gson;
@@ -36,7 +39,7 @@ import com.lidroid.xutils.http.client.HttpRequest;
 import com.lidroid.xutils.view.annotation.ViewInject;
 import com.lidroid.xutils.view.annotation.event.OnClick;
 
-public class FindPassWordActivity extends Activity {
+public class FindPayPassWordActivity extends Activity {
     @ViewInject(R.id.title_left_btn)
     private RelativeLayout back; // 返回按钮
     @ViewInject(R.id.title_center_text)
@@ -81,22 +84,24 @@ public class FindPassWordActivity extends Activity {
     private Map<String, Object> headmap;
     private String captcha;
 
+
     private Timer timer;
     private TimerTask timerTask;
-
+    private Handler handler;
     public void onCreate(Bundle savedInstanceState) {
 	super.onCreate(savedInstanceState);
 	setContentView(R.layout.find_password);
 	http = new HttpUtils();
-//	headmap = new HashMap<String, Object>();
-//	TelephonyManager telephonyManager = (TelephonyManager) this
-//		.getSystemService(Context.TELEPHONY_SERVICE);
-//	headmap.put("uid", "-1");
-//	headmap.put("no", telephonyManager.getDeviceId());
-//	headmap.put("os", "1");
-//	headmap.put("version", "1.1.2");
-//	headmap.put("key",
-//		MD5.getMD5("-11234" + telephonyManager.getDeviceId() + "11.1.2"));
+	headmap = new HashMap<String, Object>();
+	// TelephonyManager telephonyManager = (TelephonyManager) this
+	// .getSystemService(Context.TELEPHONY_SERVICE);
+	// headmap.put("uid", "-1");
+	// headmap.put("no", telephonyManager.getDeviceId());
+	// headmap.put("os", "1");
+	// headmap.put("version", "1.1.2");
+	// headmap.put("key", MD5.getMD5("-11234" +
+	// telephonyManager.getDeviceId()
+	// + "11.1.2"));
 
 	initview();
 	initData();
@@ -117,7 +122,6 @@ public class FindPassWordActivity extends Activity {
 	// mp.setHead(this);
 	// mp.setPara("user_name", user_name);
 	// mp.setPara("answer","");
-
 	// Map<String, Object> maps = mp.getssMap();
 	RequestParams params = GsonTools.GetParams(maps);
 	http.send(HttpRequest.HttpMethod.POST, Container.FINDPASSWOED, params,
@@ -151,12 +155,30 @@ public class FindPassWordActivity extends Activity {
 
     private void initview() {
 	ViewUtils.inject(this);
-	title_center_text.setText("修改账户密码");
+	title_center_text.setText("修改支付密码");
 	manager = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
+	  handler = new Handler() { 
+	        @Override 
+	        public void handleMessage(Message msg) { 
+	            super.handleMessage(msg); 
+//	            Log.d("debug", "handleMessage方法所在的线程：" 
+//	                    + Thread.currentThread().getName()); 
+	            // Handler处理消息  
+	            if (msg.what > 0) { 
+	        	server_send_captcha.setText(msg.what + "s后重新请求验证码"); 
+	            } else { 
+	        	server_send_captcha.setText("请求验证码"); 
+	        	server_send_captcha.setClickable(true);
+	                // 结束Timer计时器  
+	                timer.cancel(); 
+	            } 
+	        } 
+	    }; 
     }
 
     @Override
     public boolean onTouchEvent(MotionEvent event) {
+	// TODO Auto-generated method stub
 	if (event.getAction() == MotionEvent.ACTION_DOWN) {
 	    if (getCurrentFocus() != null && getCurrentFocus().getWindowToken() != null) {
 		manager.hideSoftInputFromWindow(getCurrentFocus().getWindowToken(),
@@ -191,7 +213,7 @@ public class FindPassWordActivity extends Activity {
 	    String confirmpwd = edit_confirmpwd.getText().toString().trim();
 	    if (canChange) {
 		if (!StringUtils.isEmpty(newpwd) && !StringUtils.isEmpty(confirmpwd)
-			&& confirmpwd.equals(newpwd)) {
+			&& StringUtils.equals(confirmpwd, newpwd)) {
 		    changePassword(newpwd);
 		    // ToastUtil.show(this, "更改密码成功");
 		} else if (StringUtils.isEmpty(newpwd) || StringUtils.isEmpty(confirmpwd)) {
@@ -230,7 +252,6 @@ public class FindPassWordActivity extends Activity {
 	    timer.schedule(timerTask, 0, 1000);// 3秒后开始倒计时，倒计时间隔为1秒
 	    break;
 	}
-	// 想服务器发送 索要验证码 请求
     }
 
     private void answering(String answer2) {
@@ -254,6 +275,7 @@ public class FindPassWordActivity extends Activity {
 	RequestParams params = GsonTools.GetParams(maps);
 	http.send(HttpRequest.HttpMethod.POST, Container.FINDPASSWOED, params,
 		new RequestCallBack<String>() {
+
 		    @Override
 		    public void onSuccess(ResponseInfo<String> responseInfo) {
 			Log.i("order", responseInfo.result);
@@ -282,6 +304,7 @@ public class FindPassWordActivity extends Activity {
 
 		    @Override
 		    public void onFailure(HttpException arg0, String arg1) {
+			// TODO Auto-generated method stub
 		    }
 		});
     }
@@ -319,30 +342,13 @@ public class FindPassWordActivity extends Activity {
 			change_pwd = gson
 				.fromJson(responseInfo.result, FindPwdBean.class);
 			if ("10000".equals(change_pwd.head.code)) {
-			    ToastUtil.show(FindPassWordActivity.this, "###"
-				    + change_pwd.head.msg + "###");
+			    ToastUtil.show(FindPayPassWordActivity.this,
+				    change_pwd.head.msg);
 			    state = change_pwd.para;
 			    finish();
 			}
 		    }
 		});
     }
-    // 定义Handler  
-    Handler handler = new Handler() { 
-        @Override 
-        public void handleMessage(Message msg) { 
-            super.handleMessage(msg); 
-//            Log.d("debug", "handleMessage方法所在的线程：" 
-//                    + Thread.currentThread().getName()); 
-            // Handler处理消息  
-            if (msg.what > 0) { 
-        	server_send_captcha.setText(msg.what + "s后重新请求验证码"); 
-            } else { 
-        	server_send_captcha.setText("请求验证码"); 
-        	server_send_captcha.setClickable(true);
-                // 结束Timer计时器  
-                timer.cancel(); 
-            } 
-        } 
-    }; 
+
 }

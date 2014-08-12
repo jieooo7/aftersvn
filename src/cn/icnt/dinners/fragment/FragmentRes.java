@@ -1,11 +1,3 @@
-/*
- * FragmentRes.java
- * classes : com.cloud.app.fragment.FragmentRes
- * author Andrew Lee
- * V 1.0.0
- * Create at 2014��6��27�� ����11:19:59
- * Copyright: 2014 Interstellar Cloud Inc. All rights reserved.
- */
 package cn.icnt.dinners.fragment;
 
 import java.util.List;
@@ -27,12 +19,6 @@ import cn.icnt.dinners.http.MapPackage;
 import cn.icnt.dinners.utils.CustomProgressDialog;
 import cn.icnt.dinners.utils.NetChecker;
 
-
-/**
- * com.cloud.app.fragment.FragmentRes
- * @author Andrew Lee <br/>
- * create at 2014��6��27�� ����11:19:59
- */
 public class FragmentRes extends Fragment {
 	private static final String TAG = "FragmentCoupon";
 	private CustomProgressDialog progressDialog;
@@ -79,14 +65,13 @@ public class FragmentRes extends Fragment {
 			mlv.setAdapter(adapter);
 
 		}
-
 		return view;
 
 	}
 
 	private void getAdInfo() {
 		if (!NetChecker.checkNet(getActivity())) {
-			showLoadingDialog();
+//			showLoadingDialog();
 			return;
 		}
 

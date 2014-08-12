@@ -62,7 +62,6 @@
     <!-- user info 底部颜色 -->
     <color name="user_info_bottom">#f3f4f3</color>
     <color name="cancel_back_color">#7f7f7f</color>
-    <color name="transparent">#00000000</color>
     <color name="white">#FFFFFFFF</color>
     <color name="transparent">#00000000</color>
     <!-- 我的订单未选中颜色 -->

@@ -80,5 +80,45 @@
         <item name="android:backgroundDimEnabled">true</item>
         <!-- 模糊 -->
     </style>
-
+    
+    
+    <!-- width height is match parent -->
+    
+    <style name="match">
+        <item name="android:layout_height">match_parent</item>
+        <item name="android:layout_width">match_parent</item>
+    </style>
+    
+    <!-- width height is wrap content -->
+    
+    <style name="wrap">
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_width">wrap_content</item>
+    </style>
+    
+    <!-- 搜索 textview-->
+    <style name="search_text_style" parent="@style/wrap">
+        <item name="android:layout_centerVertical">true</item>
+        <item name="android:layout_marginLeft">23dp</item>
+        <item name="android:gravity">center</item>
+        <item name="android:textColor">@color/order_tab_text</item>
+        <item name="android:textSize">@dimen/search_item_text_size</item>
+    </style>
+    
+   
+  
+            
+     <!-- 搜索 下拉图片 -->
+     
+     <style name="search_image_style" parent="@style/wrap">
+        <item name="android:src">@drawable/search_gray</item>
+        <item name="android:scaleType">center</item>
+        <item name="android:gravity">center</item>
+        <item name="android:layout_alignParentRight">true</item>
+        <item name="android:layout_centerVertical">true</item>
+        <item name="android:layout_marginRight">27dp</item>
+       
+    </style>
+    
+    
 </resources>

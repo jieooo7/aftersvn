@@ -60,7 +60,6 @@ public class LocationServer extends Service  {
 	@Override
 	public void onCreate() {
 		mLocationClient = new LocationClient(this);
-		
 		openLocationTask();
 		
 		
@@ -284,7 +283,6 @@ public class LocationServer extends Service  {
 	private Timer myLocationTimer = null;
 	// 定时线程
 	private TimerTask myLocationTimerTask = null;
-
 	/***
 	 * 销毁 time 对象 和 timetask 对象
 	 */

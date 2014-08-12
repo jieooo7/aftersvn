@@ -42,6 +42,17 @@
                 android:text="待支付"
                 android:textColor="@color/myorder_title_text_unclick"
                 android:textSize="17dp" />
+            <TextView
+                android:id="@+id/text3"
+                android:layout_width="0dp"
+                android:layout_height="fill_parent"
+                android:layout_gravity="center"
+                android:layout_weight="1"
+                android:background="@color/myorder_title_unclick"
+                android:gravity="center"
+                android:text="已支付"
+                android:textColor="@color/myorder_title_text_unclick"
+                android:textSize="17dp" />
         </LinearLayout>
 
         <android.support.v4.view.ViewPager

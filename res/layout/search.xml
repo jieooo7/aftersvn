@@ -1,0 +1,115 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical" >
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/search_top_h"
+        android:orientation="horizontal" >
+
+        <EditText
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="581"
+            android:background="@null" />
+
+        <ImageView
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_gravity="center"
+            android:layout_weight="138"
+            android:background="@color/mycoupon_item"
+            android:scaleType="center"
+            android:src="@drawable/search_big" />
+    </LinearLayout>
+
+    <LinearLayout
+        style="@style/match"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical" >
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/search_item_h"
+            android:background="@color/mycoupon_textback" >
+
+            <TextView
+                style="@style/search_text_style"
+                android:text="@string/search_zone"
+                android:textColor="@color/mycoupon_item" />
+
+            <ImageView
+                style="@style/search_image_style"
+                android:src="@drawable/search_red" />
+        </RelativeLayout>
+        <LinearLayout 
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1"
+            android:orientation="vertical">
+            <GridView 
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:numColumns="6"
+                >
+                
+            </GridView>
+            
+                <ListView 
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            >
+        </ListView>
+            </LinearLayout>
+            
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/search_item_h"
+            android:background="@color/mycoupon_textback" >
+
+            <TextView
+                style="@style/search_text_style"
+                android:text="@string/search_dish"
+                 />
+
+            <ImageView
+                style="@style/search_image_style"
+                 />
+        </RelativeLayout>
+        <ListView 
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1"
+            android:visibility="gone">
+            
+        </ListView>
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/search_item_h"
+            android:background="@color/mycoupon_textback" >
+
+            <TextView
+                style="@style/search_text_style"
+                android:text="@string/search_brand"
+                 />
+
+            <ImageView
+                style="@style/search_image_style"
+                android:layout_height="match_parent" />
+
+        </RelativeLayout>
+                <ListView 
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1"
+            android:visibility="gone">
+            
+        </ListView>
+    </LinearLayout>
+
+</LinearLayout>

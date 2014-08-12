@@ -127,7 +127,7 @@ public class FragmentCoupon extends Fragment {
 
 	private void getAdInfo() {
 		if (!NetChecker.checkNet(getActivity())) {
-			showLoadingDialog();
+//			showLoadingDialog();
 			return;
 		}
 

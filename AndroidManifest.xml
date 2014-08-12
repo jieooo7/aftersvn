@@ -2,10 +2,10 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="cn.icnt.dinners.dinner"
     android:versionCode="1"
-    android:versionName="1.0" >
+    android:versionName="1.1.2" >
 
     <uses-sdk
-        android:minSdkVersion="7"
+        android:minSdkVersion="8"
         android:targetSdkVersion="19" />
 
     <permission android:name="android.permission.BAIDU_LOCATION_SERVICE" >
@@ -79,22 +79,22 @@
             android:label="@string/showdetail"
             android:screenOrientation="nosensor" >
         </activity>
-         <activity
-            android:name="cn.icnt.dinners.dinner.DetailaActivity"
-            android:label="@string/showdetail"
-            android:screenOrientation="nosensor" >
-        </activity>
-         <activity
-            android:name="cn.icnt.dinners.dinner.DetailcActivity"
-            android:label="@string/showdetail"
-            android:screenOrientation="nosensor" >
-        </activity>
         <activity
             android:name="cn.icnt.dinners.dinner.MyOrderActivity"
             android:label="@string/showdetail"
             android:screenOrientation="nosensor" />
         <activity
             android:name="cn.icnt.dinners.dinner.ShareActivity"
+            android:label="@string/showdetail"
+            android:screenOrientation="nosensor" >
+        </activity>
+        <activity
+            android:name="cn.icnt.dinners.dinner.DetailaActivity"
+            android:label="@string/showdetail"
+            android:screenOrientation="nosensor" >
+        </activity>
+        <activity
+            android:name="cn.icnt.dinners.dinner.DetailcActivity"
             android:label="@string/showdetail"
             android:screenOrientation="nosensor" >
         </activity>
@@ -116,7 +116,7 @@
             android:theme="@android:style/Theme.Translucent.NoTitleBar"
             android:windowSoftInputMode="stateHidden|adjustResize" >
             <intent-filter>
-                <data android:scheme="tencent100371282" />
+                <data android:scheme="tencent1101824120" />
 
                 <action android:name="android.intent.action.VIEW" />
 
@@ -165,6 +165,37 @@
             android:label="@string/showdetail"
             android:screenOrientation="nosensor" >
         </activity>
+        <activity
+            android:name="cn.icnt.dinners.dinner.FoodConnoisseurActivity"
+            android:label="@string/showdetail"
+            android:screenOrientation="nosensor" />
+        <activity
+            android:name="cn.icnt.dinners.dinner.NearActivity"
+            android:label="@string/showdetail"
+            android:screenOrientation="nosensor" >
+        </activity>
+        <activity
+            android:name="cn.icnt.dinners.dinner.OrderActivity"
+            android:label="@string/showdetail"
+            android:screenOrientation="nosensor" >
+        </activity>
+
+        <service android:name="cn.icnt.dinners.server.LocationServer" />
+
+        <receiver android:name="cn.icnt.dinners.server.BootCompletedReceiver" >
+            <intent-filter>
+                <action android:name="android.intent.action.BOOT_COMPLETED" />
+            </intent-filter>
+        </receiver>
+            <activity
+            android:name="cn.icnt.dinners.dinner.ShowOrderDetailActivity"
+            android:label="@string/showdetail"
+            android:screenOrientation="nosensor" >
+        </activity>
+            <activity
+            android:name="cn.icnt.dinners.dinner.OrderPayActivity"
+            android:label="@string/showdetail"
+            android:screenOrientation="nosensor" />
     </application>
 
 </manifest>

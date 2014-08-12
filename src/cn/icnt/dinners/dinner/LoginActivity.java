@@ -1,10 +1,7 @@
 package cn.icnt.dinners.dinner;
 
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
-
-import m.framework.utils.UIHandler;
 
 import org.apache.commons.lang.StringUtils;
 
@@ -12,9 +9,6 @@ import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
-import android.os.Handler.Callback;
-import android.os.Message;
-import android.text.TextUtils;
 import android.util.Log;
 import android.view.KeyEvent;
 import android.view.MotionEvent;
@@ -32,13 +26,14 @@ import cn.icnt.dinners.http.GsonTools;
 import cn.icnt.dinners.http.MapPackage;
 import cn.icnt.dinners.utils.Constants;
 import cn.icnt.dinners.utils.Container;
+import cn.icnt.dinners.utils.MD5;
 import cn.icnt.dinners.utils.PreferencesUtils;
 import cn.icnt.dinners.utils.ToastUtil;
 import cn.sharesdk.framework.Platform;
 import cn.sharesdk.framework.PlatformActionListener;
-import cn.sharesdk.framework.PlatformDb;
 import cn.sharesdk.framework.ShareSDK;
 import cn.sharesdk.sina.weibo.SinaWeibo;
+import cn.sharesdk.tencent.qq.QQ;
 
 import com.google.gson.Gson;
 import com.lidroid.xutils.HttpUtils;
@@ -158,7 +153,7 @@ public class LoginActivity extends Activity implements PlatformActionListener {
 			// ssoHandler.authorize(new AuthListener());
 			break;
 		case R.id.tencent:
-			// authorize(new QZone(this));
+			authorize(ShareSDK.getPlatform(this, QQ.NAME));
 			// userLogin();
 
 			break;
@@ -175,7 +170,7 @@ public class LoginActivity extends Activity implements PlatformActionListener {
 	private void authorize(Platform plat) {
 		if (plat.isValid()) {
 			String userId = plat.getDb().getUserId();
-			if (StringUtils.isEmpty(userId)) {
+			if (!StringUtils.isEmpty(userId)) {
 				Toast.makeText(LoginActivity.this, "nUserId=" + userId, 0)
 						.show();
 				// ToastUtil.show(
@@ -201,12 +196,12 @@ public class LoginActivity extends Activity implements PlatformActionListener {
 
 	@Override
 	public void onComplete(Platform palm, int arg1, HashMap<String, Object> arg2) {
-//		PlatformDb db = palm.getDb();
-//		Toast.makeText(
-//				LoginActivity.this,
-//				"nUserId=" + "userName=" + db.getUserName() + "\r\nUserId="
-//						+ db.getUserId() + "\r\nuserToken" + db.getToken()
-//						+ "\r\nUserIcon" + db.getUserIcon(), 0).show();
+		// PlatformDb db = palm.getDb();
+		// Toast.makeText(
+		// LoginActivity.this,
+		// "nUserId=" + "userName=" + db.getUserName() + "\r\nUserId="
+		// + db.getUserId() + "\r\nuserToken" + db.getToken()
+		// + "\r\nUserIcon" + db.getUserIcon(), 0).show();
 		Log.e("D", palm.getDb().getToken() + "##getName::" + palm.getName()
 				+ "##getUserId::" + palm.getDb().getUserId());
 		Log.e("D", "ICON##::" + palm.getDb().getUserIcon() + "##getExpiresIn::"
@@ -226,7 +221,7 @@ public class LoginActivity extends Activity implements PlatformActionListener {
 
 	@Override
 	public void onError(Platform arg0, int arg1, Throwable arg2) {
-//		ToastUtil.show(this, "请求登陆失败，请稍后重试。。。");
+		// ToastUtil.show(this, "请求登陆失败，请稍后重试。。。");
 
 	}
 
@@ -294,7 +289,7 @@ public class LoginActivity extends Activity implements PlatformActionListener {
 
 	private void userLogin() {
 		userName = user_name.getText().toString().trim();
-		userPassword = edit_password.getText().toString().trim();
+		userPassword = MD5.getMD5(edit_password.getText().toString().trim());
 		if (StringUtils.isEmpty(userName) && StringUtils.isEmpty(userPassword)) {
 			Toast.makeText(this, "请正确输入！", 0).show();
 		} else if (StringUtils.isEmpty(userName)) {
@@ -385,8 +380,8 @@ public class LoginActivity extends Activity implements PlatformActionListener {
 					PreferencesUtils.Keys.ACCOUNT_NO, userInfo.para.balance);
 			PreferencesUtils.putValueToSPMap(LoginActivity.this,
 
-					PreferencesUtils.Keys.USER_PORTRAIT,
-					Container.URL+userInfo.para.picture_url);
+			PreferencesUtils.Keys.USER_PORTRAIT, Container.URL
+					+ userInfo.para.picture_url);
 
 			ToastUtil.closeProgressDialog();
 			intent = new Intent();

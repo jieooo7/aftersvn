@@ -24,6 +24,7 @@ import cn.icnt.dinners.http.GsonTools;
 import cn.icnt.dinners.http.MapPackage;
 import cn.icnt.dinners.utils.Container;
 import cn.icnt.dinners.utils.DensityUtil;
+import cn.icnt.dinners.utils.MD5;
 import cn.icnt.dinners.utils.PreferencesUtils;
 import cn.icnt.dinners.utils.ToastUtil;
 
@@ -152,7 +153,7 @@ public class RegisterActivity extends Activity {
 						} else {
 							if (DensityUtil.isMobileNO(username)) {
 								// phone = username;
-								regiestSend(nickname, username, password);
+								regiestSend(nickname, username, MD5.getMD5(password));
 							} else {
 								Toast.makeText(this, "请正确输入手机号", 0).show();
 							}

@@ -20,4 +20,10 @@
     <!-- ******注册 ******** -->
     <dimen name="user_reg_text_size">13sp</dimen>
     <dimen name="user_reg_text_size_red">15sp</dimen>
+    
+    <!-- 搜索 -->
+    <dimen name="search_top_h">57dp</dimen>
+    <dimen name="search_top_image_h">71dp</dimen>
+    <dimen name="search_item_h">58dp</dimen>
+    <dimen name="search_item_text_size">18sp</dimen>
 </resources>
