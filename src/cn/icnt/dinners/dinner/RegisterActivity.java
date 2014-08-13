@@ -243,10 +243,10 @@ public class RegisterActivity extends Activity {
 							// ToastUtil.show(RegisterActivity.this,
 							// userInfo.head.msg);
 							ToastUtil.closeProgressDialog();
-							Intent intent = new Intent();
-							intent.setClass(RegisterActivity.this,
-									MainActivity.class);
-							startActivity(intent);
+//							Intent intent = new Intent();
+//							intent.setClass(RegisterActivity.this,
+//									MainActivity.class);
+//							startActivity(intent);
 							RegisterActivity.this.finish();
 						} else {
 							ToastUtil.show(RegisterActivity.this,

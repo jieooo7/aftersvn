@@ -134,7 +134,6 @@ public class MyOrderActivity extends Activity {
 	listview2.setAdapter(unpayAdapter);
 	listview3.setAdapter(payedAdapter);
     }
-
     /* 返回列表数据 */
     private List<OrderList> getUnpayList(List<OrderList> listInfo2, int i) {
 	int is = i;
@@ -146,7 +145,6 @@ public class MyOrderActivity extends Activity {
 	}
 	return list;
     }
-
     /* 初始化页卡标题 */
     private void InitTextView() {
 	textView1 = (TextView) findViewById(R.id.text1);

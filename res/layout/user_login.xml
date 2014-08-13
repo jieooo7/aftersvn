@@ -5,7 +5,6 @@
     android:orientation="vertical" >
 
     <include
-        android:layout_height="wrap_content"
         layout="@layout/login_title" />
 
     <LinearLayout

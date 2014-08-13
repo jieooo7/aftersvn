@@ -14,7 +14,8 @@
     <string name="my_intergral">我的积分</string>
     <string name="my_account">我的账户</string>
     <string name="my_accounts">详情页</string>
-     <string name="my_accoun">分享</string>
+    <string name="my_accoun">分享</string>
+    <string name="logout">用户注销</string>
 
     <!-- right_ content用到的文字 -->
     <string name="ximen">厦门</string>
@@ -33,17 +34,15 @@
     <!-- 我的收藏详情页 -->
     <string name="dish_coll">菜品收藏</string>
     <string name="res_coll">餐厅收藏</string>
-
     <string name="cancel">取消</string>
     <string name="ok">确定</string>
     <string name="loading">加载中...</string>
- <string name="error_network_available">网络连接失败了  亲~~</string>
-
+    <string name="error_network_available">网络连接失败了  亲~~</string>
     <string name="coupon_info_mark">优惠信息:</string>
     <string name="promotions">活动期间:</string>
     <string name="ca">取消</string>
-    
-     <!-- 我的账户详情页 -->
+
+    <!-- 我的账户详情页 -->
     <string name="recharge">充 值</string>
     <string name="get_money">提 现</string>
     <string name="name">"姓名:"</string>
@@ -64,12 +63,11 @@
     <string name="account_province">账户所在省:</string>
     <string name="account_city">账户所在城市:</string>
     <string name="account_station">开户网点:</string>
-    
-    
-     <!-- 我的积分详情页 -->
+
+    <!-- 我的积分详情页 -->
     <string name="use_history">使用记录</string>
     <string name="can_use_credit">可用积分抵</string>
-    
+
     <!-- 设置详情页 -->
     <string name="account_sec">账户安全</string>
     <string name="introduce_function">功能介绍</string>
@@ -95,16 +93,12 @@
     <string name="save">保存</string>
     <string name="camera">相机</string>
     <string name="from_phone">从手机相册选择</string>
-    
-    
-    
+
     <!-- 搜索页面 -->
-    
+
     <string name="search_zone">区域</string>
     <string name="search_dish">菜系</string>
     <string name="search_brand">品牌</string>
-   
-    
     <string name="coupon_name">优惠券</string>
     <string name="first">第一个</string>
     <string name="second">第二个</string>
@@ -118,7 +112,12 @@
     <string name="regiest_alert">点击确认代表你已经同意美食聚惠的</string>
     <string name="login_user_name">手机号</string>
     <string name="login_user_password">密码</string>
-    
     <string name="my_near">周边</string>
+    <!-- 第三方登陆 -->
+    <string name="userid_found">正在跳转登录操作…</string>
+    <string name="logining">使用%s帐号登录中…</string>
+    <string name="auth_cancel">授权操作已取消</string>
+    <string name="auth_error">授权操作遇到错误</string>
+    <string name="auth_complete">授权成功，正在跳转登录操作…</string>
 
 </resources>

@@ -153,16 +153,17 @@ public class ShowOrderDetailActivity extends Activity {
 									}
 									if (orderInfo.order_state == 1) {
 										control_order.setVisibility(View.VISIBLE);
+									}if (orderInfo!=null) {
+									    order_detail_info.setText(orderInfo.order_info
+										    .toString());
+									    order_total_price
+									    .setText(orderInfo.order_total_price
+										    .toString());
+									    order_discount.setText(orderInfo.order_discount
+										    .toString());
+									    order_price.setText(orderInfo.order_price
+										    .toString());
 									}
-									order_detail_info.setText(orderInfo.order_info
-											.toString());
-									order_total_price
-											.setText(orderInfo.order_total_price
-													.toString());
-									order_discount.setText(orderInfo.order_discount
-											.toString());
-									order_price.setText(orderInfo.order_price
-											.toString());
 									ToastUtil.closeProgressDialog();
 								}
 							}

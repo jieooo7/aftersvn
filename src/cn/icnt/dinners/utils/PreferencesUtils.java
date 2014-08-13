@@ -161,7 +161,6 @@ public class PreferencesUtils
  * @param defaults 无值时取defaults
  * @return
  */
-	
 	public static String getValueFromSPMap(Context mContext, String key,String defaults )
 	{
 		if (null != mContext)
@@ -190,7 +189,6 @@ public class PreferencesUtils
 
 	/**
 	 * 指定key清除
-	 * 
 	 * @param mContext
 	 * @param key
 	 */
@@ -198,5 +196,22 @@ public class PreferencesUtils
 	{
 		putValueToSPMap(mContext, key, "");
 	}
-
+	/**
+	 * 用户注销 清除指定key
+	 * @param mContext
+	 */
+	public static void logout_del(Context mContext)
+	{
+	    putValueToSPMap(mContext, Keys.UID, "-1");
+	    putValueToSPMap(mContext, Keys.ACCOUNT, null);
+	    putValueToSPMap(mContext, Keys.USERINFO,null);
+	    putValueToSPMap(mContext, Keys.NICKNAME, null);
+	    putValueToSPMap(mContext, Keys.ORDERNO_NO, null);
+	    putValueToSPMap(mContext, Keys.COLLECT_NO,null);
+	    putValueToSPMap(mContext, Keys.COUPON_NO, null);
+	    putValueToSPMap(mContext, Keys.CREDITS_NO, null);
+	    putValueToSPMap(mContext, Keys.ACCOUNT_NO,null);
+	    putValueToSPMap(mContext, Keys.TOKEN, null);
+	    putValueToSPMap(mContext, Keys.USER_PORTRAIT,null);
+	}
 }

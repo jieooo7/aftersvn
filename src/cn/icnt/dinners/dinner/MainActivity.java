@@ -61,16 +61,9 @@ public class MainActivity extends FragmentActivity implements OnClickListener {
     @ViewInject(R.id.title_right_btn)
     private RelativeLayout title_right_btn;
     /*********************************/
-    private LinearLayout menu_myorder;
     private TextView loginTv5;
-    private LinearLayout line0;
-    private LinearLayout line1;
-    private LinearLayout line2;
-    private LinearLayout line3;
-    private LinearLayout line4;
-    private LinearLayout line5;
-    private LinearLayout ivSet;
-    private LinearLayout left_menu_l0;
+    private LinearLayout line0, line1, line2, line3, line4, line5, line6, ivSet,
+	    menu_myorder, left_menu_l0;
     /**************************/
     private ViewPager mViewPager;
     private LinearLayout linearLayout1;
@@ -83,11 +76,10 @@ public class MainActivity extends FragmentActivity implements OnClickListener {
     private SlidingMenu menu;
     private Intent intent;
 
-    protected void onCreate(Bundle savedInstanceState) {
+    public void onCreate(Bundle savedInstanceState) {
 	super.onCreate(savedInstanceState);
 	resources = this.getResources();
 	getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_PAN);
-	setContentView(R.layout.right_content);
 	setContentView(R.layout.right_content);
 	ViewUtils.inject(this);
 	title_center_text.setText("厦门");
@@ -95,6 +87,7 @@ public class MainActivity extends FragmentActivity implements OnClickListener {
 	title_right_btn.setVisibility(View.VISIBLE);
 	title_right_btn_img.setImageResource(R.drawable.search);
 	initSlidingMenu();
+	init();
 	initLeftMenu();
 	initControl();
 	initViewPager();
@@ -111,15 +104,14 @@ public class MainActivity extends FragmentActivity implements OnClickListener {
     /* 初始化ViewPager */
     private void initViewPager() {
 	fragmentsList = new ArrayList<Fragment>();
-	fragmentsList.add(new FragmentCoupon());
-	fragmentsList.add(new FragmentDish());
-	fragmentsList.add(new FragmentRes());
+	fragmentsList.add(new FragmentCoupon()); //团购信息
+	fragmentsList.add(new FragmentDish());//菜品推荐	
+	fragmentsList.add(new FragmentRes()); //餐厅推荐
 
 	mViewPager.setAdapter(new MyFragmentPagerAdapter(getSupportFragmentManager(),
 		fragmentsList));
 	mViewPager.setCurrentItem(0);
 	mViewPager.setOnPageChangeListener(new MyOnPageChangeListener());
-
     }
 
     /* 初始化页卡标题 */
@@ -180,10 +172,10 @@ public class MainActivity extends FragmentActivity implements OnClickListener {
     public void initSlidingMenu() {
 	imageLoader.init(ImageLoaderConfiguration.createDefault(MainActivity.this));
 	options = new DisplayImageOptions.Builder().showStubImage(R.drawable.ic_launcher) // 设置图片下载期间显示的图片
-		.showImageForEmptyUri(R.drawable.ic_launcher) // 设置图片Uri为空或是错误的时候显示的图片
-		.showImageOnFail(R.drawable.ic_launcher) // 设置图片加载或解码过程中发生错误显示的图片
-		.cacheInMemory(false) // 设置下载的图片是否缓存在内存中
-		.cacheOnDisc(false) // 设置下载的图片是否缓存在SD卡中
+		.showImageForEmptyUri(R.drawable.logo) // 设置图片Uri为空或是错误的时候显示的图片
+		.showImageOnFail(R.drawable.logo) // 设置图片加载或解码过程中发生错误显示的图片
+		.cacheInMemory(true) // 设置下载的图片是否缓存在内存中
+		.cacheOnDisc(true) // 设置下载的图片是否缓存在SD卡中
 		.displayer(new RoundedBitmapDisplayer(90)) // 设置成圆角图片
 		.build();
 	menu = new SlidingMenu(this);
@@ -198,9 +190,22 @@ public class MainActivity extends FragmentActivity implements OnClickListener {
 	menu.setMenu(R.layout.left_menu);// 设置SlidingMenu使用的layout文件
 	menu.attachToActivity(this, SlidingMenu.SLIDING_CONTENT);// 附加到activity上
     }
-
+    private void init() {
+ 	loginTv5 = (TextView) findViewById(R.id.login);
+ 	left_menu_l0 = (LinearLayout) findViewById(R.id.left_menu_l0);
+ 	line0 = (LinearLayout) findViewById(R.id.line0);
+ 	menu_myorder = (LinearLayout) findViewById(R.id.menu_myorder);
+ 	line1 = (LinearLayout) findViewById(R.id.line1);
+ 	line2 = (LinearLayout) findViewById(R.id.line2);
+ 	line3 = (LinearLayout) findViewById(R.id.line3);
+ 	line5 = (LinearLayout) findViewById(R.id.line5);
+ 	line6 = (LinearLayout) findViewById(R.id.line6);
+ 	ivSet = (LinearLayout) findViewById(R.id.set_small);
+ 	mSurrounding = (Button) this.findViewById(R.id.button_bt);
+ 	line4 = (LinearLayout) findViewById(R.id.line4);
+	userImg = (ImageView) findViewById(R.id.left_menu_user);
+     }
     protected void initLeftMenu() {
-
 	((TextView) findViewById(R.id.orderTv0)).setText(PreferencesUtils
 		.getValueFromSPMap(MainActivity.this, PreferencesUtils.Keys.ORDERNO_NO,
 			"0"));
@@ -216,17 +221,15 @@ public class MainActivity extends FragmentActivity implements OnClickListener {
 	((TextView) findViewById(R.id.accountTv4)).setText(PreferencesUtils
 		.getValueFromSPMap(MainActivity.this, PreferencesUtils.Keys.ACCOUNT_NO,
 			"0.00"));
-	((TextView) findViewById(R.id.login)).setText(PreferencesUtils.getValueFromSPMap(
-		MainActivity.this, PreferencesUtils.Keys.NICKNAME));
-	ImageView userImg = (ImageView) findViewById(R.id.left_menu_user);
-
+	loginTv5.setText(PreferencesUtils.getValueFromSPMap(
+		MainActivity.this, PreferencesUtils.Keys.NICKNAME, "登陆/注册"));
 	String st = PreferencesUtils.getValueFromSPMap(getApplicationContext(),
 		PreferencesUtils.Keys.USER_PORTRAIT, "");
-	if (!StringUtils.isEmpty(st)) {
-	    // imageLoader.displayImage(MapPackage.PATH + st, userImg, options);
-	    imageLoader.displayImage(PreferencesUtils.getValueFromSPMap(this,
-		    PreferencesUtils.Keys.USER_PORTRAIT), userImg, options);
-	}
+	// if (!StringUtils.isEmpty(st)) {
+	// // imageLoader.displayImage(MapPackage.PATH + st, userImg, options);
+	imageLoader.displayImage(PreferencesUtils.getValueFromSPMap(this,
+		PreferencesUtils.Keys.USER_PORTRAIT), userImg, options);
+	// }
     }
 
     @OnClick({ R.id.title_left_btn, R.id.title_right_btn })
@@ -242,42 +245,39 @@ public class MainActivity extends FragmentActivity implements OnClickListener {
 	}
     }
 
+ 
+
     // 侧滑菜单事件绑定
     protected void initClick() {
 	// 登陆注册事件
-	loginTv5 = (TextView) findViewById(R.id.login);
 	loginTv5.setOnClickListener(this);
 	// 登陆注册事件
-	left_menu_l0 = (LinearLayout) findViewById(R.id.left_menu_l0);
 	left_menu_l0.setOnClickListener(this);
 	// 首页item
-	line0 = (LinearLayout) findViewById(R.id.line0);
 	line0.setOnClickListener(this);
 	ActivityList.activitys.add(this);
-	menu_myorder = (LinearLayout) findViewById(R.id.menu_myorder);
 	// 我的订单事件
-	menu_myorder = (LinearLayout) findViewById(R.id.menu_myorder);
 	menu_myorder.setOnClickListener(this);
 	// 我的收藏item
-	line1 = (LinearLayout) findViewById(R.id.line1);
 	line1.setOnClickListener(this);
 	// 我的优惠券item
-	line2 = (LinearLayout) findViewById(R.id.line2);
 	line2.setOnClickListener(this);
 	// 我的积分item
-	line3 = (LinearLayout) findViewById(R.id.line3);
 	line3.setOnClickListener(this);
 	// 我的账户item
-	line4 = (LinearLayout) findViewById(R.id.line4);
 	line4.setOnClickListener(this);
 	// 设置item
-	line5 = (LinearLayout) findViewById(R.id.line5);
 	line5.setOnClickListener(this);
+	String userId = PreferencesUtils.getValueFromSPMap(this,
+		PreferencesUtils.Keys.UID);
+	if (StringUtils.equals("-1", userId)) {
+	    line6.setVisibility(View.GONE);
+	}
+	line6.setOnClickListener(this);
 	// 个人中心设置
-	ivSet = (LinearLayout) findViewById(R.id.set_small);
 	ivSet.setOnClickListener(this);
-	mSurrounding = (Button) this.findViewById(R.id.button_bt);
 	mSurrounding.setOnClickListener(this);
+	userImg.setOnClickListener(this);
     }
 
     public void onClick(View v) {
@@ -287,11 +287,12 @@ public class MainActivity extends FragmentActivity implements OnClickListener {
 	    break;
 	// 侧滑注册登录
 	case R.id.login:
-	case R.id.left_menu_l0:
+	case R.id.left_menu_user:
 	    intent = new Intent();
 	    intent.setClass(MainActivity.this, LoginActivity.class);
 	    startActivity(intent);
-	    finish();
+	    // finish();
+	    menu.toggle();
 	    break;
 	// 侧滑订单item
 	case R.id.menu_myorder:
@@ -323,12 +324,19 @@ public class MainActivity extends FragmentActivity implements OnClickListener {
 	    Intent l4 = new Intent();
 	    l4.setClass(MainActivity.this, MyaccountDetailActivity.class);
 	    l4.putExtra("account", ((TextView) findViewById(R.id.accountTv4)).getText());
+	    startActivity(l4);
 	    break;
 	// 侧滑设置 item
 	case R.id.line5:
 	    Intent l5 = new Intent();
 	    l5.setClass(MainActivity.this, MysettingDetailActivity.class);
 	    startActivity(l5);
+	    break;
+	case R.id.line6:
+	    menu.toggle();
+	    PreferencesUtils.logout_del(MainActivity.this);
+	    MainActivity.this.initLeftMenu();
+	    line6.setVisibility(View.GONE);
 	    break;
 	// 侧滑设置 个人中心
 	case R.id.set_small:
@@ -342,39 +350,52 @@ public class MainActivity extends FragmentActivity implements OnClickListener {
 	    break;
 	}
     }
-    /** 
-     * 菜单、返回键响应 
-     */  
-    @Override  
-    public boolean onKeyDown(int keyCode, KeyEvent event) {  
-        // TODO Auto-generated method stub  
-        if(keyCode == KeyEvent.KEYCODE_BACK)  
-           {    
-               exitBy2Click();      //调用双击退出函数  
-           }  
-        return false;  
-    }  
-    /** 
-     * 双击退出函数 
-     */  
-    private static Boolean isExit = false;  
-      
-    private void exitBy2Click() {  
-        Timer tExit = null;  
-        if (isExit == false) {  
-            isExit = true; // 准备退出  
-            Toast.makeText(this, "再按一次退出程序", Toast.LENGTH_SHORT).show();  
-            tExit = new Timer();  
-            tExit.schedule(new TimerTask() {  
-                @Override  
-                public void run() {  
-                    isExit = false; // 取消退出  
-                }  
-            }, 1000); // 如果2秒钟内没有按下返回键，则启动定时器取消掉刚才执行的任务  
-      
-        } else {  
-            finish();  
-            System.exit(0);  
-        }  
+
+    @Override
+    protected void onResume() {
+	super.onResume();
+    }
+
+    @Override
+    protected void onRestart() {
+	this.initLeftMenu();
+	super.onRestart();
+    }
+
+    /**
+     * 菜单、返回键响应
+     */
+    @Override
+    public boolean onKeyDown(int keyCode, KeyEvent event) {
+	// TODO Auto-generated method stub
+	if (keyCode == KeyEvent.KEYCODE_BACK) {
+	    exitBy2Click(); // 调用双击退出函数
+	}
+	return false;
+    }
+
+    /**
+     * 双击退出函数
+     */
+    private static Boolean isExit = false;
+    private ImageView userImg;
+
+    private void exitBy2Click() {
+	Timer tExit = null;
+	if (isExit == false) {
+	    isExit = true; // 准备退出
+	    Toast.makeText(this, "再按一次退出程序", Toast.LENGTH_SHORT).show();
+	    tExit = new Timer();
+	    tExit.schedule(new TimerTask() {
+		@Override
+		public void run() {
+		    isExit = false; // 取消退出
+		}
+	    }, 1000); // 如果2秒钟内没有按下返回键，则启动定时器取消掉刚才执行的任务
+
+	} else {
+	    finish();
+	    System.exit(0);
+	}
     }
 }

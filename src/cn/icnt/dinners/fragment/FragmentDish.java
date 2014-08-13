@@ -28,11 +28,6 @@ import cn.icnt.dinners.utils.CustomProgressDialog;
 import cn.icnt.dinners.utils.NetChecker;
 
 
-/**
- * com.cloud.app.fragment.FragmentDish
- * @author Andrew Lee <br/>
- * create at 2014��6��27�� ����11:18:55
- */
 public class FragmentDish extends Fragment{
 	private static final String TAG = "FragmentCoupon";
 	private CustomProgressDialog progressDialog;

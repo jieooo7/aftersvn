@@ -22,6 +22,7 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 import cn.icnt.dinners.beans.FindPwdBean;
 import cn.icnt.dinners.http.GsonTools;
+import cn.icnt.dinners.http.MapPackage;
 import cn.icnt.dinners.utils.Container;
 import cn.icnt.dinners.utils.ToastUtil;
 
@@ -103,22 +104,22 @@ public class FindPassWordActivity extends Activity {
     }
 
     private void initData() {
+	//账户未登录状态下的
 	Intent intent = getIntent();
 	user_name = intent.getStringExtra("user_name");
-	// MapPackage mp = new MapPackage();
-	Map<String, Object> maps = new HashMap<String, Object>();
-	Map<String, Object> paramap = new HashMap<String, Object>();
-	paramap.put("user_name", user_name);
-	paramap.put("answer", "");
+	 MapPackage mp = new MapPackage();
+//	Map<String, Object> maps = new HashMap<String, Object>();
+//	Map<String, Object> paramap = new HashMap<String, Object>();
+//	paramap.put("user_name", user_name);
+//	paramap.put("answer", "");
+//
+//	maps.put("head", headmap);
+//	maps.put("para", paramap);
 
-	maps.put("head", headmap);
-	maps.put("para", paramap);
-
-	// mp.setHead(this);
-	// mp.setPara("user_name", user_name);
-	// mp.setPara("answer","");
-
-	// Map<String, Object> maps = mp.getssMap();
+	 mp.setHead(this);
+	 mp.setPara("user_name", user_name);
+	 mp.setPara("answer","");
+	 Map<String, Object> maps = mp.getssMap();
 	RequestParams params = GsonTools.GetParams(maps);
 	http.send(HttpRequest.HttpMethod.POST, Container.FINDPASSWOED, params,
 		new RequestCallBack<String>() {

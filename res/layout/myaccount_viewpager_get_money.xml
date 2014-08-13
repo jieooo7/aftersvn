@@ -1,0 +1,131 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical" >
+      <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="63dp"
+        android:layout_marginTop="18dp"
+        android:orientation="vertical" >
+
+        <LinearLayout
+            android:id="@+id/myaccount_alipay_ll"
+            android:layout_width="match_parent"
+            android:layout_height="34dp"
+            android:gravity="center_vertical"
+            android:orientation="vertical" >
+            <RelativeLayout 
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:gravity="center_vertical">
+
+            <TextView
+                android:id="@+id/myaccount_alipay_recharge"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="26dp"
+                android:gravity="center_vertical"
+                android:text="@string/alipay_get_cash"
+                android:textColor="@color/myaccount_text_light"
+                android:textSize="15sp" />
+            
+            
+             <TextView
+                android:id="@+id/myacount_money_ali"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginRight="26dp"
+                android:layout_alignParentRight="true"
+                android:gravity="center_vertical"
+                android:text="  254元"
+                android:textColor="@color/myaccount_text_light"
+                android:textSize="15sp" />
+             
+              <TextView
+                android:id="@+id/myaccount_overrage_ali"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_toLeftOf="@id/myacount_money_ali"
+                
+                android:gravity="center_vertical"
+                android:text="@string/overage"
+                android:textColor="@color/myaccount_text_light"
+                android:textSize="15sp" />
+            
+            </RelativeLayout>
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="2dp"
+                android:layout_marginTop="6dp"
+                android:background="@color/myaccount_line_light" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/myaccount_bank_ll"
+            android:layout_width="match_parent"
+            android:layout_height="34dp"
+            android:gravity="center_vertical"
+            android:orientation="vertical" >
+            
+            <RelativeLayout 
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:gravity="center_vertical">
+
+            <TextView
+                android:id="@+id/myaccount_bank_recharge"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="26dp"
+                android:text="@string/bank_get_cash"
+                android:textColor="@color/myaccount_text_dark"
+                android:textSize="15sp" />
+            
+            
+            
+             <TextView
+                android:id="@+id/myacount_money_bank"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:visibility="gone"
+                android:layout_marginRight="26dp"
+                android:layout_alignParentRight="true"
+                android:gravity="center_vertical"
+                android:text="  254元"
+                android:textColor="@color/myaccount_text_light"
+                android:textSize="15sp" />
+              <TextView
+                android:id="@+id/myaccount_overrage_bank"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_toLeftOf="@id/myacount_money_bank"
+                android:visibility="gone"
+                android:gravity="center_vertical"
+                android:text="@string/overage"
+                android:textColor="@color/myaccount_text_light"
+                android:textSize="15sp" />
+            
+            </RelativeLayout>
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="2dp"
+                android:layout_marginTop="6dp"
+                android:layout_marginBottom="3dp"
+                android:background="@color/myaccount_line_light" />
+
+        </LinearLayout>
+    </LinearLayout>
+     <FrameLayout
+        android:id="@+id/myaccount_container"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginTop="10dp"
+        android:layout_gravity="center_horizontal"
+       />
+        
+        
+
+</LinearLayout>

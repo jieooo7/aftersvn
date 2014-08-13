@@ -7,6 +7,7 @@
     <include layout="@layout/login_title" />
 
     <LinearLayout
+        android:id="@+id/myaccount_lv1"
         android:layout_height="41dp"
         android:layout_width="match_parent"
         android:orientation="horizontal" >

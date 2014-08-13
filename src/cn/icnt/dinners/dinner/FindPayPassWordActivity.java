@@ -26,6 +26,7 @@ import cn.icnt.dinners.http.GsonTools;
 import cn.icnt.dinners.http.MapPackage;
 import cn.icnt.dinners.utils.Container;
 import cn.icnt.dinners.utils.MD5;
+import cn.icnt.dinners.utils.PreferencesUtils;
 import cn.icnt.dinners.utils.ToastUtil;
 
 import com.google.gson.Gson;
@@ -108,22 +109,23 @@ public class FindPayPassWordActivity extends Activity {
     }
 
     private void initData() {
-	Intent intent = getIntent();
-	user_name = intent.getStringExtra("user_name");
-	// MapPackage mp = new MapPackage();
-	Map<String, Object> maps = new HashMap<String, Object>();
-	Map<String, Object> paramap = new HashMap<String, Object>();
-	paramap.put("user_name", user_name);
-	paramap.put("answer", "");
-
-	maps.put("head", headmap);
-	maps.put("para", paramap);
-
-	// mp.setHead(this);
-	// mp.setPara("user_name", user_name);
-	// mp.setPara("answer","");
-	// Map<String, Object> maps = mp.getssMap();
-	RequestParams params = GsonTools.GetParams(maps);
+	user_name = PreferencesUtils.getValueFromSPMap(this, PreferencesUtils.Keys.ACCOUNT);
+	 MapPackage mp = new MapPackage();
+		mp.setHead(this);
+		mp.setPara("user_name", user_name);
+		mp.setPara("answer", "");
+		Map<String, Object> maps = mp.getMap();
+		RequestParams params = GsonTools.GetParams(maps);
+////	Map<String, Object> maps = new HashMap<String, Object>();
+//	Map<String, Object> paramap = new HashMap<String, Object>();
+//	maps.put("head", headmap);
+//	maps.put("para", paramap);
+//
+//	// mp.setHead(this);
+//	// mp.setPara("user_name", user_name);
+//	// mp.setPara("answer","");
+//	// Map<String, Object> maps = mp.getssMap();
+//	RequestParams maps = GsonTools.GetParams(maps);
 	http.send(HttpRequest.HttpMethod.POST, Container.FINDPASSWOED, params,
 		new RequestCallBack<String>() {
 		    @Override
