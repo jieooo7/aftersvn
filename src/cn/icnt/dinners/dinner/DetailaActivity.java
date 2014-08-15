@@ -42,7 +42,7 @@ public class DetailaActivity extends Activity implements OnClickListener {
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		setContentView(R.layout.activity_detaila_item);
+		setContentView(R.layout.restaurant_detail_activity);
 		//
 		// locationInfoTextView = (TextView) this
 		// .findViewById(R.id.title_center_text);

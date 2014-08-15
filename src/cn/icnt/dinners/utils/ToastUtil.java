@@ -76,6 +76,11 @@ public class ToastUtil {
 	dialog.setMessage(str);
 	dialog.show();
     }
+    public static void showProgressDialogs(Context context, String str) {
+	dialog = new ProgressDialog(context,R.style.MyDialog);
+	dialog.setMessage(str);
+	dialog.show();
+    }
 
     public static void closeProgressDialog() {
 	if (dialog != null && dialog.isShowing()) {

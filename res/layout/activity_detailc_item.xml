@@ -121,7 +121,7 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="-10dp">
+            android:layout_marginTop="-10dp" >
 
             <TextView
                 android:id="@+id/tv_text_food"
@@ -131,13 +131,10 @@
                 android:text="湘菜馆" />
         </LinearLayout>
 
-     
-
         <LinearLayout
             android:id="@+id/layout_ll"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-         
             android:orientation="vertical" >
 
             <LinearLayout
@@ -161,7 +158,7 @@
             </LinearLayout>
 
             <ImageView
-                android:id="@+id/iv_sharee"
+                android:id="@+id/iv_sharees"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:src="@drawable/icon_xian" />
@@ -178,7 +175,7 @@
                     android:text="套餐搭配：" />
 
                 <TextView
-                    android:id="@+id/tv_details_activity"
+                    android:id="@+id/tv_details_activitys"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="文赵店" />
@@ -205,7 +202,6 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                
                 android:orientation="horizontal" >
 
                 <TextView
@@ -221,136 +217,6 @@
                 android:layout_marginTop="20dp"
                 android:text="" />
 
-            
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal" >
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginLeft="15dp"
-                    android:text="优惠信息：" />
-
-                <TextView
-                    android:id="@+id/tv_youhuixinxi"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="文赵店" />
-            </LinearLayout>
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal" >
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginLeft="15dp"
-                    android:text="优惠信息：" />
-
-                <TextView
-                    android:id="@+id/tv_youhuixinxi"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="文赵店" />
-            </LinearLayout>
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal" >
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginLeft="15dp"
-                    android:text="地址：" />
-
-                <TextView
-                    android:id="@+id/tv_youhuixinxi"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="厦门市思明区文园路口帝大厦一楼。" />
-            </LinearLayout>
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal" >
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginLeft="15dp"
-                    android:text="电话：" />
-
-                <TextView
-                    android:id="@+id/tv_youhuixinxi"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginLeft="15dp"
-                    android:orientation="horizontal"
-                    android:text="0592--6666666" />
-            </LinearLayout>
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal" >
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginLeft="15dp"
-                    android:text="营业时间：" />
-
-                <TextView
-                    android:id="@+id/tv_youhuixinxi"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginLeft="15dp"
-                    android:orientation="horizontal"
-                    android:text="8:00-00:00" />
-            </LinearLayout>
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal" >
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginLeft="15dp"
-                    android:text="注意：" />
-
-                <TextView
-                    android:id="@+id/tv_youhuixinxi"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginLeft="15dp"
-                    android:orientation="horizontal"
-                    android:text="不可自带酒水" />
-            </LinearLayout>
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal" >
-
-                <TextView
-                    android:id="@+id/tv_youhuixinxi"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginLeft="140dp"
-                    android:layout_marginTop="100dp"
-                    android:orientation="horizontal"
-                    android:text="最终解释权归大丰收所有" />
-            </LinearLayout>
             <RelativeLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content" >
@@ -359,9 +225,8 @@
                     android:id="@+id/tv_remaind"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                      android:layout_marginLeft="140dp"
-                   android:layout_marginTop="20dp"
-                    
+                    android:layout_marginLeft="140dp"
+                    android:layout_marginTop="20dp"
                     android:text="活动解释权归湘菜馆所有" />
             </RelativeLayout>
         </LinearLayout>

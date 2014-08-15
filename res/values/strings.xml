@@ -21,6 +21,7 @@
     <string name="ximen">厦门</string>
     <string name="swich_city">[切换城市]</string>
     <string name="coupon_info">优惠信息</string>
+    <string name="coupon_info_left">团购信息</string>
     <string name="dish_recommend">菜品推荐</string>
     <string name="res_recommend">餐厅推荐</string>
     <string name="search_hint">请输入菜品/餐厅/区域进行搜索</string>
@@ -60,8 +61,10 @@
     <string name="bank_get_cash">银行卡提现</string>
     <string name="alipay_account">支付宝账号:</string>
     <string name="alipay_password">密码:</string>
+    <string name="alipay_pay_password">支付密码:</string>
     <string name="account_province">账户所在省:</string>
     <string name="account_city">账户所在城市:</string>
+    <string name="account_city_area">账户所在区县:</string>
     <string name="account_station">开户网点:</string>
 
     <!-- 我的积分详情页 -->

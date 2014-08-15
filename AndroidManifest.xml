@@ -187,15 +187,31 @@
                 <action android:name="android.intent.action.BOOT_COMPLETED" />
             </intent-filter>
         </receiver>
-            <activity
+
+        <activity
             android:name="cn.icnt.dinners.dinner.ShowOrderDetailActivity"
             android:label="@string/showdetail"
             android:screenOrientation="nosensor" >
         </activity>
-            <activity
+        <activity
             android:name="cn.icnt.dinners.dinner.OrderPayActivity"
             android:label="@string/showdetail"
             android:screenOrientation="nosensor" />
+
+        <activity
+            android:name="com.alipay.android.app.sdk.WapPayActivity"
+            android:screenOrientation="portrait" >
+        </activity>
+
+        <activity
+            android:name="cn.icnt.dinners.dinner.RestaurantDetailActivity"
+            android:label="@string/showdetail"
+            android:screenOrientation="nosensor" />
+			 <activity
+            android:name="cn.icnt.dinners.dinner.SearchActivity"
+            android:label="@string/showdetail"
+            android:screenOrientation="nosensor" />
+
     </application>
 
 </manifest>

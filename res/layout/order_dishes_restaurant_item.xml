@@ -1,0 +1,165 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:layout_marginBottom="3dp"
+    android:layout_marginTop="3dp"
+    android:id="@+id/order_restaurant_item"
+    android:orientation="vertical" >
+
+    <!-- 餐厅推荐 -->
+
+    <ImageView
+        android:layout_marginTop="16dp"
+        style="@style/order_bottom_line"
+         />
+
+    <RelativeLayout
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:layout_marginBottom="6dp" >
+
+        <ImageView
+            android:id="@+id/order_dishes_img"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:scaleType="fitXY"
+            android:src="@drawable/replace" />
+
+        <ImageView
+            android:id="@+id/order_dishes_img_right"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:layout_marginRight="6dp"
+            android:src="@drawable/icon_advance" />
+
+        <LinearLayout
+            android:id="@+id/order_store_name"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="3dp"
+            android:layout_toRightOf="@id/order_dishes_img"
+            android:orientation="horizontal" >
+
+            <TextView
+                android:id="@+id/order_restaurant_tv"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="4dp"
+                android:text="年年大丰收："
+                android:textColor="@color/tab_font"
+                android:textSize="14sp" />
+
+            <TextView
+                android:id="@+id/order_restaurant_annex_tv"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="文灶店"
+                android:textColor="@color/order_tab_text"
+                android:textSize="12sp" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/order_dishes_restaurant_desc"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/order_store_name"
+            android:layout_marginRight="3dp"
+            android:layout_marginTop="2dp"
+            android:layout_toLeftOf="@id/order_dishes_img_right"
+            android:layout_toRightOf="@id/order_dishes_img"
+            android:orientation="horizontal" >
+
+            <TextView
+                android:id="@+id/order_restaurant_desc_tv"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="4dp"
+                android:ellipsize="end"
+                android:gravity="center_vertical"
+                android:lines="3"
+                android:text="简介：什么什么什么的复活赛的回复静安寺的发挥 撒的减肥快乐撒剪短发了卡机阿萨德看风景阿里考试的放假"
+                android:textColor="@color/order_tab_text" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/order_dishes_restaurant_desc"
+            android:layout_marginLeft="4dp"
+            android:layout_marginTop="3dp"
+            android:layout_toRightOf="@id/order_dishes_img"
+            android:orientation="horizontal" >
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="特色菜："
+                android:textColor="@color/tab_font"
+                android:textSize="14sp" />
+
+            <TextView
+                android:id="@+id/order_dishes_name"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="脆鱼锅"
+                android:textColor="@color/order_tab_text"
+                android:textSize="12sp" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/dishes_restaurant_heart"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:layout_alignParentRight="true"
+            android:layout_marginBottom="6dp"
+            android:layout_marginRight="6dp"
+            android:gravity="center_vertical"
+            android:orientation="horizontal" >
+
+            <TextView
+                android:id="@+id/dishes_restaurant_heart_num"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginRight="2dp"
+                android:text="12"
+                android:textColor="@color/order_tab_text"
+                android:textSize="10sp" />
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/icon_heart" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/order_message_btn"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:layout_marginBottom="6dp"
+            android:layout_marginRight="10dp"
+            android:layout_toLeftOf="@id/dishes_restaurant_heart"
+            android:gravity="center_vertical"
+            android:orientation="horizontal" >
+
+            <TextView
+                android:id="@+id/order_message_num"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginRight="2dp"
+                android:text="12"
+                android:textColor="@color/order_tab_text"
+                android:textSize="10sp" />
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/message" />
+        </LinearLayout>
+    </RelativeLayout>
+
+</LinearLayout>

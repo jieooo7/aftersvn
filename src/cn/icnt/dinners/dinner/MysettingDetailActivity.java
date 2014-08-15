@@ -248,7 +248,8 @@ protected String sendpasswd(String passwd){
 				Toast.makeText(getApplicationContext(), "问题或者答案不能为空",
 						Toast.LENGTH_SHORT).show();
 			}else{
-				if(send(question,answer)!=null&&send(question,answer).equals("10000")){
+				String send=send(question,answer);
+				if(send!=null&&send.equals("10000")){
 					Toast.makeText(getApplicationContext(), "密保设置成功",
 							Toast.LENGTH_LONG).show();
 				}else{
@@ -266,7 +267,8 @@ protected String sendpasswd(String passwd){
 						Toast.LENGTH_SHORT).show();
 				
 			}else if(StringUtils.equals(passwd1, passwd2)){
-				if(sendpasswd(passwd1)!=null&&sendpasswd(passwd1).equals("10000")){
+				String sendpasswd=sendpasswd(passwd1);
+				if(sendpasswd!=null&&sendpasswd.equals("10000")){
 					Toast.makeText(getApplicationContext(), "支付密码设置成功",
 							Toast.LENGTH_LONG).show();
 				}else{

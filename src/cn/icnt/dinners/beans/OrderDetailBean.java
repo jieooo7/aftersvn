@@ -21,7 +21,7 @@ public class OrderDetailBean {
 
 	public class OrderDetail {
 		public List<OrderListItem> goods_list;
-		public String img_url; // 优惠券
+//		public String img_url; // 优惠券
 		public String order_discount; // 优惠券
 		public String order_id;
 		public String order_info;// 订单详情

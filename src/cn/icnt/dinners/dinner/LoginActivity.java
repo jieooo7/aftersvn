@@ -85,6 +85,7 @@ public class LoginActivity extends Activity implements PlatformActionListener ,C
 	super.onCreate(savedInstanceState);
 	setContentView(R.layout.user_login);
 	ShareSDK.initSDK(this);
+	intent = new Intent();
 	initview();
     }
 
@@ -136,6 +137,8 @@ public class LoginActivity extends Activity implements PlatformActionListener ,C
 	    finish();
 	    break;
 	case R.id.user_regiest:
+	    intent.setClass(LoginActivity.this, RegisterActivity.class);
+	    startActivity(intent);
 	    finish();
 	    break;
 	case R.id.forget_password:
@@ -144,7 +147,6 @@ public class LoginActivity extends Activity implements PlatformActionListener ,C
 		ToastUtil.show(this, "请输入用户名");
 	    } else {
 		finish();
-		intent = new Intent();
 		intent.setClass(LoginActivity.this, FindPassWordActivity.class);
 		intent.putExtra("user_name", username);
 		startActivity(intent);

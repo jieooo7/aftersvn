@@ -15,7 +15,7 @@
             android:id="@+id/myaccount_tv1"
             android:layout_width="0dp"
             android:layout_height="match_parent"
-            android:background="@color/mycredit_back_select"
+            android:background="@color/mycoupon_textback"
             android:textColor="@color/mycoupon_item"
             android:textSize="14sp"
             android:text="@string/recharge"
@@ -25,7 +25,8 @@
             android:id="@+id/myaccount_tv2"
             android:layout_width="0dp"
             android:layout_height="match_parent"
-            android:background="@color/mycoupon_textback"
+            
+            android:background="@color/mycredit_back_select"
             android:textColor="@color/order_tab_text"
             android:textSize="14sp"
             android:text="@string/get_money"

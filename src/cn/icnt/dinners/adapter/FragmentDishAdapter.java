@@ -1,10 +1,8 @@
 package cn.icnt.dinners.adapter;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
-import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
@@ -16,18 +14,11 @@ import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
-
-import cn.icnt.dinners.adapter.FragmentCouponAdapter.MyListenerr;
-import cn.icnt.dinners.adapter.FragmentCouponAdapter.ViewHolder;
 import cn.icnt.dinners.cache.ImageLoader;
 import cn.icnt.dinners.debug.DebugUtil;
-import cn.icnt.dinners.dinner.DetailaActivity;
-import cn.icnt.dinners.dinner.DetailcActivity;
-import cn.icnt.dinners.dinner.DetailsActivity;
 import cn.icnt.dinners.dinner.R;
+import cn.icnt.dinners.dinner.RestaurantDetailActivity;
 import cn.icnt.dinners.entity.Dishes;
-import cn.icnt.dinners.entity.Present;
-import cn.icnt.dinners.entity.Result;
 import cn.icnt.dinners.http.MapPackage;
 
 public class FragmentDishAdapter extends BaseAdapter {
@@ -149,12 +140,12 @@ public class FragmentDishAdapter extends BaseAdapter {
 		public void onClick(View v) {
 			switch (v.getId()) {
 			case R.id.list_ll_layouts:
-				Intent intent = new Intent(mContext, DetailcActivity.class);
+				Intent intent = new Intent(mContext, RestaurantDetailActivity.class);
 				Bundle bundle = new Bundle();
 				bundle.putSerializable(
 						"result",
 						new Dishes(list.get(position).get("address_str"),
-								position, position, list.get(position).get(
+							position,position, list.get(position).get(
 										"description"), list.get(position).get(
 										"end_time"), position, list.get(
 										position).get("food_str"), list.get(

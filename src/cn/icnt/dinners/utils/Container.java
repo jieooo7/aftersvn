@@ -44,8 +44,16 @@ public class Container {
 	 */
 	public static final String ORDERCOMMENT= URL+"order_comment.do";
 	/**
-	 * 订单评论接口
+	 * 上传用户头像接口
 	 */
 	public static final String UPLOADPHOTO= URL+"upload_photo.do";
+	/**
+	 * 餐厅推荐接口
+	 */
+	public static final String COMPANY= URL+"company_desc.do";
+	/**
+	 * 收藏接口
+	 */
+	public static final String COLLECT= URL+"favorite.do";
 	
 }

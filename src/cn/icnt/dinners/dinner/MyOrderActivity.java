@@ -1,7 +1,6 @@
 package cn.icnt.dinners.dinner;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -11,7 +10,6 @@ import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.content.res.Resources;
-import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.os.Parcelable;
 import android.support.v4.view.PagerAdapter;
@@ -27,7 +25,6 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.RelativeLayout;
-import android.widget.SimpleAdapter;
 import android.widget.TextView;
 import cn.icnt.dinners.beans.OrderListBean;
 import cn.icnt.dinners.beans.OrderListBean.OrderList;
@@ -37,10 +34,8 @@ import cn.icnt.dinners.utils.Container;
 import cn.icnt.dinners.utils.ToastUtil;
 
 import com.google.gson.Gson;
-import com.lidroid.xutils.BitmapUtils;
 import com.lidroid.xutils.HttpUtils;
 import com.lidroid.xutils.ViewUtils;
-import com.lidroid.xutils.bitmap.BitmapDisplayConfig;
 import com.lidroid.xutils.exception.HttpException;
 import com.lidroid.xutils.http.RequestParams;
 import com.lidroid.xutils.http.ResponseInfo;
@@ -48,6 +43,10 @@ import com.lidroid.xutils.http.callback.RequestCallBack;
 import com.lidroid.xutils.http.client.HttpRequest;
 import com.lidroid.xutils.view.annotation.ViewInject;
 import com.lidroid.xutils.view.annotation.event.OnClick;
+import com.nostra13.universalimageloader.core.DisplayImageOptions;
+import com.nostra13.universalimageloader.core.ImageLoader;
+import com.nostra13.universalimageloader.core.ImageLoaderConfiguration;
+import com.nostra13.universalimageloader.core.display.RoundedBitmapDisplayer;
 
 public class MyOrderActivity extends Activity {
 
@@ -59,20 +58,21 @@ public class MyOrderActivity extends Activity {
     ViewPager mViewPager;
     private LinearLayout linearLayout1;
     private TextView textView1, textView2, textView3;
-//    private int currIndex = 0;// 当前页卡编号
-//    private int textViewW = 0;// 页卡标题的宽度
+    // private int currIndex = 0;// 当前页卡编号
+    // private int textViewW = 0;// 页卡标题的宽度
     private List<View> listViews;
     private Resources resources;
     private View view1, view2, view3;
-//    private LinearLayout layout1, layout2, layout3;
+    // private LinearLayout layout1, layout2, layout3;
     private ListView listview1, listview2, listview3;
-//    private SimpleAdapter list1, list2, list3;
+    // private SimpleAdapter list1, list2, list3;
 
     private List<OrderList> listInfo;
     private List<OrderList> unpayList;
     private List<OrderList> payedList;
     /* mList是用来存放要显示的数据 */
-//    private List<HashMap<String, Object>> mList = new ArrayList<HashMap<String, Object>>();
+    // private List<HashMap<String, Object>> mList = new
+    // ArrayList<HashMap<String, Object>>();
 
     private OrderAdapter allAdapter;
 
@@ -134,6 +134,7 @@ public class MyOrderActivity extends Activity {
 	listview2.setAdapter(unpayAdapter);
 	listview3.setAdapter(payedAdapter);
     }
+
     /* 返回列表数据 */
     private List<OrderList> getUnpayList(List<OrderList> listInfo2, int i) {
 	int is = i;
@@ -145,6 +146,7 @@ public class MyOrderActivity extends Activity {
 	}
 	return list;
     }
+
     /* 初始化页卡标题 */
     private void InitTextView() {
 	textView1 = (TextView) findViewById(R.id.text1);
@@ -300,18 +302,28 @@ public class MyOrderActivity extends Activity {
     public class OrderAdapter extends BaseAdapter {
 	public List<OrderList> lists;
 	private LayoutInflater mInflater;
-	private BitmapUtils utils;
-	private BitmapDisplayConfig img_config;
+	// private BitmapUtils utils;
+	// private BitmapDisplayConfig img_config;
+	protected ImageLoader imageLoader = ImageLoader.getInstance();
+	protected DisplayImageOptions options;
 
 	public OrderAdapter(Context context, List<OrderList> list) {
 	    this.mInflater = LayoutInflater.from(context);
 	    this.lists = list;
-	    utils = new BitmapUtils(context);
-	    img_config = new BitmapDisplayConfig();
-	    img_config.setLoadingDrawable(getResources().getDrawable(R.drawable.replace));
-	    img_config.setLoadFailedDrawable(getResources().getDrawable(
-		    R.drawable.replace));
-	    img_config.setBitmapConfig(Bitmap.Config.RGB_565);
+	    imageLoader.init(ImageLoaderConfiguration.createDefault(context));
+	    options = new DisplayImageOptions.Builder().showStubImage(R.drawable.replace) // 设置图片下载期间显示的图片
+		    .showImageForEmptyUri(R.drawable.replace) // 设置图片Uri为空或是错误的时候显示的图片
+		    .showImageOnFail(R.drawable.replace) // 设置图片加载或解码过程中发生错误显示的图片
+		    .cacheInMemory(true) // 设置下载的图片是否缓存在内存中
+		    .cacheOnDisc(false) // 设置下载的图片是否缓存在SD卡中
+		    .displayer(new RoundedBitmapDisplayer(1)) // 设置成圆角图片
+		    .build();
+	    // utils = new BitmapUtils(context);
+	    // img_config = new BitmapDisplayConfig();
+	    // img_config.setLoadingDrawable(getResources().getDrawable(R.drawable.replace));
+	    // img_config.setLoadFailedDrawable(getResources().getDrawable(
+	    // R.drawable.replace));
+	    // img_config.setBitmapConfig(Bitmap.Config.RGB_565);
 	}
 
 	@Override
@@ -331,8 +343,7 @@ public class MyOrderActivity extends Activity {
 
 	public View getView(int position, View convertView, ViewGroup parent) {
 	    ViewHolder holder = null;
-	    MyListener myListener = null;
-	    myListener = new MyListener(lists, position);
+	    MyListener myListener  = new MyListener(lists, position);
 	    if (convertView == null) {
 		holder = new ViewHolder();
 		// 可以理解为从vlist获取view 之后把view返回给ListView
@@ -398,8 +409,11 @@ public class MyOrderActivity extends Activity {
 	    holder.order_total_price.setText("￥" + lists.get(position).order_total_price);
 	    holder.order_discount.setText(lists.get(position).order_discount);
 	    holder.order_price.setText("￥" + lists.get(position).order_price);
-	    utils.display(holder.order_img, Container.URL + lists.get(position).img_url,
-		    img_config);
+	    // utils.display(holder.order_img, Container.URL +
+	    // lists.get(position).img_url,
+	    // img_config);
+	    imageLoader.displayImage(Container.URL + lists.get(position).img_url,
+		    holder.order_img, options);
 	    // 给Button添加单击事件 添加Button之后ListView将失去焦点 需要的直接把Button的焦点去掉
 	    holder.del_bucket_img.setTag(position);
 	    holder.order_pay_online.setTag(position);
@@ -434,7 +448,6 @@ public class MyOrderActivity extends Activity {
 		    startActivity(is);
 		    break;
 		case R.id.order_pay_online: // 在线支付
-		    // ToastUtil.show(MyOrderActivity.this, "即将上线，敬请期待！");
 		    Intent i = new Intent();
 		    i.putExtra("order_total_price", list.get(position).order_total_price);
 		    i.setClass(MyOrderActivity.this, OrderPayActivity.class);

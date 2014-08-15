@@ -8,11 +8,11 @@
              <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="15dp"
+                android:layout_marginTop="5dp"
                 android:orientation="horizontal" >
 
                 <TextView
-                    android:layout_width="120dp"
+                    android:layout_width="110dp"
                     android:layout_height="wrap_content"
                     android:gravity="right"
                     android:text="@string/name"
@@ -37,11 +37,11 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="10dp"
+                android:layout_marginTop="5dp"
                 android:orientation="horizontal" >
 
                 <TextView
-                    android:layout_width="120dp"
+                    android:layout_width="110dp"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="5dp"
                     android:gravity="right"
@@ -50,7 +50,7 @@
                     android:textSize="15sp" />
 
                 <Spinner
-                    android:layout_width="wrap_content"
+                    android:layout_width="205dp"
                     android:layout_height="38dp"
                     android:layout_gravity="center"
                     android:gravity="left"
@@ -64,11 +64,11 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="10dp"
+                android:layout_marginTop="5dp"
                 android:orientation="horizontal" >
 
                 <TextView
-                    android:layout_width="120dp"
+                    android:layout_width="110dp"
                     android:layout_height="wrap_content"
                     android:gravity="right"
                     android:text="@string/bank_card"
@@ -91,11 +91,11 @@
              <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="10dp"
+                android:layout_marginTop="5dp"
                 android:orientation="horizontal" >
 
                 <TextView
-                    android:layout_width="120dp"
+                    android:layout_width="110dp"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="5dp"
                     android:gravity="right"
@@ -104,12 +104,12 @@
                     android:textSize="15sp" />
 
                 <Spinner
-                    android:layout_width="wrap_content"
-                     android:layout_height="38dp"
+                    android:id="@+id/bank_frag_province"
+                    android:layout_width="205dp"
+                    android:layout_height="38dp"
                     android:layout_gravity="center"
                     android:gravity="left"
                     android:spinnerMode="dialog"
-                    android:entries="@array/bank"
                     android:minWidth="205dp"
                     android:textColor="@color/myaccount_text_dark"
                     android:textSize="15sp" />
@@ -117,11 +117,11 @@
              <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="10dp"
+                android:layout_marginTop="5dp"
                 android:orientation="horizontal" >
 
                 <TextView
-                    android:layout_width="120dp"
+                    android:layout_width="110dp"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="5dp"
                     android:gravity="right"
@@ -130,38 +130,12 @@
                     android:textSize="15sp" />
 
                 <Spinner
-                    android:layout_width="wrap_content"
+                    android:id="@+id/bank_frag_city"
+                    android:layout_width="205dp"
                     android:layout_height="38dp"
                     android:layout_gravity="center"
                     android:gravity="left"
                     android:spinnerMode="dialog"
-                    android:entries="@array/bank"
-                    android:minWidth="205dp"
-                    android:textColor="@color/myaccount_text_dark"
-                    android:textSize="15sp" />
-            </LinearLayout>
-             <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="10dp"
-                android:orientation="horizontal" >
-
-                <TextView
-                    android:layout_width="120dp"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="5dp"
-                    android:gravity="right"
-                    android:text="@string/account_station"
-                    android:textColor="@color/myaccount_text_dark"
-                    android:textSize="15sp" />
-
-                <Spinner
-                    android:layout_width="wrap_content"
-                    android:layout_height="38dp"
-                    android:layout_gravity="center"
-                    android:gravity="left"
-                    android:spinnerMode="dialog"
-                    android:entries="@array/bank"
                     android:minWidth="205dp"
                     android:textColor="@color/myaccount_text_dark"
                     android:textSize="15sp" />
@@ -169,11 +143,63 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="10dp"
+                android:layout_marginTop="5dp"
                 android:orientation="horizontal" >
 
                 <TextView
-                    android:layout_width="120dp"
+                    android:layout_width="110dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="5dp"
+                    android:gravity="right"
+                    android:text="@string/account_city_area"
+                    android:textColor="@color/myaccount_text_dark"
+                    android:textSize="15sp" />
+
+                <Spinner
+                    android:id="@+id/bank_frag_zone"
+                    android:layout_width="205dp"
+                    android:layout_height="38dp"
+                    android:layout_gravity="center"
+                    android:gravity="left"
+                    android:spinnerMode="dialog"
+                    android:minWidth="205dp"
+                    android:textColor="@color/myaccount_text_dark"
+                    android:textSize="15sp" />
+            </LinearLayout>
+             <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="5dp"
+                android:orientation="horizontal" >
+
+                <TextView
+                    android:layout_width="110dp"
+                    android:layout_height="wrap_content"
+                    android:gravity="right"
+                    android:text="@string/account_station"
+                    android:textColor="@color/myaccount_text_dark"
+                    android:textSize="15sp" />
+
+                 <EditText
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/myaccount_text_shap"
+                    android:gravity="left"
+                    android:hint="请输入开户网点"
+                    android:maxEms="12"
+                    android:maxLines="1"
+                    android:minEms="11"
+                    android:textColor="@color/myaccount_text_dark"
+                    android:textSize="15sp" />
+            </LinearLayout>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="5dp"
+                android:orientation="horizontal" >
+
+                <TextView
+                    android:layout_width="110dp"
                     android:layout_height="wrap_content"
                     android:gravity="right"
                     android:text="@string/get_the_money"
@@ -201,11 +227,39 @@
                     android:textColor="@color/myaccount_text_dark"
                     android:textSize="15sp" />
             </LinearLayout>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="5dp"
+                android:orientation="horizontal" >
+
+                <TextView
+                    android:layout_width="110dp"
+                    android:layout_height="wrap_content"
+                    android:gravity="right"
+                    android:text="@string/alipay_pay_password"
+                    android:textColor="@color/myaccount_text_dark"
+                    android:textSize="15sp" />
+
+                <EditText
+                    android:id="@+id/myaccount_passwd_bank"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/myaccount_text_shap"
+                    android:hint="请输入密码"
+                    android:maxLines="1"
+                    android:minEms="11"
+                    android:focusable="true"  
+                    android:password="true"
+  				    android:focusableInTouchMode="true"
+                    android:textColor="@color/myaccount_text_dark"
+                    android:textSize="15sp" />
+            </LinearLayout>
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="15dp"
+                android:layout_marginTop="10dp"
                 android:gravity="center_horizontal"
                 android:orientation="horizontal" >
 

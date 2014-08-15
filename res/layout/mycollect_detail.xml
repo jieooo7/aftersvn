@@ -22,7 +22,7 @@
             android:layout_centerVertical="true"
             android:layout_marginLeft="23dp"
             android:gravity="center"
-            android:text="@string/coupon_info"
+            android:text="@string/coupon_info_left"
             android:textColor="@color/tab_font"
             android:textSize="14sp" />
 

@@ -104,9 +104,9 @@ public class MainActivity extends FragmentActivity implements OnClickListener {
     /* 初始化ViewPager */
     private void initViewPager() {
 	fragmentsList = new ArrayList<Fragment>();
-	fragmentsList.add(new FragmentCoupon()); //团购信息
-	fragmentsList.add(new FragmentDish());//菜品推荐	
-	fragmentsList.add(new FragmentRes()); //餐厅推荐
+	fragmentsList.add(new FragmentCoupon()); // 团购信息
+	fragmentsList.add(new FragmentDish());// 菜品推荐
+	fragmentsList.add(new FragmentRes()); // 餐厅推荐
 
 	mViewPager.setAdapter(new MyFragmentPagerAdapter(getSupportFragmentManager(),
 		fragmentsList));
@@ -190,21 +190,23 @@ public class MainActivity extends FragmentActivity implements OnClickListener {
 	menu.setMenu(R.layout.left_menu);// 设置SlidingMenu使用的layout文件
 	menu.attachToActivity(this, SlidingMenu.SLIDING_CONTENT);// 附加到activity上
     }
+
     private void init() {
- 	loginTv5 = (TextView) findViewById(R.id.login);
- 	left_menu_l0 = (LinearLayout) findViewById(R.id.left_menu_l0);
- 	line0 = (LinearLayout) findViewById(R.id.line0);
- 	menu_myorder = (LinearLayout) findViewById(R.id.menu_myorder);
- 	line1 = (LinearLayout) findViewById(R.id.line1);
- 	line2 = (LinearLayout) findViewById(R.id.line2);
- 	line3 = (LinearLayout) findViewById(R.id.line3);
- 	line5 = (LinearLayout) findViewById(R.id.line5);
- 	line6 = (LinearLayout) findViewById(R.id.line6);
- 	ivSet = (LinearLayout) findViewById(R.id.set_small);
- 	mSurrounding = (Button) this.findViewById(R.id.button_bt);
- 	line4 = (LinearLayout) findViewById(R.id.line4);
+	loginTv5 = (TextView) findViewById(R.id.login);
+	left_menu_l0 = (LinearLayout) findViewById(R.id.left_menu_l0);
+	line0 = (LinearLayout) findViewById(R.id.line0);
+	menu_myorder = (LinearLayout) findViewById(R.id.menu_myorder);
+	line1 = (LinearLayout) findViewById(R.id.line1);
+	line2 = (LinearLayout) findViewById(R.id.line2);
+	line3 = (LinearLayout) findViewById(R.id.line3);
+	line5 = (LinearLayout) findViewById(R.id.line5);
+	line6 = (LinearLayout) findViewById(R.id.line6);
+	ivSet = (LinearLayout) findViewById(R.id.set_small);
+	mSurrounding = (Button) this.findViewById(R.id.button_bt);
+	line4 = (LinearLayout) findViewById(R.id.line4);
 	userImg = (ImageView) findViewById(R.id.left_menu_user);
-     }
+    }
+
     protected void initLeftMenu() {
 	((TextView) findViewById(R.id.orderTv0)).setText(PreferencesUtils
 		.getValueFromSPMap(MainActivity.this, PreferencesUtils.Keys.ORDERNO_NO,
@@ -221,10 +223,17 @@ public class MainActivity extends FragmentActivity implements OnClickListener {
 	((TextView) findViewById(R.id.accountTv4)).setText(PreferencesUtils
 		.getValueFromSPMap(MainActivity.this, PreferencesUtils.Keys.ACCOUNT_NO,
 			"0.00"));
-	loginTv5.setText(PreferencesUtils.getValueFromSPMap(
-		MainActivity.this, PreferencesUtils.Keys.NICKNAME, "登陆/注册"));
+	loginTv5.setText(PreferencesUtils.getValueFromSPMap(MainActivity.this,
+		PreferencesUtils.Keys.NICKNAME, "登陆/注册"));
 	String st = PreferencesUtils.getValueFromSPMap(getApplicationContext(),
 		PreferencesUtils.Keys.USER_PORTRAIT, "");
+	//*******用户登录则显示 注销按钮
+	if (!StringUtils.equals("-1", PreferencesUtils.getValueFromSPMap(
+		MainActivity.this, PreferencesUtils.Keys.UID))) {
+	    line6.setVisibility(View.VISIBLE);
+	}else {
+	    line6.setVisibility(View.GONE);
+	}
 	// if (!StringUtils.isEmpty(st)) {
 	// // imageLoader.displayImage(MapPackage.PATH + st, userImg, options);
 	imageLoader.displayImage(PreferencesUtils.getValueFromSPMap(this,
@@ -244,8 +253,6 @@ public class MainActivity extends FragmentActivity implements OnClickListener {
 	    break;
 	}
     }
-
- 
 
     // 侧滑菜单事件绑定
     protected void initClick() {

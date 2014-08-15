@@ -10,11 +10,17 @@ package cn.icnt.dinners.dinner;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
+
+import org.apache.commons.lang.StringUtils;
 
 import cn.icnt.dinners.debug.DebugUtil;
 import cn.icnt.dinners.dinner.MyOrderActivity.MyOnPageChangeListener;
 import cn.icnt.dinners.fragment.FragmentAlipay;
 import cn.icnt.dinners.fragment.FragmentBank;
+import cn.icnt.dinners.http.HttpSendRecv;
+import cn.icnt.dinners.http.MapPackage;
+import cn.icnt.dinners.utils.PreferencesUtils;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
@@ -37,6 +43,7 @@ import android.widget.FrameLayout;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 /**
  * cn.icnt.dinners.dinner.MyaccountDetailActivity
@@ -50,9 +57,9 @@ public class MyaccountDetailActivity extends FragmentActivity implements
 	private LinearLayout lv1;
 	private TextView tv1;
 	private TextView tv2;
-	private boolean flag=true;
-	private boolean flag1=true;
-	private boolean flag2=true;
+	private boolean flag = true;
+	private boolean flag1 = true;
+	private boolean flag2 = true;
 	private TextView itemTv1;
 	private TextView itemTv2;
 	private TextView itemTv3;
@@ -65,7 +72,6 @@ public class MyaccountDetailActivity extends FragmentActivity implements
 	private InputMethodManager manager;
 	private EditText et;
 	private Button bt;
-	
 
 	private FragmentTransaction transaction;
 	private FragmentAlipay alipay;
@@ -74,6 +80,7 @@ public class MyaccountDetailActivity extends FragmentActivity implements
 
 	private Intent intent;
 	private String account;
+	private float f;
 
 	private ViewPager viewPager;
 	private List<View> listViews;
@@ -89,14 +96,10 @@ public class MyaccountDetailActivity extends FragmentActivity implements
 
 		title = (RelativeLayout) findViewById(R.id.title_left_btn);
 		title.setOnClickListener(this);
-		
-		
-		
 
-//		flag = true;
+		// flag = true;
 
 		lv1 = (LinearLayout) findViewById(R.id.myaccount_lv1);
-
 
 		listViews = new ArrayList<View>();
 		listViews.add(View.inflate(getApplicationContext(),
@@ -151,18 +154,15 @@ public class MyaccountDetailActivity extends FragmentActivity implements
 		tv2 = (TextView) findViewById(R.id.myaccount_tv2);
 		tv1.setOnClickListener(new MyOnClickListener(0));
 		tv2.setOnClickListener(new MyOnClickListener(1));
-		
-		
-//		et=(EditText)findViewById(R.id.myaccount_recharge_et);
-//		bt=(Button)findViewById(R.id.myaccount_recharge_bt);
-//		bt.setOnClickListener(this);
-		
-		alipay=new FragmentAlipay();
-		bank=new FragmentBank();
-		
 
-//		transaction = getSupportFragmentManager().beginTransaction();
-		
+		// et=(EditText)findViewById(R.id.myaccount_recharge_et);
+		// bt=(Button)findViewById(R.id.myaccount_recharge_bt);
+		// bt.setOnClickListener(this);
+
+		alipay = new FragmentAlipay();
+		bank = new FragmentBank();
+
+		// transaction = getSupportFragmentManager().beginTransaction();
 
 	}
 
@@ -173,7 +173,7 @@ public class MyaccountDetailActivity extends FragmentActivity implements
 		public MyPagerAdapter(List<View> list) {
 			// TODO Auto-generated method stub
 			this.mListView = list;
-			
+
 		}
 
 		// 销毁position位置的界面
@@ -213,17 +213,15 @@ public class MyaccountDetailActivity extends FragmentActivity implements
 		public Object instantiateItem(View arg0, int arg1) {
 			// TODO Auto-generated method stub
 			((ViewGroup) arg0).addView(mListView.get(arg1), 0);// 添加页卡
-			if(arg1==0&&flag2){
-				et=(EditText)findViewById(R.id.myaccount_recharge_et);
-				bt=(Button)findViewById(R.id.myaccount_recharge_bt);
+			if (arg1 == 0 && flag2) {
+				et = (EditText) findViewById(R.id.myaccount_recharge_et);
+				bt = (Button) findViewById(R.id.myaccount_recharge_bt);
 				bt.setOnClickListener(MyaccountDetailActivity.this);
-				
-				
-				flag2=false;
-				
-				
+
+				flag2 = false;
+
 			}
-			
+
 			return mListView.get(arg1);
 		}
 
@@ -255,9 +253,7 @@ public class MyaccountDetailActivity extends FragmentActivity implements
 
 		@Override
 		public void onPageScrolled(int arg0, float arg1, int arg2) {
-			
-			
-			
+
 		}
 
 		@Override
@@ -272,27 +268,28 @@ public class MyaccountDetailActivity extends FragmentActivity implements
 			if (arg0 == i) {
 				mTextView.setTextColor(getResources().getColor(
 						R.color.mycoupon_item));
-				mTextView.setBackgroundResource(R.color.mycredit_back_select);
+				mTextView.setBackgroundResource(R.color.mycoupon_textback);
 			} else {
 				mTextView.setTextColor(getResources().getColor(
 						R.color.order_tab_text));
-				mTextView.setBackgroundResource(R.color.mycoupon_textback);
+				mTextView.setBackgroundResource(R.color.mycredit_back_select);
 			}
 		}
-		if(arg0==0&&flag2){
-			et=(EditText)findViewById(R.id.myaccount_recharge_et);
-			bt=(Button)findViewById(R.id.myaccount_recharge_bt);
+		if (arg0 == 0 && flag2) {
+			et = (EditText) findViewById(R.id.myaccount_recharge_et);
+			bt = (Button) findViewById(R.id.myaccount_recharge_bt);
 			bt.setOnClickListener(this);
-			
-			
-			flag2=false;
-			
-			
-		}
-		if (arg0 == 1&&flag1) {
 
-			intent = getIntent();
-			this.account = "  " + intent.getStringExtra("account") + "元";
+			flag2 = false;
+
+		}
+		if (arg0 == 1 && flag1) {
+
+//			intent = getIntent();
+//			this.account = "  " + intent.getStringExtra("account") + "元";
+			this.account = "  " + PreferencesUtils
+					.getValueFromSPMap(getApplicationContext(), PreferencesUtils.Keys.ACCOUNT_NO,
+							"0.00") + "元";
 			itemTv1 = (TextView) findViewById(R.id.myacount_money_ali);
 			itemTv1.setText(account);
 			itemTv3 = (TextView) findViewById(R.id.myacount_money_bank);
@@ -311,12 +308,11 @@ public class MyaccountDetailActivity extends FragmentActivity implements
 				if (savedInstanceState != null) {
 					return;
 				}
-				
 
 				transaction = getSupportFragmentManager().beginTransaction();
 
 				transaction.add(R.id.myaccount_container, alipay).commit();
-				flag1=false;
+				flag1 = false;
 			}
 		}
 	}
@@ -346,16 +342,39 @@ public class MyaccountDetailActivity extends FragmentActivity implements
 		}
 		return super.onTouchEvent(event);
 	}
-	
-	
-	   public boolean onKeyDown(int keyCode, KeyEvent event) {  
-	        // TODO Auto-generated method stub  
-	        if(keyCode == KeyEvent.KEYCODE_BACK)  
-	           {    
-	               finish();      //调用双击退出函数  
-	           }  
-	        return false;  
-	    } 
+
+	public boolean onKeyDown(int keyCode, KeyEvent event) {
+		// TODO Auto-generated method stub
+		if (keyCode == KeyEvent.KEYCODE_BACK) {
+			finish(); // 监听back按键函数
+		}
+		return false;
+	}
+
+	protected Map<String, String> send(String s) {
+		MapPackage mp = new MapPackage();
+		mp.setPath("reset_answer");
+		mp.setHead(this);
+		mp.setPara("question", s);
+
+		try {
+			mp.send();
+
+		} catch (Exception e) {
+			if (HttpSendRecv.netStat)
+				Toast.makeText(getApplicationContext(), "网络错误，请重试",
+						Toast.LENGTH_LONG).show();
+			else
+				Toast.makeText(getApplicationContext(), "出错了>_<",
+						Toast.LENGTH_LONG).show();
+		}
+		if (mp.getBackHead() != null) {
+			return mp.getBackHead();
+		} else {
+			return null;
+		}
+
+	}
 
 	/*
 	 * (non-Javadoc)
@@ -412,7 +431,39 @@ public class MyaccountDetailActivity extends FragmentActivity implements
 
 			break;
 		case R.id.myaccount_recharge_bt:
+			String s = et.getText().toString();
+			try {
+				f = Float.parseFloat(s);
+			} catch (Exception e) {
+			}
+
+			if (StringUtils.isEmpty(s)) {
+				Toast.makeText(getApplicationContext(), "请输入充值金额",
+						Toast.LENGTH_SHORT).show();
+			} else {
+
+				if (f < 1.00) {
+					Toast.makeText(getApplicationContext(), "充值金额不能少于一元",
+							Toast.LENGTH_SHORT).show();
+
+				} else {
+					Map<String, String> map = send(s);
+					if (map != null && map.get("code").equals("10000")) {
+
+						// 调用支付宝
+						Toast.makeText(getApplicationContext(), "充值成功",
+								Toast.LENGTH_LONG).show();
+					} else {
+						Toast.makeText(getApplicationContext(), "充值失败,请重试",
+								Toast.LENGTH_LONG).show();
+					}
+
+				}
+			}
+
 			DebugUtil.i("点击测试", "我被打了");
+			DebugUtil.i("金额", ""+f);
+			
 			break;
 
 		}
