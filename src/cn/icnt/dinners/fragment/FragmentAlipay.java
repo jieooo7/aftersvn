@@ -12,12 +12,6 @@ import java.util.Map;
 
 import org.apache.commons.lang.StringUtils;
 
-import cn.icnt.dinners.dinner.MainActivity;
-import cn.icnt.dinners.dinner.R;
-import cn.icnt.dinners.http.HttpSendRecv;
-import cn.icnt.dinners.http.MapPackage;
-import cn.icnt.dinners.utils.MD5;
-import cn.icnt.dinners.utils.PreferencesUtils;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
@@ -28,6 +22,13 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
+import cn.icnt.dinners.dinner.R;
+import cn.icnt.dinners.http.HttpSendRecv;
+import cn.icnt.dinners.http.MapPackage;
+import cn.icnt.dinners.utils.MD5;
+import cn.icnt.dinners.utils.PreferencesUtils;
+
+import com.umeng.analytics.MobclickAgent;
 
 /**
  * cn.icnt.dinners.fragment.FragmentAlipay
@@ -103,10 +104,10 @@ public class FragmentAlipay extends Fragment{
 							acc = "  " + PreferencesUtils
 									.getValueFromSPMap(getActivity(), PreferencesUtils.Keys.ACCOUNT_NO,
 											"0.00") + "元";
-							tv0.setText(acc);
+							tv0.setText(acc);//启用handle更新ui线程
 							tv1.setText(acc);
 						} else {
-							Toast.makeText(getActivity(), map.get("content"),
+							Toast.makeText(getActivity(),"提现失败，请稍后重试",
 									Toast.LENGTH_LONG).show();
 						}
 
@@ -158,5 +159,13 @@ public class FragmentAlipay extends Fragment{
 			}
 
 		}
+	 public void onResume() {
+	     super.onResume();
+	     MobclickAgent.onPageStart("FragmentAlipay"); //统计页面
+	 }
+	 public void onPause() {
+	     super.onPause();
+	     MobclickAgent.onPageEnd("FragmentAlipay"); 
+	 }
 
 }

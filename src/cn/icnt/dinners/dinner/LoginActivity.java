@@ -27,7 +27,6 @@ import android.widget.Toast;
 import cn.icnt.dinners.beans.UserLoginBean;
 import cn.icnt.dinners.http.GsonTools;
 import cn.icnt.dinners.http.MapPackage;
-import cn.icnt.dinners.utils.Constants;
 import cn.icnt.dinners.utils.Container;
 import cn.icnt.dinners.utils.MD5;
 import cn.icnt.dinners.utils.PreferencesUtils;
@@ -49,6 +48,7 @@ import com.lidroid.xutils.http.callback.RequestCallBack;
 import com.lidroid.xutils.http.client.HttpRequest;
 import com.lidroid.xutils.view.annotation.ViewInject;
 import com.lidroid.xutils.view.annotation.event.OnClick;
+import com.umeng.analytics.MobclickAgent;
 
 public class LoginActivity extends Activity implements PlatformActionListener ,Callback {
     @ViewInject(R.id.title_left_btn)
@@ -366,4 +366,12 @@ public void onCancel(Platform platform, int action) {
 	}
 	return false;
     }
+    public void onResume() {
+	super.onResume();
+	MobclickAgent.onResume(this);
+	}
+	public void onPause() {
+	super.onPause();
+	MobclickAgent.onPause(this);
+	}
 }

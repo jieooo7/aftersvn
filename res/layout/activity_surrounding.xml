@@ -9,7 +9,6 @@
       >
 
         <include
-            android:id="@+id/la_yout"
             layout="@layout/login_title" />
     </LinearLayout>
     

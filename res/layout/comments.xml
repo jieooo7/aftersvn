@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical" >
+    <RelativeLayout
+    android:layout_width="fill_parent"
+    android:layout_height="54dp"
+    android:background="@color/red_title" >
+
+    <RelativeLayout
+        android:id="@+id/comments_left_btn"
+        android:layout_width="50dp"
+        android:layout_height="fill_parent" >
+
+        <ImageView
+            android:id="@+id/comments_left_btn_img"
+            android:layout_width="22dp"
+            android:layout_height="22dp"
+            android:layout_centerInParent="true"
+            android:src="@drawable/connoisseur_title_img" />
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent" >
+
+        <TextView
+            android:id="@+id/comments_center_text"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:text="麻婆豆腐"
+            android:textColor="@color/white_text"
+            android:textSize="20sp" />
+    </RelativeLayout>
+
+</RelativeLayout>
+<ImageView
+    android:id="@+id/comments_pic" 
+    android:layout_width="match_parent"
+    android:layout_height="149dp"
+    />
+
+<ExpandableListView
+    android:id="@+id/comments_ex_list"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent" 
+    android:divider="@null">
+</ExpandableListView>
+
+</LinearLayout>

@@ -133,4 +133,14 @@
         <item name="android:windowIsFloating">true</item>
         <item name="android:windowContentOverlay">@null</item>
     </style>
+    <!-- 省市选择弹窗 -->
+      <style name="MyDialog_province" parent="@android:Theme.Light">
+        <item name="android:windowBackground">@color/myaccount_province</item><!--背景透明-->
+        <item name="android:windowIsFloating">true</item>
+        <item name="android:windowNoTitle">true</item> 
+    </style>
+  <style name="PopupAnimation" mce_bogus="1" parent="android:Animation">
+        <item name="android:windowEnterAnimation">@anim/popup_enter</item>
+        <item name="android:windowExitAnimation">@anim/popup_exit</item>
+    </style>
 </resources>

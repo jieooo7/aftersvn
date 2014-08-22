@@ -1,0 +1,141 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/comment_item_ll0"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical" >
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="75dp" 
+        android:layout_marginTop="4dp"
+        android:orientation="horizontal">
+        
+        <LinearLayout 
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginTop="1dp"
+            android:layout_marginLeft="13dp"
+            android:orientation="vertical">
+            <ImageView 
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/time_icon"
+                android:layout_gravity="center"
+                
+                />
+            <TextView
+                android:id="@+id/comment_item_tv0" 
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="6dp"
+                android:text="30分钟前"
+                android:textSize="12sp"
+                android:minEms="5"
+                android:gravity="center_horizontal"
+                
+                android:textColor="@color/comments_item"
+                />
+            
+        </LinearLayout>
+        <cn.icnt.dinners.CircleImageView.CircleImageView
+            android:id="@+id/comment_item_iv0" 
+            
+            android:layout_width="60dp"
+            android:layout_height="60dp"
+            app:border_color="@color/white_text"
+       		app:border_width="1dp"
+            android:layout_marginLeft="10dp"
+            android:layout_marginTop="6dp"
+            android:src="@color/change_btn_bg"/>
+        <LinearLayout 
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="7dp"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="8dp"
+            android:orientation="vertical">
+            <TextView
+                android:id="@+id/comment_item_tv1" 
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="好吃"
+                android:textColor="@color/red_title"
+                android:textSize="14sp" 
+                />
+            <ScrollView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                 >
+            <TextView
+                android:id="@+id/comment_item_tv2"  
+                android:layout_marginTop="4dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:maxLines="3"
+                android:text="儿童游戏。两千年前即流行於希腊，蒙住一人双眼，把他转得不辨方向，然後大家向他 这个「瞎子」呼喊取乐，蒙眼者追捕，众人躲闪，这种游戏在中世纪为成人游戏。可以选定一个范围,一个人先蒙上眼睛数到一百,其他人在这段时间找到一个地方躲藏,时间到后那个人去找其他人,最先找到的人为下一轮找的人。"
+                android:textSize="10sp" 
+                android:textColor="@color/comments_item"
+                />
+            </ScrollView>
+        </LinearLayout>
+        
+    </LinearLayout>
+    <RelativeLayout 
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content">
+        <LinearLayout 
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginRight="8dp"
+            android:layout_marginBottom="5dp"
+            android:layout_alignParentRight="true"
+            android:orientation="horizontal">
+         <LinearLayout 
+            android:id="@+id/comments_good_ll"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">  
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/endorse_icon" 
+            />
+        <TextView
+            android:id="@+id/comment_item_tv3" 
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" 
+            android:text="1984"
+            android:textSize="12sp" 
+            android:layout_marginLeft="5dp"
+            android:gravity="bottom"
+            android:layout_gravity="bottom"
+            android:textColor="@color/comments_item_reply"
+            />
+        </LinearLayout>
+        <LinearLayout
+            android:id="@+id/comments_reply_ll" 
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">  
+         <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="10dp"
+            android:src="@drawable/reply" />
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" 
+            android:layout_marginLeft="5dp"
+            android:text="@string/comments_reply"
+            android:textSize="12sp" 
+            android:textColor="@color/comments_item_reply"
+            android:gravity="bottom"
+            android:layout_gravity="bottom" />
+        
+        </LinearLayout>
+    </LinearLayout>
+    </RelativeLayout>
+
+</LinearLayout>

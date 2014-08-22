@@ -47,6 +47,7 @@ import com.nostra13.universalimageloader.core.DisplayImageOptions;
 import com.nostra13.universalimageloader.core.ImageLoader;
 import com.nostra13.universalimageloader.core.ImageLoaderConfiguration;
 import com.nostra13.universalimageloader.core.display.RoundedBitmapDisplayer;
+import com.umeng.analytics.MobclickAgent;
 
 public class MyOrderActivity extends Activity {
 
@@ -530,5 +531,13 @@ public class MyOrderActivity extends Activity {
 	    break;
 	}
     }
+    public void onResume() {
+	super.onResume();
+	MobclickAgent.onResume(this);
+	}
+	public void onPause() {
+	super.onPause();
+	MobclickAgent.onPause(this);
+	}
 
 }

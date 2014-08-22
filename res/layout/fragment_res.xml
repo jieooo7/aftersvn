@@ -2,19 +2,17 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/list_white"
     android:orientation="vertical" >
-   
 
-    
     <ListView
         android:id="@+id/res_list"
         android:layout_width="match_parent"
-        android:layout_height="match_parent" 
-        
-        android:divider="@drawable/icon_baitiaos"
-        >
-        
+        android:layout_height="match_parent"
+        android:layout_marginLeft="6dp"
+        android:layout_marginRight="6dp"
+        android:layout_marginTop="3dp"
+        android:divider="@drawable/icon_baitiaos" >
     </ListView>
-    
 
 </LinearLayout>

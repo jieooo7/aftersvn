@@ -10,8 +10,8 @@ import cn.icnt.dinners.entity.Present;
 import cn.icnt.dinners.entity.Result;
 
 import cn.icnt.dinners.entity.Present.ResultList;
-import cn.icnt.dinners.fragment.FragmentDish;
-import cn.icnt.dinners.fragment.FragmentRes;
+import cn.icnt.dinners.fragment.FragmentDishes;
+import cn.icnt.dinners.fragment.FragmentGroup;
 import cn.icnt.dinners.http.GsonTools;
 import cn.icnt.dinners.http.HttpSendRecv;
 import cn.icnt.dinners.http.MapPackage;

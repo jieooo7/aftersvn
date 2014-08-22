@@ -8,7 +8,7 @@
              <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="5dp"
+                android:layout_marginTop="4dp"
                 android:orientation="horizontal" >
 
                 <TextView
@@ -17,9 +17,10 @@
                     android:gravity="right"
                     android:text="@string/name"
                     android:textColor="@color/myaccount_text_dark"
-                    android:textSize="15sp" />
+                    android:textSize="12sp" />
 
                 <EditText
+                    android:id="@+id/bank_frag_name"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:background="@drawable/myaccount_text_shap"
@@ -29,7 +30,7 @@
                     android:maxLines="1"
                     android:minEms="11"
                     android:textColor="@color/myaccount_text_dark"
-                    android:textSize="15sp" />
+                    android:textSize="12sp" />
             </LinearLayout>
 
             
@@ -37,7 +38,7 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="5dp"
+                android:layout_marginTop="4dp"
                 android:orientation="horizontal" >
 
                 <TextView
@@ -47,24 +48,23 @@
                     android:gravity="right"
                     android:text="@string/select_bank"
                     android:textColor="@color/myaccount_text_dark"
-                    android:textSize="15sp" />
+                    android:textSize="12sp" />
 
-                <Spinner
+                <Button
+                    android:id="@+id/bank_frag_bank"
                     android:layout_width="205dp"
-                    android:layout_height="38dp"
+                    android:layout_height="33dp"
                     android:layout_gravity="center"
                     android:gravity="left"
-                    android:spinnerMode="dialog"
-                    android:entries="@array/bank"
                     android:minWidth="205dp"
                     android:textColor="@color/myaccount_text_dark"
-                    android:textSize="15sp" />
+                    android:textSize="12sp" />
             </LinearLayout>
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="5dp"
+                android:layout_marginTop="4dp"
                 android:orientation="horizontal" >
 
                 <TextView
@@ -73,9 +73,10 @@
                     android:gravity="right"
                     android:text="@string/bank_card"
                     android:textColor="@color/myaccount_text_dark"
-                    android:textSize="15sp" />
+                    android:textSize="12sp" />
 
                 <EditText
+                    android:id="@+id/bank_frag_card_no"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:background="@drawable/myaccount_text_shap"
@@ -86,12 +87,12 @@
                     android:maxEms="12"
                     android:minEms="11"
                     android:textColor="@color/myaccount_text_dark"
-                    android:textSize="15sp" />
+                    android:textSize="12sp" />
             </LinearLayout>
              <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="5dp"
+                android:layout_marginTop="4dp"
                 android:orientation="horizontal" >
 
                 <TextView
@@ -101,23 +102,22 @@
                     android:gravity="right"
                     android:text="@string/account_province"
                     android:textColor="@color/myaccount_text_dark"
-                    android:textSize="15sp" />
+                    android:textSize="12sp" />
 
-                <Spinner
+                <Button
                     android:id="@+id/bank_frag_province"
                     android:layout_width="205dp"
-                    android:layout_height="38dp"
+                    android:layout_height="33dp"
                     android:layout_gravity="center"
                     android:gravity="left"
-                    android:spinnerMode="dialog"
                     android:minWidth="205dp"
                     android:textColor="@color/myaccount_text_dark"
-                    android:textSize="15sp" />
+                    android:textSize="12sp" />
             </LinearLayout>
              <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="5dp"
+                android:layout_marginTop="4dp"
                 android:orientation="horizontal" >
 
                 <TextView
@@ -127,23 +127,22 @@
                     android:gravity="right"
                     android:text="@string/account_city"
                     android:textColor="@color/myaccount_text_dark"
-                    android:textSize="15sp" />
+                    android:textSize="12sp" />
 
-                <Spinner
+                <Button
                     android:id="@+id/bank_frag_city"
                     android:layout_width="205dp"
-                    android:layout_height="38dp"
+                    android:layout_height="33dp"
                     android:layout_gravity="center"
                     android:gravity="left"
-                    android:spinnerMode="dialog"
                     android:minWidth="205dp"
                     android:textColor="@color/myaccount_text_dark"
-                    android:textSize="15sp" />
+                    android:textSize="12sp" />
             </LinearLayout>
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="5dp"
+                android:layout_marginTop="4dp"
                 android:orientation="horizontal" >
 
                 <TextView
@@ -153,23 +152,23 @@
                     android:gravity="right"
                     android:text="@string/account_city_area"
                     android:textColor="@color/myaccount_text_dark"
-                    android:textSize="15sp" />
+                    android:textSize="12sp" />
 
-                <Spinner
+                <Button
                     android:id="@+id/bank_frag_zone"
                     android:layout_width="205dp"
-                    android:layout_height="38dp"
+                    android:layout_height="33dp"
                     android:layout_gravity="center"
                     android:gravity="left"
                     android:spinnerMode="dialog"
                     android:minWidth="205dp"
                     android:textColor="@color/myaccount_text_dark"
-                    android:textSize="15sp" />
+                    android:textSize="12sp" />
             </LinearLayout>
              <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="5dp"
+                android:layout_marginTop="4dp"
                 android:orientation="horizontal" >
 
                 <TextView
@@ -178,9 +177,10 @@
                     android:gravity="right"
                     android:text="@string/account_station"
                     android:textColor="@color/myaccount_text_dark"
-                    android:textSize="15sp" />
+                    android:textSize="12sp" />
 
                  <EditText
+                    android:id="@+id/bank_frag_card_place"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:background="@drawable/myaccount_text_shap"
@@ -190,12 +190,12 @@
                     android:maxLines="1"
                     android:minEms="11"
                     android:textColor="@color/myaccount_text_dark"
-                    android:textSize="15sp" />
+                    android:textSize="12sp" />
             </LinearLayout>
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="5dp"
+                android:layout_marginTop="4dp"
                 android:orientation="horizontal" >
 
                 <TextView
@@ -204,9 +204,10 @@
                     android:gravity="right"
                     android:text="@string/get_the_money"
                     android:textColor="@color/myaccount_text_dark"
-                    android:textSize="15sp" />
+                    android:textSize="12sp" />
 
                 <EditText
+                    android:id="@+id/bank_frag_card_money"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:background="@drawable/myaccount_text_shap"
@@ -217,7 +218,7 @@
                     android:maxLines="1"
                     android:minEms="3"
                     android:textColor="@color/myaccount_text_dark"
-                    android:textSize="15sp" />
+                    android:textSize="12sp" />
 
                 <TextView
                     android:layout_width="wrap_content"
@@ -225,12 +226,12 @@
                     android:gravity="center_horizontal"
                     android:text="@string/yuan"
                     android:textColor="@color/myaccount_text_dark"
-                    android:textSize="15sp" />
+                    android:textSize="12sp" />
             </LinearLayout>
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="5dp"
+                android:layout_marginTop="4dp"
                 android:orientation="horizontal" >
 
                 <TextView
@@ -239,10 +240,10 @@
                     android:gravity="right"
                     android:text="@string/alipay_pay_password"
                     android:textColor="@color/myaccount_text_dark"
-                    android:textSize="15sp" />
+                    android:textSize="12sp" />
 
                 <EditText
-                    android:id="@+id/myaccount_passwd_bank"
+                    android:id="@+id/bank_frag_card_passwd"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:background="@drawable/myaccount_text_shap"
@@ -253,24 +254,25 @@
                     android:password="true"
   				    android:focusableInTouchMode="true"
                     android:textColor="@color/myaccount_text_dark"
-                    android:textSize="15sp" />
+                    android:textSize="12sp" />
             </LinearLayout>
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="10dp"
+                android:layout_marginTop="5dp"
                 android:gravity="center_horizontal"
                 android:orientation="horizontal" >
 
                 <Button
+                    android:id="@+id/bank_frag_submit"
                     android:layout_width="80dp"
-                    android:layout_height="35dp"
+                    android:layout_height="30dp"
                     android:layout_gravity="center_horizontal"
                     android:background="@color/myaccount_color"
                     android:text="@string/submit_get_cash"
                     android:textColor="@color/myaccount_text_light"
-                    android:textSize="15sp" />
+                    android:textSize="12sp" />
             </LinearLayout>
         
 

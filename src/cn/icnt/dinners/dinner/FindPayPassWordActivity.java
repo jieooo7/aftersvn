@@ -9,11 +9,9 @@ import org.apache.commons.lang.StringUtils;
 
 import android.app.Activity;
 import android.content.Context;
-import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
-import android.telephony.TelephonyManager;
 import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
@@ -25,7 +23,6 @@ import cn.icnt.dinners.beans.FindPwdBean;
 import cn.icnt.dinners.http.GsonTools;
 import cn.icnt.dinners.http.MapPackage;
 import cn.icnt.dinners.utils.Container;
-import cn.icnt.dinners.utils.MD5;
 import cn.icnt.dinners.utils.PreferencesUtils;
 import cn.icnt.dinners.utils.ToastUtil;
 
@@ -39,6 +36,7 @@ import com.lidroid.xutils.http.callback.RequestCallBack;
 import com.lidroid.xutils.http.client.HttpRequest;
 import com.lidroid.xutils.view.annotation.ViewInject;
 import com.lidroid.xutils.view.annotation.event.OnClick;
+import com.umeng.analytics.MobclickAgent;
 
 public class FindPayPassWordActivity extends Activity {
     @ViewInject(R.id.title_left_btn)
@@ -352,5 +350,12 @@ public class FindPayPassWordActivity extends Activity {
 		    }
 		});
     }
-
+    public void onResume() {
+	super.onResume();
+	MobclickAgent.onResume(this);
+	}
+	public void onPause() {
+	super.onPause();
+	MobclickAgent.onPause(this);
+	}
 }

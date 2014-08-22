@@ -5,19 +5,20 @@ import java.util.Map;
 import org.apache.commons.lang.StringUtils;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.Gravity;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
-import android.widget.ListView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 import cn.icnt.dinners.beans.FindPwdBean;
-import cn.icnt.dinners.beans.OrderListBean;
 import cn.icnt.dinners.beans.OrderCompanyBean.OrderCompanydesc;
+import cn.icnt.dinners.fragment.SharePopupWindow;
 import cn.icnt.dinners.http.GsonTools;
 import cn.icnt.dinners.http.MapPackage;
 import cn.icnt.dinners.utils.Container;
@@ -34,6 +35,8 @@ import com.nostra13.universalimageloader.core.DisplayImageOptions;
 import com.nostra13.universalimageloader.core.ImageLoader;
 import com.nostra13.universalimageloader.core.ImageLoaderConfiguration;
 import com.nostra13.universalimageloader.core.assist.ImageScaleType;
+import com.umeng.analytics.MobclickAgent;
+
 
 /**
  * 餐厅详情
@@ -62,6 +65,7 @@ public class RestaurantDetailActivity extends Activity implements OnClickListene
     private Map<String, Object> maps;
     private MapPackage mp;
     private RequestParams params;
+    private Intent intent;
 
     // 餐厅推选
     @Override
@@ -111,7 +115,7 @@ public class RestaurantDetailActivity extends Activity implements OnClickListene
 	mtv3.setText("地址:" + ocd.address_str);
 	mtv4.setText("电话:" + ocd.contact_tel);
 	mtv5.setText("营业时间:" + ocd.start_time + "-" + ocd.end_time);
-	mtv6.setText(ocd.description);
+	mtv6.setText("\n"+ocd.description);
 	mtv7.setText("注意:" + (StringUtils.isEmpty(ocd.remark) ? "" : ocd.remark));
 	mCollection.setOnClickListener(this); // 收藏
 	mComments.setOnClickListener(this);// 评论
@@ -131,11 +135,41 @@ public class RestaurantDetailActivity extends Activity implements OnClickListene
 	case R.id.restaurant__comments:
 	    break;
 	case R.id.restaurant_share:
+	    share();
 	    break;
 	case R.id.restaurant_order:
+	    intent = new Intent();
+	    intent.setClass(this, OrderDishesActivity.class);
+	    startActivity(intent);
 	    break;
 	}
     }
+
+    /************** 分享 ******************/
+    SharePopupWindow pop;
+    private OnClickListener itemsOnClick = new OnClickListener() {
+
+	public void onClick(View v) {
+	    pop.dismiss();
+	    switch (v.getId()) {
+	    case R.id.share_sina:
+		break;
+	    case R.id.share_qq:
+		break;
+	    case R.id.share_wechat:
+		break;
+	    }
+	}
+    };
+
+    private void share() {
+	pop = new SharePopupWindow(RestaurantDetailActivity.this, itemsOnClick);
+	// 显示窗口
+	pop.showAtLocation(RestaurantDetailActivity.this.findViewById(R.id.tv_zdai), Gravity.BOTTOM
+		| Gravity.CENTER_HORIZONTAL, 0, 0); // 设置layout在PopupWindow中显示的位置
+    }
+
+    /********************************/
 
     /**
      * 收藏
@@ -146,7 +180,7 @@ public class RestaurantDetailActivity extends Activity implements OnClickListene
 	mp.setPara("favorite_type", "3");
 	mp.setPara("company_id", ocd.company_id);
 	mp.setPara("sub_company_id", ocd.sub_company_id);
-	mp.setPara("goods_id",0);
+	mp.setPara("goods_id", 0);
 	maps = mp.getMap();
 	params = GsonTools.GetParams(maps);
 	HttpUtils http = new HttpUtils();
@@ -164,9 +198,11 @@ public class RestaurantDetailActivity extends Activity implements OnClickListene
 		    public void onSuccess(ResponseInfo<String> responseInfo) {
 			Log.e("order", responseInfo.result);
 			Gson gson = new Gson();
-			FindPwdBean head = gson.fromJson(responseInfo.result, FindPwdBean.class);
-			if (head!=null) {
-			    ToastUtil.showProgressDialogs(RestaurantDetailActivity.this, head.head.msg);
+			FindPwdBean head = gson.fromJson(responseInfo.result,
+				FindPwdBean.class);
+			if (head != null) {
+			    ToastUtil.showProgressDialogs(RestaurantDetailActivity.this,
+				    head.head.msg);
 			}
 		    }
 
@@ -174,5 +210,15 @@ public class RestaurantDetailActivity extends Activity implements OnClickListene
 		    public void onFailure(HttpException error, String msg) {
 		    }
 		});
+    }
+
+    public void onResume() {
+	super.onResume();
+	MobclickAgent.onResume(this);
+    }
+
+    public void onPause() {
+	super.onPause();
+	MobclickAgent.onPause(this);
     }
 }

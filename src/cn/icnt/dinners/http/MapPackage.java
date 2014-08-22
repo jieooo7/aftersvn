@@ -19,6 +19,7 @@ import java.util.concurrent.ExecutionException;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.telephony.TelephonyManager;
+import android.util.SparseArray;
 import cn.icnt.dinners.beans.UserLoginBean;
 import cn.icnt.dinners.debug.DebugUtil;
 import cn.icnt.dinners.utils.MD5;
@@ -270,13 +271,16 @@ public class MapPackage {
 			return null;
 		}
 	}
+	
 
-	public <T> List<T> getBackResult(Class<T> cls) {
+
+	public <T> T  getBackResult(Class<T> cls) {
 
 		try {
 			Gson gsonBack = new Gson();
-			String br = gsonBack.toJson(this.backResult.get("result"));
-			return GsonTools.getPersons(br, cls);
+			String br = "{"+"\"paras\":"+gsonBack.toJson(this.backResult.get("para"))+"}";
+			DebugUtil.i("json测试", br);
+			return GsonTools.getPerson(br, cls);
 		} catch (Exception e) {
 			return null;
 		}

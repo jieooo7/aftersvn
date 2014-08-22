@@ -36,6 +36,7 @@ import com.lidroid.xutils.http.callback.RequestCallBack;
 import com.lidroid.xutils.http.client.HttpRequest;
 import com.lidroid.xutils.view.annotation.ViewInject;
 import com.lidroid.xutils.view.annotation.event.OnClick;
+import com.umeng.analytics.MobclickAgent;
 
 public class FindPassWordActivity extends Activity {
     @ViewInject(R.id.title_left_btn)
@@ -346,4 +347,12 @@ public class FindPassWordActivity extends Activity {
             } 
         } 
     }; 
+    public void onResume() {
+	super.onResume();
+	MobclickAgent.onResume(this);
+	}
+	public void onPause() {
+	super.onPause();
+	MobclickAgent.onPause(this);
+	}
 }

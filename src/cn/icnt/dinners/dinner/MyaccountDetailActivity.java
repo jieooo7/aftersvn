@@ -14,23 +14,19 @@ import java.util.Map;
 
 import org.apache.commons.lang.StringUtils;
 
-import cn.icnt.dinners.debug.DebugUtil;
-import cn.icnt.dinners.dinner.MyOrderActivity.MyOnPageChangeListener;
-import cn.icnt.dinners.fragment.FragmentAlipay;
-import cn.icnt.dinners.fragment.FragmentBank;
-import cn.icnt.dinners.http.HttpSendRecv;
-import cn.icnt.dinners.http.MapPackage;
-import cn.icnt.dinners.utils.PreferencesUtils;
-import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Message;
 import android.os.Parcelable;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v4.view.PagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.support.v4.view.ViewPager.OnPageChangeListener;
+import android.util.Base64;
+import android.util.Log;
 import android.view.KeyEvent;
 import android.view.MotionEvent;
 import android.view.View;
@@ -39,11 +35,20 @@ import android.view.ViewGroup;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.FrameLayout;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
+import cn.icnt.dinners.alipay.Result;
+import cn.icnt.dinners.debug.DebugUtil;
+import cn.icnt.dinners.fragment.FragmentAlipay;
+import cn.icnt.dinners.fragment.FragmentBank;
+import cn.icnt.dinners.http.HttpSendRecv;
+import cn.icnt.dinners.http.MapPackage;
+import cn.icnt.dinners.utils.PreferencesUtils;
+
+import com.alipay.android.app.sdk.AliPay;
+import com.umeng.analytics.MobclickAgent;
 
 /**
  * cn.icnt.dinners.dinner.MyaccountDetailActivity
@@ -72,6 +77,7 @@ public class MyaccountDetailActivity extends FragmentActivity implements
 	private InputMethodManager manager;
 	private EditText et;
 	private Button bt;
+	private static final int RQF_PAY = 1;
 
 	private FragmentTransaction transaction;
 	private FragmentAlipay alipay;
@@ -80,6 +86,7 @@ public class MyaccountDetailActivity extends FragmentActivity implements
 
 	private Intent intent;
 	private String account;
+	private String s;//充值金额
 	private float f;
 
 	private ViewPager viewPager;
@@ -353,9 +360,9 @@ public class MyaccountDetailActivity extends FragmentActivity implements
 
 	protected Map<String, String> send(String s) {
 		MapPackage mp = new MapPackage();
-		mp.setPath("reset_answer");
+		mp.setPath("alipay_sign");
 		mp.setHead(this);
-		mp.setPara("question", s);
+		mp.setPara("amount", s);
 
 		try {
 			mp.send();
@@ -431,7 +438,7 @@ public class MyaccountDetailActivity extends FragmentActivity implements
 
 			break;
 		case R.id.myaccount_recharge_bt:
-			String s = et.getText().toString();
+			s = et.getText().toString();
 			try {
 				f = Float.parseFloat(s);
 			} catch (Exception e) {
@@ -449,10 +456,30 @@ public class MyaccountDetailActivity extends FragmentActivity implements
 				} else {
 					Map<String, String> map = send(s);
 					if (map != null && map.get("code").equals("10000")) {
+						
+						
+						byte[] encode=Base64.decode(map.get("sign"),Base64.DEFAULT);
+						orderInfo = new String(encode);
+						DebugUtil.i("支付宝签名", ""+orderInfo);
+						new Thread() {
+							public void run() {
+								AliPay alipay = new AliPay(MyaccountDetailActivity.this, mHandler);
+								
+								//设置为沙箱模式，不设置默认为线上环境
+//								alipay.setSandBox(true);
+
+								String result = alipay.pay(orderInfo);
+
+								Message msg = new Message();
+								msg.what = RQF_PAY;
+								msg.obj = result;
+								mHandler.sendMessage(msg);
+							}
+						}.start();
 
 						// 调用支付宝
-						Toast.makeText(getApplicationContext(), "充值成功",
-								Toast.LENGTH_LONG).show();
+//						Toast.makeText(getApplicationContext(), "充值成功",
+//								Toast.LENGTH_LONG).show();
 					} else {
 						Toast.makeText(getApplicationContext(), "充值失败,请重试",
 								Toast.LENGTH_LONG).show();
@@ -468,7 +495,41 @@ public class MyaccountDetailActivity extends FragmentActivity implements
 
 		}
 	}
+	public void onResume() {
+	    super.onResume();
+	    MobclickAgent.onResume(this);
+	    }
+	    public void onPause() {
+	    super.onPause();
+	    MobclickAgent.onPause(this);
+	    }
+	    
+	    
+		Handler mHandler = new Handler() {
+			public void handleMessage(android.os.Message msg) {
+				Result result = new Result((String) msg.obj);
+				result.parseResult();
+				DebugUtil.i("支付状态信息", ""+result.resultStatus);
 
+				switch (msg.what) {
+				case RQF_PAY:
+//				验证签名，通知服务器，本地数据更新
+					
+					if(result.rs.equals("9000")&&result.isSignOk){
+						DebugUtil.i("支付测试", "支付成功");
+						//通知服务器，并更新本地数据
+//						PreferencesUtils.putValueToSPMap(getActivity(), PreferencesUtils.Keys.ACCOUNT_NO, map.get("balance"));
+					}else{
+						
+						Toast.makeText(getApplicationContext(), "系统繁忙，请稍后重试",
+								Toast.LENGTH_LONG).show();
+					}
+					break;
+				default:
+					break;
+				}
+			};
+		};
 	/*
 	 * (non-Javadoc)
 	 * 
@@ -593,6 +654,7 @@ public class MyaccountDetailActivity extends FragmentActivity implements
 	//
 	// }
 	// }
+		private String orderInfo;
 
 }
 

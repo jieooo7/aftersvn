@@ -21,13 +21,13 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 import cn.icnt.dinners.beans.OrderListBean;
 import cn.icnt.dinners.beans.OrderListBean.OrderList;
-import cn.icnt.dinners.utils.ToastUtil;
 
 import com.lidroid.xutils.BitmapUtils;
 import com.lidroid.xutils.ViewUtils;
 import com.lidroid.xutils.bitmap.BitmapDisplayConfig;
 import com.lidroid.xutils.view.annotation.ViewInject;
 import com.lidroid.xutils.view.annotation.event.OnClick;
+import com.umeng.analytics.MobclickAgent;
 
 /**
  * 美食行家
@@ -216,4 +216,12 @@ public class FoodConnoisseurActivity extends Activity {
 		}
 
 	}
+	public void onResume() {
+	    super.onResume();
+	    MobclickAgent.onResume(this);
+	    }
+	    public void onPause() {
+	    super.onPause();
+	    MobclickAgent.onPause(this);
+	    }
 }

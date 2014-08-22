@@ -16,7 +16,6 @@ import android.os.Bundle;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.View.OnClickListener;
-import android.view.View.OnFocusChangeListener;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.EditText;
@@ -28,6 +27,8 @@ import android.widget.Toast;
 import cn.icnt.dinners.http.HttpSendRecv;
 import cn.icnt.dinners.http.MapPackage;
 import cn.icnt.dinners.utils.MD5;
+
+import com.umeng.analytics.MobclickAgent;
 
 /**
  * cn.icnt.dinners.dinner.SettingDetailActivity
@@ -287,5 +288,12 @@ protected String sendpasswd(String passwd){
 			
 		}
 	}
-	
+	public void onResume() {
+	    super.onResume();
+	    MobclickAgent.onResume(this);
+	    }
+	    public void onPause() {
+	    super.onPause();
+	    MobclickAgent.onPause(this);
+	    }
 }

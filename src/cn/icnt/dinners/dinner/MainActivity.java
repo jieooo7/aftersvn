@@ -17,6 +17,8 @@ import org.apache.commons.lang.StringUtils;
 import android.content.Intent;
 import android.content.res.Resources;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Message;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.view.ViewPager;
@@ -32,10 +34,9 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 import cn.icnt.dinners.adapter.MyFragmentPagerAdapter;
-import cn.icnt.dinners.fragment.FragmentCoupon;
-import cn.icnt.dinners.fragment.FragmentDish;
-import cn.icnt.dinners.fragment.FragmentRes;
-import cn.icnt.dinners.server.LocationServer;
+import cn.icnt.dinners.fragment.FragmentDishes;
+import cn.icnt.dinners.fragment.FragmentGroup;
+import cn.icnt.dinners.fragment.FragmentRestaurant;
 import cn.icnt.dinners.utils.ActivityList;
 import cn.icnt.dinners.utils.PreferencesUtils;
 import cn.icnt.dinners.utils.ToastUtil;
@@ -48,6 +49,7 @@ import com.nostra13.universalimageloader.core.DisplayImageOptions;
 import com.nostra13.universalimageloader.core.ImageLoader;
 import com.nostra13.universalimageloader.core.ImageLoaderConfiguration;
 import com.nostra13.universalimageloader.core.display.RoundedBitmapDisplayer;
+import com.umeng.analytics.MobclickAgent;
 
 public class MainActivity extends FragmentActivity implements OnClickListener {
     @ViewInject(R.id.title_left_btn_img)
@@ -75,6 +77,16 @@ public class MainActivity extends FragmentActivity implements OnClickListener {
     private Button mSurrounding;
     private SlidingMenu menu;
     private Intent intent;
+//    public LocationClient mLocationClient = null;
+    private Handler handler = new Handler() {
+	        @Override
+	        public void handleMessage(Message msg) {
+	            // TODO 接收消息并且去更新UI线程上的控件内容
+	            switch (msg.what) {
+		    }
+	            super.handleMessage(msg);
+	        }
+	    };
 
     public void onCreate(Bundle savedInstanceState) {
 	super.onCreate(savedInstanceState);
@@ -82,6 +94,7 @@ public class MainActivity extends FragmentActivity implements OnClickListener {
 	getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_PAN);
 	setContentView(R.layout.right_content);
 	ViewUtils.inject(this);
+//	initLocation();
 	title_center_text.setText("厦门");
 	title_left_btn_img.setImageResource(R.drawable.user);
 	title_right_btn.setVisibility(View.VISIBLE);
@@ -98,15 +111,15 @@ public class MainActivity extends FragmentActivity implements OnClickListener {
     private void initControl() {
 	linearLayout1 = (LinearLayout) findViewById(R.id.linearLayout1);
 	mViewPager = (ViewPager) findViewById(R.id.pvr_user_pager);
-	mViewPager.setOffscreenPageLimit(2);/* 预加载页面 */
+	mViewPager.setOffscreenPageLimit(1);/* 预加载页面 */
     }
 
     /* 初始化ViewPager */
     private void initViewPager() {
 	fragmentsList = new ArrayList<Fragment>();
-	fragmentsList.add(new FragmentCoupon()); // 团购信息
-	fragmentsList.add(new FragmentDish());// 菜品推荐
-	fragmentsList.add(new FragmentRes()); // 餐厅推荐
+	fragmentsList.add(new FragmentGroup()); // 团购信息
+	fragmentsList.add(new FragmentDishes());// 菜品推荐
+	fragmentsList.add(new FragmentRestaurant()); // 餐厅推荐
 
 	mViewPager.setAdapter(new MyFragmentPagerAdapter(getSupportFragmentManager(),
 		fragmentsList));
@@ -143,9 +156,12 @@ public class MainActivity extends FragmentActivity implements OnClickListener {
 
     /* 设置标题文本的颜色 */
     private void setTextTitleSelectedColor(int arg0) {
-	int count = mViewPager.getChildCount();
+	// int count = mViewPager.getChildCount();
+	int count = 3;
 	for (int i = 0; i < count; i++) {
 	    TextView mTextView = (TextView) linearLayout1.getChildAt(i);
+	    // mTextView.setTextColor(resources.getColor(R.color.white_text));
+	    // mTextView.setBackgroundResource(R.color.tab_unselect);
 	    if (arg0 == i) {
 		mTextView.setTextColor(resources.getColor(R.color.tab_font));
 		mTextView.setBackgroundResource(R.color.tab_select);
@@ -227,11 +243,14 @@ public class MainActivity extends FragmentActivity implements OnClickListener {
 		PreferencesUtils.Keys.NICKNAME, "登陆/注册"));
 	String st = PreferencesUtils.getValueFromSPMap(getApplicationContext(),
 		PreferencesUtils.Keys.USER_PORTRAIT, "");
-	//*******用户登录则显示 注销按钮
-	if (!StringUtils.equals("-1", PreferencesUtils.getValueFromSPMap(
-		MainActivity.this, PreferencesUtils.Keys.UID))) {
+	// *******用户登录则显示 注销按钮
+	if (!StringUtils.equals(
+		"-1",
+		StringUtils.isEmpty(PreferencesUtils.getValueFromSPMap(MainActivity.this,
+			PreferencesUtils.Keys.UID)) ? "-1" : PreferencesUtils
+			.getValueFromSPMap(MainActivity.this, PreferencesUtils.Keys.UID))) {
 	    line6.setVisibility(View.VISIBLE);
-	}else {
+	} else {
 	    line6.setVisibility(View.GONE);
 	}
 	// if (!StringUtils.isEmpty(st)) {
@@ -352,15 +371,29 @@ public class MainActivity extends FragmentActivity implements OnClickListener {
 	    startActivity(setSmall);
 	    break;
 	case R.id.button_bt:
-	    Toast.makeText(MainActivity.this, "亲正在定位,请稍等。。。", 1).show();
-	    this.startService(new Intent(this, LocationServer.class));
+	    // ToastUtil.show(this,
+	    // mLocationClient.getLastKnownLocation().getLatitude()+";;;;;"+mLocationClient.getLastKnownLocation().getLongitude());
+	    // this.startService(new Intent(this, LocationServer.class));
+	    Intent intent2 = new Intent();
+	    intent2.setClass(this, NearActivity.class);
+//	    intent2.putExtra("Latitude", la);
+//	    intent2.putExtra("Longitude", lo);
+	    startActivity(intent2);
 	    break;
 	}
     }
 
+    public void onPause() {
+//	mLocationClient.stop();
+	super.onPause();
+	MobclickAgent.onPause(this);
+    }
+
     @Override
     protected void onResume() {
+//	mLocationClient.start();
 	super.onResume();
+	MobclickAgent.onResume(this);
     }
 
     @Override
@@ -401,8 +434,34 @@ public class MainActivity extends FragmentActivity implements OnClickListener {
 	    }, 1000); // 如果2秒钟内没有按下返回键，则启动定时器取消掉刚才执行的任务
 
 	} else {
+	    MobclickAgent.onKillProcess(this);
 	    finish();
 	    System.exit(0);
 	}
     }
+
+    private Double la;
+    private Double lo;
+
+//    private void initLocation() {
+//	mLocationClient = new LocationClient(getApplicationContext());
+//	LocationClientOption option = new LocationClientOption();
+//	option.setLocationMode(LocationMode.Battery_Saving);// 设置定位模式
+//	option.setCoorType("bd09ll");// 返回的定位结果是百度经纬度,默认值gcj02
+//	option.setScanSpan(10000);// 设置发起定位请求的间隔时间为5000ms
+//	option.setIsNeedAddress(true);// 返回的定位结果包含地址信息
+//	option.setNeedDeviceDirect(true);// 返回的定位结果包含手机机头的方向
+//	mLocationClient.setLocOption(option);
+//
+//	mLocationClient.registerLocationListener(new BDLocationListener() {
+//	    @Override
+//	    public void onReceiveLocation(BDLocation location) {
+//		la = location.getLatitude();
+//		lo = location.getLongitude();
+//		// Log.e("main", "la"+la +"\r\n lo"+lo);
+//		// ToastUtil.show(MainActivity.this, la + "ssss" + lo);
+//	    }
+//
+//	});
+//    }
 }

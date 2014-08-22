@@ -8,6 +8,7 @@ import org.apache.commons.lang.StringUtils;
 import android.app.Activity;
 import android.content.Context;
 import android.os.Bundle;
+import android.util.DisplayMetrics;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -41,6 +42,7 @@ import com.nostra13.universalimageloader.core.ImageLoader;
 import com.nostra13.universalimageloader.core.ImageLoaderConfiguration;
 import com.nostra13.universalimageloader.core.assist.ImageScaleType;
 import com.nostra13.universalimageloader.core.display.FadeInBitmapDisplayer;
+import com.umeng.analytics.MobclickAgent;
 
 public class ShowOrderDetailActivity extends Activity {
     @ViewInject(R.id.title_left_btn)
@@ -76,6 +78,9 @@ public class ShowOrderDetailActivity extends Activity {
     public void onCreate(Bundle savedInstanceState) {
 	super.onCreate(savedInstanceState);
 	setContentView(R.layout.order_detail);
+	DisplayMetrics dm = new DisplayMetrics();
+	this.getWindowManager().getDefaultDisplay().getMetrics(dm);
+	widthPixels = dm.widthPixels / 4;
 	order_id_str = (String) getIntent().getExtras().get("OrderInfo");
 	initView();
     }
@@ -115,6 +120,7 @@ public class ShowOrderDetailActivity extends Activity {
     }
 
     private OrderDetail orderInfo = null;
+    private int widthPixels;
 
     private void initData() {
 	MapPackage mp = new MapPackage();
@@ -156,11 +162,12 @@ public class ShowOrderDetailActivity extends Activity {
 				if (orderInfo != null) {
 				    order_detail_info.setText(orderInfo.order_info
 					    .toString());
-				    order_total_price.setText("￥"+orderInfo.order_total_price
-					    .toString());
+				    order_total_price.setText("￥"
+					    + orderInfo.order_total_price.toString());
 				    order_discount.setText(orderInfo.order_discount
 					    .toString());
-				    order_price.setText("￥"+orderInfo.order_price.toString());
+				    order_price.setText("￥"
+					    + orderInfo.order_price.toString());
 				}
 				ToastUtil.closeProgressDialog();
 			    }
@@ -192,7 +199,7 @@ public class ShowOrderDetailActivity extends Activity {
 		    .showImageOnFail(R.drawable.ic_launcher)
 		    .showImageForEmptyUri(R.drawable.ic_launcher).cacheInMemory(true)
 		    .cacheOnDisc(true).displayer(new FadeInBitmapDisplayer(300))
-		    .imageScaleType(ImageScaleType.NONE).build();
+		    .imageScaleType(ImageScaleType.EXACTLY).build();
 	}
 
 	@Override
@@ -216,6 +223,9 @@ public class ShowOrderDetailActivity extends Activity {
 	    ViewHolder holder;
 	    if (convertView == null) {
 		holder = new ViewHolder();
+		holder.orderdetails_img.setMaxHeight(widthPixels);
+		holder.orderdetails_img.setMinimumHeight(widthPixels);
+		holder.orderdetails_img.setMinimumWidth(widthPixels);
 		convertView = this.inflater.inflate(R.layout.orderdetails_gridview_item,
 			null);
 		holder.orderdetails_img = (ImageView) convertView
@@ -270,6 +280,15 @@ public class ShowOrderDetailActivity extends Activity {
 		});
     }
 
+    public void onResume() {
+	super.onResume();
+	MobclickAgent.onResume(this);
+    }
+
+    public void onPause() {
+	super.onPause();
+	MobclickAgent.onPause(this);
+    }
     // private static EditText order_msg_edit;
     //
     // private static RelativeLayout order_msg_send;

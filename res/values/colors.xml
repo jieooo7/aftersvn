@@ -44,6 +44,9 @@
     <color name="myaccount_text_light">#ed6562</color>
     <!-- 我的账户分割线字体色 -->
     <color name="myaccount_line_light">#edeeed</color>
+    
+     <!-- 省市选择背景色 -->
+    <color name="myaccount_province">#f5f5f5</color>
 
     <!-- 我的优惠券界面 未选中色 -->
     <color name="mycoupon_textback">#e7eaea</color>
@@ -68,4 +71,16 @@
     <color name="myorder_title_unclick">#e7ebec</color>
     <color name="myorder_title_text_unclick">#9c9e9d</color>
     <color name="dark">#ed655f</color>
+    
+    
+    <!-- 评价页面颜色 -->
+    <color name="comments_item">#7f8590</color>
+    <color name="comments_item_backcoler_dark">#dee4e5</color>
+    <color name="comments_item_backcoler_light">#e7ebec</color>
+    <color name="comments_item_reply">#9c9d9d</color>
+    
+    <!-- 菜单详情页 -->
+    <color name="order_detail_textcolor">#636363</color>
+    
+    
 </resources>

@@ -1,17 +1,16 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/order_restaurant_item"
     android:layout_width="fill_parent"
     android:layout_height="fill_parent"
     android:layout_marginBottom="3dp"
     android:layout_marginTop="3dp"
-    android:id="@+id/order_restaurant_item"
     android:orientation="vertical" >
 
     <!-- 餐厅推荐 -->
 
     <ImageView
-        android:layout_marginTop="16dp"
         style="@style/order_bottom_line"
-         />
+        android:layout_marginTop="16dp" />
 
     <RelativeLayout
         android:layout_width="fill_parent"

@@ -11,19 +11,9 @@ package cn.icnt.dinners.dinner;
 import java.io.ByteArrayOutputStream;
 import java.io.File;
 
-import org.apache.http.Header;
 import org.apache.commons.lang.StringUtils;
+import org.apache.http.Header;
 
-import cn.icnt.dinners.cache.ImageLoader;
-import cn.icnt.dinners.debug.DebugUtil;
-import cn.icnt.dinners.http.HttpSendRecv;
-import cn.icnt.dinners.http.MapPackage;
-import cn.icnt.dinners.uploadimg.AsyncHttpClient;
-import cn.icnt.dinners.uploadimg.AsyncHttpResponseHandler;
-import cn.icnt.dinners.uploadimg.RequestParams;
-import cn.icnt.dinners.utils.Container;
-import cn.icnt.dinners.utils.DensityUtil;
-import cn.icnt.dinners.utils.PreferencesUtils;
 import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.content.Intent;
@@ -41,6 +31,18 @@ import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
+import cn.icnt.dinners.cache.ImageLoader;
+import cn.icnt.dinners.debug.DebugUtil;
+import cn.icnt.dinners.http.HttpSendRecv;
+import cn.icnt.dinners.http.MapPackage;
+import cn.icnt.dinners.uploadimg.AsyncHttpClient;
+import cn.icnt.dinners.uploadimg.AsyncHttpResponseHandler;
+import cn.icnt.dinners.uploadimg.RequestParams;
+import cn.icnt.dinners.utils.Container;
+import cn.icnt.dinners.utils.DensityUtil;
+import cn.icnt.dinners.utils.PreferencesUtils;
+
+import com.umeng.analytics.MobclickAgent;
 
 /**
  * cn.icnt.dinners.dinner.UserinfoActivity
@@ -345,4 +347,12 @@ public class UserinfoActivity extends Activity implements OnClickListener {
 			break;
 		}
 	}
+	public void onResume() {
+	    super.onResume();
+	    MobclickAgent.onResume(this);
+	    }
+	    public void onPause() {
+	    super.onPause();
+	    MobclickAgent.onPause(this);
+	    }
 }

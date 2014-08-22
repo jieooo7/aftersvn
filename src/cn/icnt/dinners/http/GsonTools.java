@@ -19,6 +19,7 @@ import java.util.regex.Pattern;
 import org.apache.http.entity.StringEntity;
 
 import android.util.Log;
+import android.util.SparseArray;
 
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
@@ -68,11 +69,11 @@ public class GsonTools {
 	 * ��������֮���װ��List�����У�Ȼ��ֱ��T����ȡ�����ͽ��临�ơ�
 	 */
 
-	public static <T> List<T> getPersons(String jsonString, Class<T> cls) {
-		List<T> list = new ArrayList<T>();
+	public static <T> SparseArray<T> getPersons(String jsonString, Class<T> cls) {
+		SparseArray<T> list = new SparseArray<T>();
 		try {
 			Gson gson = new Gson();
-			list = gson.fromJson(jsonString, new TypeToken<List<T>>() {
+			list = gson.fromJson(jsonString, new TypeToken<SparseArray<T>>() {
 			}.getType());
 		} catch (Exception e) {
 			// TODO: handle exception

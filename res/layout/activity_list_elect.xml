@@ -4,7 +4,10 @@
     android:layout_height="wrap_content"
   android:background="@color/list_white"
     android:orientation="horizontal" >
-
+<!-- 作废 -->
+<!-- 作废 -->
+<!-- 作废 -->
+<!-- 作废 -->
     <LinearLayout
         android:id="@+id/list_ll_layouts"
         android:layout_width="fill_parent"
@@ -134,13 +137,5 @@
             </LinearLayout>
         </LinearLayout>
     </LinearLayout>
-
-    <ImageView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentRight="true"
-        android:layout_centerVertical="true"
-        android:layout_marginRight="10dp"
-        android:src="@drawable/icon_advance" />
 
 </RelativeLayout>

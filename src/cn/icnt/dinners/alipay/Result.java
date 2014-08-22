@@ -13,10 +13,11 @@ public class Result {
 
 	private String mResult;
 	
-	String resultStatus = null;
+	public String resultStatus = null;
 	String memo = null;
 	String result = null;
-	boolean isSignOk = false;
+	public String rs=null;
+	public boolean isSignOk = false;
 
 	public Result(String result) {
 		this.mResult = result;
@@ -48,7 +49,7 @@ public class Result {
 		try {
 			String src = mResult.replace("{", "");
 			src = src.replace("}", "");
-			String rs = getContent(src, "resultStatus=", ";memo");
+			rs = getContent(src, "resultStatus=", ";memo");
 			if (sResultStatus.containsKey(rs)) {
 				resultStatus = sResultStatus.get(rs);
 			} else {

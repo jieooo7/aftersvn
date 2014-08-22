@@ -16,6 +16,7 @@
     <string name="my_accounts">详情页</string>
     <string name="my_accoun">分享</string>
     <string name="logout">用户注销</string>
+    <string name="comments_reply">回复</string>
 
     <!-- right_ content用到的文字 -->
     <string name="ximen">厦门</string>

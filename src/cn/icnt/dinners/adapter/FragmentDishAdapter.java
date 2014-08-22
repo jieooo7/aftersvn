@@ -20,7 +20,11 @@ import cn.icnt.dinners.dinner.R;
 import cn.icnt.dinners.dinner.RestaurantDetailActivity;
 import cn.icnt.dinners.entity.Dishes;
 import cn.icnt.dinners.http.MapPackage;
-
+/**
+ * 菜品推荐 adapter  已作废
+ * @author Administrator
+ *
+ */
 public class FragmentDishAdapter extends BaseAdapter {
 
 	private static final String TAG = "LoaderAdapter";

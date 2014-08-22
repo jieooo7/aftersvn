@@ -28,7 +28,6 @@ import cn.icnt.dinners.utils.MD5;
 import cn.icnt.dinners.utils.PreferencesUtils;
 import cn.icnt.dinners.utils.ToastUtil;
 
-import com.google.gson.Gson;
 import com.lidroid.xutils.HttpUtils;
 import com.lidroid.xutils.ViewUtils;
 import com.lidroid.xutils.exception.HttpException;
@@ -38,6 +37,7 @@ import com.lidroid.xutils.http.callback.RequestCallBack;
 import com.lidroid.xutils.http.client.HttpRequest;
 import com.lidroid.xutils.view.annotation.ViewInject;
 import com.lidroid.xutils.view.annotation.event.OnClick;
+import com.umeng.analytics.MobclickAgent;
 
 public class RegisterActivity extends Activity {
 	@ViewInject(R.id.title_left_btn)
@@ -190,9 +190,7 @@ public class RegisterActivity extends Activity {
 					@Override
 					public void onSuccess(ResponseInfo<String> responseInfo) {
 						Log.i("RegisterActivity", responseInfo.result);
-						Gson gson = new Gson();
-						UserLoginBean userInfo = gson.fromJson(
-								responseInfo.result, UserLoginBean.class);
+						UserLoginBean userInfo =GsonTools.getPerson(responseInfo.result, UserLoginBean.class);
 						if ("10000".equals(userInfo.head.code)) {
 							PreferencesUtils.putValueToSPMap(
 									RegisterActivity.this,
@@ -256,6 +254,7 @@ public class RegisterActivity extends Activity {
 
 					@Override
 					public void onFailure(HttpException error, String msg) {
+					    Log.i("RegisterActivity", msg);
 					}
 				});
 	}
@@ -341,4 +340,12 @@ public class RegisterActivity extends Activity {
 		}
 		return true;
 	}
+	public void onResume() {
+	    super.onResume();
+	    MobclickAgent.onResume(this);
+	    }
+	    public void onPause() {
+	    super.onPause();
+	    MobclickAgent.onPause(this);
+	    }
 }

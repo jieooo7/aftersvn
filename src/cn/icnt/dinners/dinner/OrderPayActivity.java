@@ -15,6 +15,7 @@ import cn.icnt.dinners.utils.ToastUtil;
 import com.lidroid.xutils.ViewUtils;
 import com.lidroid.xutils.view.annotation.ViewInject;
 import com.lidroid.xutils.view.annotation.event.OnClick;
+import com.umeng.analytics.MobclickAgent;
 
 public class OrderPayActivity extends Activity {
 	@ViewInject(R.id.title_left_btn)
@@ -68,4 +69,12 @@ public class OrderPayActivity extends Activity {
 			break;
 		}
 	}
+	public void onResume() {
+	    super.onResume();
+	    MobclickAgent.onResume(this);
+	    }
+	    public void onPause() {
+	    super.onPause();
+	    MobclickAgent.onPause(this);
+	    }
 }

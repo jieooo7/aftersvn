@@ -2,7 +2,7 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="cn.icnt.dinners.dinner"
     android:versionCode="1"
-    android:versionName="1.1.2" >
+    android:versionName="1.1.1" >
 
     <uses-sdk
         android:minSdkVersion="8"
@@ -102,12 +102,12 @@
         <service
             android:name="com.baidu.location.f"
             android:enabled="true"
-            android:permission="android.permission.BAIDU_LOCATION_SERVICE"
             android:process=":remote" >
-            <intent-filter>
-                <action android:name="com.baidu.location.service_v3.3" />
-            </intent-filter>
         </service>
+
+        <meta-data
+            android:name="com.baidu.lbsapi.API_KEY"
+            android:value="RbcZmUpc5wOBKdgtr8ndKSas" />
 
         <activity
             android:name="cn.sharesdk.framework.ShareSDKUIShell"
@@ -179,15 +179,6 @@
             android:label="@string/showdetail"
             android:screenOrientation="nosensor" >
         </activity>
-
-        <service android:name="cn.icnt.dinners.server.LocationServer" />
-
-        <receiver android:name="cn.icnt.dinners.server.BootCompletedReceiver" >
-            <intent-filter>
-                <action android:name="android.intent.action.BOOT_COMPLETED" />
-            </intent-filter>
-        </receiver>
-
         <activity
             android:name="cn.icnt.dinners.dinner.ShowOrderDetailActivity"
             android:label="@string/showdetail"
@@ -197,21 +188,35 @@
             android:name="cn.icnt.dinners.dinner.OrderPayActivity"
             android:label="@string/showdetail"
             android:screenOrientation="nosensor" />
-
         <activity
             android:name="com.alipay.android.app.sdk.WapPayActivity"
             android:screenOrientation="portrait" >
         </activity>
-
         <activity
             android:name="cn.icnt.dinners.dinner.RestaurantDetailActivity"
             android:label="@string/showdetail"
             android:screenOrientation="nosensor" />
-			 <activity
+        <activity
             android:name="cn.icnt.dinners.dinner.SearchActivity"
             android:label="@string/showdetail"
             android:screenOrientation="nosensor" />
+        <activity
+            android:name="cn.icnt.dinners.dinner.OrderDishesActivity"
+            android:label="@string/showdetail"
+            android:screenOrientation="nosensor" />
+        <activity
+            android:name="cn.icnt.dinners.dinner.DishesDetailActivity"
+            android:label="@string/showdetail"
+            android:screenOrientation="nosensor" />
 
+        <meta-data
+            android:name="UMENG_APPKEY"
+            android:value="53e8288afd98c501ba0564d0" >
+        </meta-data>
+        <activity
+            android:name="cn.icnt.dinners.dinner.CommentsActivity"
+            android:label="@string/showdetail"
+            android:screenOrientation="nosensor" />
     </application>
 
 </manifest>
